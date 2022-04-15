@@ -1,0 +1,140 @@
+# Maintainer: Encrypt-OS <info@Encrypt-OS.com>
+
+# Disabled eos-pkginfo for now.
+# Disabled eos-pkg-changelog for now.
+
+pkgname=eos-bash-shared
+pkgdesc="Bash code shared by certain Encrypt-OS apps."
+pkgver=1.10.41
+pkgrel=1
+arch=('any')
+license=('GPL')
+depends=(
+  bash
+  yad-eos
+  eos-translations
+  python-dbus           # for ksetwallpaper.py
+  xorg-xrandr           # for eos-wallpaper-set
+  Encrypt-OS-theming   # for eos-wallpaper-set
+  xdg-utils             # for eos-pkginfo
+)
+optdepends=(
+    "wgetpaste-eos: needed when wgetpaste is selected in eos-sendlog.conf"
+    "neofetch: for additional DE detection"
+    #  "yay:      an AUR helper supported by eos-pkginfo"
+    #  "paru:     an AUR helper supported by eos-pkginfo"
+    "kde-gtk-config: to remove gtk related yad warnings"
+)
+
+backup=(
+  etc/eos-script-lib-yad.conf
+  etc/eos-sendlog.conf
+)
+#url=https://github.com/Encrypt-OS/PKGBUILDS/$pkgname
+url=https://github.com/Encrypt-OS/PKGBUILDS/tree/master/$pkgname
+_url="https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/$pkgname"
+
+source=(
+  $_url/eos-script-lib-yad
+  $_url/eos-script-lib-yad.conf
+
+  $_url/eos-FindAppIcon
+  $_url/RunInTerminal
+  $_url/RunInTerminalOpt
+  $_url/RunInTerminalEx
+  $_url/ksetwallpaper.py
+  $_url/ChangeDisplayResolution
+  $_url/device-info
+  $_url/eos-connection-checker
+  $_url/paccache-service-manager
+  $_url/su-c_wrapper
+  $_url/eos-run-cmd-with-su
+  $_url/eos-wallpaper-set
+  $_url/UpdateInTerminal
+  $_url/UpdateInTerminal.desktop
+  $_url/eos-waiting-indicator
+#  $_url/eos-pkginfo
+#  $_url/eos-pkginfo.completion
+#  $_url/eos-pkg-changelog
+  $_url/eos-sendlog
+  $_url/eos-sendlog.conf
+  $_url/eos-kbd-set
+  $_url/eos-download-wallpapers
+  $_url/eos-send-gpuinfo
+  $_url/eos-pacdiff
+  $_url/eos-kernel-nvidia-update-check
+  $_url/eos-github2gitlab
+  $_url/eos-select-file-server
+  $_url/curl-exit-code-to-string
+  $_url/eos-shifttime                # Thanks, @freebird54!
+  $_url/grub-colour-chooser          # Thanks, @Kresimir!
+)
+
+sha512sums=('624e9966edd0c99365163958869e3558a2aa16b8daf80bfe37633805079b194dda2116f50a31ef56ad6b2234ffe2f3c0fc258feead7d8c01fc6a0c91fb876444'
+            '434be353d7a179e238f1cf19af48f9568069fb0a113cda2f257cecc82a89606e88cab63d9485b7ace15b80adc84da9c7b7350e15f02bedf450d45e6412a8b058'
+            'a009fccdc852ddfa228139da8a7e0d49391d87d1a53f9b58aac467e0e3e8711d01213e5689f64ab4103b5aa4c4c3dc58ac93bdc030670cf06f71bf3af3d2120b'
+            '0467c636eb33eafaef049de3397e6e8dca53d2a47a30bb70a83f9cb37aa128c0a0ebc3275487d06ba510d94decfe8f1c864fdcf7cb852187a86fbce3aa0f2aaa'
+            '9ab3a10987d264f5fb639127e215c6dd915e5e847733cba0310d3c070aad624ec206da08f69e0cfd85bd3cb59c2c6d890daea93c8fea1536840805f5a8a113fd'
+            'a67976cb1aab264585a671c9f773bce6a033b66acdfeaac34a62f61818fabb176cb3437b9a5e42f62e6b24c2b8d9bfec850eea4d3c8f8d56804a4d43495187ed'
+            'a3488dab4b65f215ee1513c5ff4c81b1d9e43346abb3a1e9571271c8e60e13184bd826a6206938c14c004fa5adb4f629ea832a535a51972657adb2de5bc30634'
+            '0193f851b4145cb761dc2e47f4bd2c00a028c016489bb2f053bba64ef88c08d02e81f9dc095ba3928de8fa0fbb1fd2b3e5289bb125fe7dcc31634b7afbf48818'
+            'dfb17438b66c0e17f86d3160d49866f8bbd22a60e0f97d9a1ff33fb41bddc1cd03b2fdf0fe378f937fcd836a31f7a407fd64b9714c4e1cc494e890b5f4f7a9ca'
+            '7b39c37d0541ffa773ef886a3f4db835c19a9e64cc78ff30f8253574d6f34977d11ae40d87f911da0f0139455d80dc74c8c628315e05988c57812a9111d761e2'
+            'e19bdc5dc17d0594d7ef18910263915dabe65684362584653a008391c42d27ef64f65355b7b9a3fa62f04d6ded441f1183291c09d8fb418a8d4f0176c4d5a297'
+            '41db1ee874df0d6617e5a2f7b7fe090dd591cddd7a7d4b805924e75eb3b68a86bc07f61dee6424055e133c2579ed7401ea8de3c4f03c01f1870ec2504d00ed15'
+            'db585c1ec4c73defe333b37b42c11c704a1e4ca33b56263430d7080025a31072b0f444848743719dacaefc3612aa8d5487d0d9cc0dfa6c8d0b0634132e742b85'
+            'ec621f4b16355282d0ebaa34d64d21099dcf599a57f67c24c4902c9542fa9dcfc961f6e0c216bd55f2c97d94660072ad04b3a6ee508c1e04b065bab3aadf03f1'
+            '5a8a897623c31124f314c6b807a70f6404aa3974e64a6cd78dae697496ad9423018dbe9415457990f40675b1f7cf29c0cdcca6136e2aa25aa10637649f8347bd'
+            'd977f02e5d9d13327cb731a349db98e8a9c882d65aafd347bc8c28c865294eb691eba403a4927afe53d0c0165d6c58038f02b8c2b62cb9c66e0fd63130a1833b'
+            '0410cd0635f2cab8a3d6ba0ecdc49bc72b0b8f7a454064a01bc1348409ffb5ae8f5c572e6c5659ba9e16062ad56c28ef87a4a784b4cb648c60aa0484f9ad2675'
+            '5ddf86c682c028f8f36f1617832306561c4b1fcc6855d44d2fec17ba21283c3be973c8e12bda137c13c664c3e00d804d661a8cc9525169e1cc16d00f174185d6'
+            '4ff541fee2c0b9b1bb21ae307988458cfc2bae183a9c7b49b2f8c90c5e5099b9caaeb57b44db2525ee322d9ec2285742fef9feaa791dd1dc45b6897de26138f6'
+            '5e7daaf9f13785958ab944a0a3254f658cd485462a0921da850c73e87db548567c6c2b3068893b905ff318910e534459f3440faebca06b49c5da5b4efd42a308'
+            '77eba34090f4327caa01e584153bf7f319c7957f959917ffc26032aa06a2f6fde20a556324a099945f28bfa19cf37e68d9bc8fa67614fdc7563c27412e87d953'
+            'd2580800f06fb513c79501581d3c3cfcc51e0215a553819df1e659860f76448cc845d0606ba3694bc36510db227a07edd3008b8b38a66564bb2fe46879ca90a6'
+            'f088a0a4e394e129f49d0d1dddb6750ee5122fb072e648bc4ff512580614595b0989ad732ea038890e7eea4671637932a8c6501c064e0335ba075a0de047350f'
+            'cbb3bfe07e2dfc81e2f577e4a5810c4c0c917aec42a03a078959f788f970c9dd503d834f1ec7a10862b65abf5b340cecc899c34ba794364fb50cbbcc2987dd53'
+            'a1ebc7d308aeffa2e9eab1cdf4a69d7a3844cd1f17038f73dba683655429da0542e2db12a36f11c6f702a3789ff13f49250eafacd94d51ca6809dc950e8bbdfa'
+            '31acd2dfab68bb64c531be097429c3180e6a8223406d2ce1b5046585d4fc07fdc25a51dadf0565c199a106bde709ae677682cfef33631ca2f250b8e7aec8ced4'
+            'e9eba3e7a15a179727e98325d46a75ded7dcac2dc1bad65019cd893e2f3223b00646ff9be95b913f5873b67d1106c861930176140263ccc02f47b485ab811100'
+            'ba055d67ba50959cf9c63e456ee3ddd470a8ee2f9a1042bbc5f650e4f00ca2c56738b5170189455b5b510a505308c612a284a3c1077219ffbeaf4370ba5451ff'
+            'aa9e2400c53fd16668222991efa2a059a3f0ecfcb98d2210d0b8cb3546cf8d6ad2ab408793c27d8297d536605147b056bd1015533ef9de7629dda33d1aaefe8e')
+
+package() {
+  install -Dm644 eos-script-lib-yad             $pkgdir/usr/share/Encrypt-OS/scripts/eos-script-lib-yad
+  install -Dm755 ksetwallpaper.py               $pkgdir/usr/share/Encrypt-OS/scripts/ksetwallpaper.py
+  install -Dm644 eos-script-lib-yad.conf        $pkgdir/etc/eos-script-lib-yad.conf
+  install -Dm644 eos-sendlog.conf               $pkgdir/etc/eos-sendlog.conf
+
+  install -Dm755 curl-exit-code-to-string       $pkgdir/usr/bin/curl-exit-code-to-string
+  install -Dm755 eos-FindAppIcon                $pkgdir/usr/bin/eos-FindAppIcon
+  install -Dm755 eos-sendlog                    $pkgdir/usr/bin/eos-sendlog
+  install -Dm755 eos-kbd-set                    $pkgdir/usr/bin/eos-kbd-set
+  install -Dm755 RunInTerminal                  $pkgdir/usr/bin/RunInTerminal
+  install -Dm755 RunInTerminalOpt               $pkgdir/usr/bin/RunInTerminalOpt
+  install -Dm755 RunInTerminalEx                $pkgdir/usr/bin/RunInTerminalEx
+  install -Dm755 ChangeDisplayResolution        $pkgdir/usr/bin/ChangeDisplayResolution
+  install -Dm755 device-info                    $pkgdir/usr/bin/device-info
+  install -Dm755 eos-connection-checker         $pkgdir/usr/bin/eos-connection-checker
+  install -Dm755 paccache-service-manager       $pkgdir/usr/bin/paccache-service-manager
+  install -Dm755 su-c_wrapper                   $pkgdir/usr/bin/su-c_wrapper
+  install -Dm755 eos-run-cmd-with-su            $pkgdir/usr/bin/eos-run-cmd-with-su
+  install -Dm755 eos-wallpaper-set              $pkgdir/usr/bin/eos-wallpaper-set
+  install -Dm755 UpdateInTerminal               $pkgdir/usr/bin/UpdateInTerminal
+  install -Dm755 eos-waiting-indicator          $pkgdir/usr/bin/eos-waiting-indicator
+#  install -Dm755 eos-pkg-changelog              $pkgdir/usr/bin/eos-pkg-changelog
+  install -Dm755 eos-download-wallpapers        $pkgdir/usr/bin/eos-download-wallpapers
+  install -Dm755 eos-pacdiff                    $pkgdir/usr/bin/eos-pacdiff
+  install -Dm755 eos-kernel-nvidia-update-check $pkgdir/usr/bin/eos-kernel-nvidia-update-check
+  install -Dm755 eos-shifttime                  $pkgdir/usr/bin/eos-shifttime
+  install -Dm755 eos-github2gitlab              $pkgdir/usr/bin/eos-github2gitlab
+  install -Dm755 eos-select-file-server         $pkgdir/usr/bin/eos-select-file-server
+  install -Dm755 grub-colour-chooser            $pkgdir/usr/bin/grub-colour-chooser
+# install -Dm755 eos-send-gpuinfo               $pkgdir/usr/bin/eos-send-gpuinfo
+
+  install -Dm644 UpdateInTerminal.desktop       $pkgdir/usr/share/applications/UpdateInTerminal.desktop
+
+#  install -Dm755 eos-pkginfo                    $pkgdir/usr/bin/eos-pkginfo
+#  install -Dm644 eos-pkginfo.completion         $pkgdir/usr/share/bash-completion/completions/eos-pkginfo
+#  ln -s /usr/bin/eos-pkginfo                    $pkgdir/usr/bin/eos-pkginfo-aur
+}

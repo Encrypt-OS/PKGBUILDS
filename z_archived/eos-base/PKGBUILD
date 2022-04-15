@@ -1,0 +1,36 @@
+# Maintainer: Encrypt-OS <info@Encrypt-OS.com>
+
+pkgname=eos-base
+pkgdesc="Required packages in Encrypt-OS."
+pkgver=1.1
+pkgrel=1
+arch=('any')
+license=('GPL')
+depends=(
+  base
+  #base-devel
+  #cryptsetup
+  #device-mapper
+  #dhcpcd
+  diffutils
+  e2fsprogs
+  inetutils
+  #jfsutils
+  less
+  linux
+  linux-firmware
+  logrotate
+  #lvm2
+  #man-db
+  man-pages
+  nano
+  netctl
+  usbutils
+  which
+)
+url="https://github.com/Encrypt-OS/PKGBUILDS/raw/master/$pkgname"
+
+package() {
+  echo Done.
+}
+

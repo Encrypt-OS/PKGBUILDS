@@ -1,0 +1,557 @@
+#!/bin/bash
+
+# Definitions for the [Encrypt-OS] repo at 'mirrors'.
+
+# Note: this file will be sourced into a function,
+# so all variables are made 'local'.
+
+local REPONAME="Encrypt-OS"
+local RELEASE_TAGS=(mirror1 mirror2)
+
+# user to sign packages
+local SIGNER="Encrypt-OS"
+
+# general options
+local USE_GENERATED_FILELIST="no"                   # may generate 'repofiles.txt' into the repo
+local USE_RELEASE_ASSETS="yes"                      # either 'release assets' or "ordinary" github files
+
+# local folders
+local ASSETSDIR="$PWD"
+local PKGBUILD_ROOTDIR="$ASSETSDIR/PKGBUILDS"       # temporary copy only, will always be overwritten
+local GITDIR="$ASSETSDIR/../../mirrors"             # not $REPONAME...
+
+export MAKEPKG_CLEANUP=yes                          # some of *our* PKGBUILD files (e.g. yay) may use this!
+
+# package name specifications
+local PKGNAMES=(                                    # actually: dir names for packages
+    akm
+    arc-gtk-theme-eos
+    aur/arc-x-icons-theme
+    aur/bashdb
+
+    calamares_config_ce
+    calamares_config_default
+    calamares_current
+
+    ckbcomp
+    aur/downgrade
+    Encrypt-OS-keyring
+    Encrypt-OS-mirrorlist
+    # Encrypt-OS-lxde-skel
+    Encrypt-OS-skel-default
+    Encrypt-OS-skel-i3wm
+    Encrypt-OS-skel-xfce4
+    Encrypt-OS-theming
+    Encrypt-OS-xfce4-terminal-colors
+    eos-apps-info
+    eos-bash-shared
+    eos-hooks
+    eos-lightdm-slick-theme
+    eos-log-tool
+    eos-lxdm-gtk3
+    eos-packagelist
+    eos-plasma-sddm-config
+    eos-qogir-icons
+    eos-quickstart
+    eos-rankmirrors
+    eos-sddm-theme
+    eos-skel-ce-awesome
+    eos-skel-ce-bspwm
+    eos-skel-ce-openbox
+    eos-skel-ce-qtile
+    eos-skel-ce-sway
+    eos-skel-ce-worm
+    eos-translations
+    eos-update-notifier
+    grub-theme-Encrypt-OS
+    grub-tools
+    aur/inxi
+    keyserver-rank
+    aur/ly
+    aur/mkinitcpio-openswap
+    nvidia-hook
+    nvidia-inst
+    nvidia-installer-common
+    nvidia-installer-db
+    nvidia-installer-dkms
+    pahis
+    paper-icon-theme
+    aur/paru
+    aur/polybar
+    aur/rate-mirrors
+    reflector-bash-completion
+    reflector-simple
+    aur/worm
+    welcome
+    wgetpaste-eos
+    yad-eos
+    aur/yay
+
+    aur/zfs-dkms
+    aur/zfs-utils
+)
+
+# Add packages in PKGNAMES here if they shouldn't be built for now.
+local PKGNAMES_WAIT=(
+    #arc-gtk-theme-eos
+)
+
+declare -A PKG_MAKEPKG_OPTIONS
+
+PKG_MAKEPKG_OPTIONS[Encrypt-OS-skel-i3wm]="--nodeps"
+PKG_MAKEPKG_OPTIONS[Encrypt-OS-skel-xfce4]="--nodeps"
+PKG_MAKEPKG_OPTIONS[eos-plasma-sddm-config]="--nodeps"
+
+PKG_MAKEPKG_OPTIONS[calamares_current]="--rmdeps"
+PKG_MAKEPKG_OPTIONS[eos-quickstart]="--rmdeps"
+PKG_MAKEPKG_OPTIONS[polybar]="--rmdeps"
+PKG_MAKEPKG_OPTIONS[worm]="--rmdeps"
+PKG_MAKEPKG_OPTIONS[yay]="--rmdeps"
+
+# Hook functions are run in the beginning after RationalityTests in assets.make.
+# There may be several hook functions.
+local ASSET_HOOKS=(
+    # currently none
+)
+
+# Package hooks
+
+# do this for: icon-themes?
+
+wget() {
+    local wget1=/usr/local/bin/wget.workaround
+    local wget2=/usr/bin/wget
+
+    if [ -x $wget1 ] ; then
+        $wget1 "$@"
+    else
+        $wget2 "$@"
+    fi
+}
+export -f wget
+
+
+_common_show_version() {
+    if [ "$localversion" != "$dev_version" ] ; then
+        echo -n "[dev=$dev_version] " >&2
+    fi
+}
+
+_Updpkgsums() {
+    local Pkgbuild="$1"
+    updpkgsums "$Pkgbuild" 2>/dev/null
+}
+
+_Get_pkgver() {
+    local Pkgbuild="$1"
+    grep "^pkgver=" "$Pkgbuild" | cut -d '=' -f 2 | sed "s|^[\"']\(.*\)[\"']$|\1|"
+}
+
+_GetSource0() {
+    local Pkgbuild="$1"
+    source "$Pkgbuild"
+    echo "${source[0]}"
+}
+
+_fetch_that_file() {
+    local file="$1"
+    local url="$2"
+
+    [ -n "$file" ] || return 1
+    [ -n "$url" ] || return 1
+
+    if [ 0 -eq 1 ] ; then
+        local out=""
+        [ "$file" != "-" ] && out="--output '$file'"
+        curl --silent --location --max-time 10 $out "$url"
+    else
+        wget -q --timeout=10 -O"$file" "$url"
+    fi
+}
+
+__generic_get_pkgname() { local funcname="$1" ; echo "$funcname" | cut -d '_' -f 2 ; }
+
+
+# 2022-Feb-19: added temporary hooks for *-bin ==> non-bin, remove e.g. 2 months after both packages have updated ??
+
+_rate-mirrors_hook() {
+    local PKGBUILD="$PKGBUILD_ROOTDIR"/"$(__generic_get_pkgname $FUNCNAME)"/PKGBUILD
+    sed -i $PKGBUILD \
+        -e "/^depends=/a \ \nreplaces=(rate-mirrors-bin)"
+}
+_paru_hook() {
+    local PKGBUILD="$PKGBUILD_ROOTDIR"/"$(__generic_get_pkgname $FUNCNAME)"/PKGBUILD
+    sed -i $PKGBUILD \
+        -e "/^depends=/a \ \nreplaces=(paru-bin)"
+}
+
+
+
+_bashdb_hook() {
+    local Pkgname="$(__generic_get_pkgname $FUNCNAME)"
+    local Pkgbuild="$PKGBUILD_ROOTDIR"/$Pkgname/PKGBUILD
+
+    if [ "$(grep "^_ver=" "$Pkgbuild" | cut -d'=' -f2)" = "'5.0-1.1.2'" ] ; then
+        # support also bash version 5.1
+
+        local line="s/'5.0')/'5.0' | '5.1')/"
+
+        sed -i "$Pkgbuild" \
+            -e "/^[ ]*#sed /a \  sed -i configure -e \"$line\""
+
+        # show in pkgrel we changed this package
+        if [ "$(grep ^pkgrel= "$Pkgbuild" | cut -d'=' -f2)" = "'1'" ] ; then
+            sed -i "$Pkgbuild" \
+                -e 's|^pkgrel=.*|pkgrel=1.1|'
+        fi
+    fi
+}
+
+_paper-icon-theme-git_hook() {
+    local Pkgname="$(__generic_get_pkgname $FUNCNAME)"
+    local Pkgbuild="$PKGBUILD_ROOTDIR"/$Pkgname/PKGBUILD
+    local cleanup=""
+    local commits commit
+    local data=$(curl -s https://github.com/snwh/paper-icon-theme)
+
+    commits=$(echo "$data" | grep -B2 " commits$"   | head -n1 | sed 's|[ ]*<strong>\([0-9]*\)</strong>$|\1|')  # 832
+    commit=$( echo "$data" | grep ">Permalink<" | sed 's|.*/tree/\([0-9a-f]*\)".*|\1|')                         # aa3e8af7a1f0831a51fd7e638a4acb077a1e5188
+    commit=${commit::7}                                                                                         # aa3e8af
+
+    cleanup+='    local dir="$srcdir/../$pkgname"\n'
+    cleanup+='    [ -d "$dir" ] && rm -rf "$dir"'
+
+    # Changes:
+    # - remove reference to $srcdir
+    # - get pkgver from github info
+    # - remove pkgver()
+    # - conflicts with paper-icon-theme
+    # - add some cleanup
+
+    sed -i "$Pkgbuild" \
+        -e 's|^pkgname=.*|pkgname=paper-icon-theme|' \
+        -e 's|cd "$srcdir/$pkgname"$|cd "$pkgname"|' \
+        -e "s|^pkgver=.*|pkgver=1.5.0.$commits.$commit|" \
+        -e 's|^pkgver()|_pkgver_not_used()|' \
+        -e "/^provides=(/a \conflicts=(paper-icon-theme)" \
+        -e "/ ninja -C /a \    # cleanup\n$cleanup"
+
+    return 11  # pkgver was changed
+}
+
+_ckbcomp_hook_new() {
+    printf "@" >&2
+
+    local data=$(curl -Lsm 10 -o- https://packages.debian.org/source/sid/console-setup)
+    local Pkgver=$(echo "$data" | grep metadata | head -n1 | sed -e 's|.*/console-setup_||' -e 's|_.*||')
+    local PKGBUILD="$PKGBUILD_ROOTDIR"/"$(__generic_get_pkgname $FUNCNAME)"/PKGBUILD
+    local new_url=https://deb.debian.org/debian/pool/main/c/console-setup/console-setup_$Pkgver.tar.xz
+    sed -i "$PKGBUILD" \
+        -e "/^source=.*/a \source=($new_url)"
+}
+
+_ckbcomp_hook() {
+    local tool=ckbcomp
+
+    # new version info
+    local info retval
+    info=$(curl --fail --silent --location --max-time 10 https://salsa.debian.org/installer-team/console-setup/-/tags)
+    retval=$?
+    if [ $retval -ne 0 ] ; then
+        _ckbcomp_hook_new
+        return
+
+        #printf "fetching info failed, curl code $retval. " >&2
+        #return 1
+    fi
+    if [ -n "$(echo "$info" | grep "503 Service Unavailable")" ] ; then
+        printf "fetching info failed. " >&2
+        return 1
+    fi
+    local newver=$(echo "$info" | grep "console-setup-.*\.tar\.gz" | head -n1 | sed -e 's|.*/console-setup-||' -e 's|\.tar\..*||')
+
+    # NOTE: 1.196 - 1.202: 'ckbcomp' hasn't changed!
+
+    # current version info
+    local Pkgbuild="$PKGBUILD_ROOTDIR"/$tool/PKGBUILD
+    local Pkgver=$(_Get_pkgver "$Pkgbuild")
+
+    [ "$newver" = "$Pkgver" ] && return
+
+    pushd "$PKGBUILD_ROOTDIR"/$tool >/dev/null
+    cp -a PKGBUILD PKGBUILD.test
+    sed -i PKGBUILD.test -e "s|^pkgver=.*|pkgver=$newver|"
+    if (! updpkgsums PKGBUILD.test >& /dev/null) ; then
+        popd >/dev/null
+        printf "updpkgsums failed " >&2
+        return 1
+    fi
+    if (! makepkg -p PKGBUILD.test >& /dev/null) ; then
+        popd >/dev/null
+        printf "makepkg failed " >&2
+        return 1
+    fi
+
+    if [ "$newver" != "$Pkgver" ] ; then
+        # printf "new version $newver is available. " >&2
+        popd >/dev/null
+        return 11  # pkgver was changed
+    else
+        if [ ! -x /usr/bin/$tool ] ; then
+            # Cannot compare with non-existing /usr/bin/ckbcomp !!!
+            printf "sorry, ckbcomp is not installed, cannot compare. " >&2
+        else
+            if (! diff src/console-setup-$newver/Keyboard/$tool /usr/bin/$tool >& /dev/null) ; then
+                printf "new version $newver is available, $tool differ. " >&2
+            fi
+        fi
+    fi
+    popd >/dev/null
+}
+
+_ckbcomp_hook_old() {
+    local tool=ckbcomp
+    local Dstdir="$PKGBUILD_ROOTDIR"/$tool
+    local Pkgbuild="$Dstdir"/PKGBUILD
+    local Url="$(_GetSource0 "$Pkgbuild")"
+    Url="$(dirname "$Url")"
+    local newinfo="$(_fetch_that_file "-" "$Url")"
+    [ -n "$newinfo" ] || { printf "Error: $tool: fetching info failed! " >&2 ; return 1 ; }
+    local newbase=console-setup_
+    local newver="$(echo "$newinfo" | grep $newbase | grep "\.tar\.xz" | tail -n 1 | sed "s|^.*\"$newbase\([0-9\.]*\)\.tar.*$|\1|")"
+    local curver="$(_Get_pkgver "$Pkgbuild")"
+    local filebase=$newbase$newver
+
+    if [ "$newver" != "$curver" ] ; then
+        local ff
+        for ff in dsc tar.xz ; do
+            _fetch_that_file "$Dstdir/$filebase.$ff" "$Url"/$filebase.$ff || {
+                printf "Error: $tool: fetching $filebase.$ff failed. " >&2
+                return 1
+            }
+        done
+        local sha256="$(cat "$Dstdir/$filebase.dsc" | grep -A1 ^Checksums-Sha256 | tail -n 1 | awk '{print $1}')"
+        echo "$sha256  $Dstdir/$filebase.tar.xz" | sha256sum -c >& /dev/null || {
+            echo "Error: $tool: sha256 for $filebase.tar.xz does not match!" >&2
+            return 1
+        }
+        rm -f "$Dstdir/$filebase.dsc"
+        sed -i "$Pkgbuild" \
+            -e "s|^pkgver=.*|pkgver=$newver|"
+
+        case "$newver" in
+            "1.199")
+                sed -i "$Pkgbuild"  \
+                    -e 's| cd console-setup-${pkgver}$| cd console-setup|'
+                ;;
+            *)
+                sed -i "$Pkgbuild"  \
+                    -e 's| cd console-setup$| cd console-setup-$pkgver|'
+                ;;
+        esac
+        updpkgsums "$Pkgbuild" 2>/dev/null
+        # echo -n "#" >&2
+        return 11  # pkgver was changed
+    fi
+}
+
+_ckbcomp_hook_change_version_old() {
+    # change "$url" http to https
+    sed -i "$PKGBUILD_ROOTDIR"/ckbcomp/PKGBUILD \
+        -e 's|^url="http:|url="https:|'
+}
+
+_yay_hook_check_latest() {
+    # check if AUR PKGBUILD has the latest version of yay from the developer
+    local tool=yay
+    local url=https://github.com/Jguer/$tool/releases
+    local tmpdata
+    local Pkgbuild="$PKGBUILD_ROOTDIR"/$tool/PKGBUILD
+    local localversion=$(_Get_pkgver "$Pkgbuild")
+    local dev_version
+
+    tmpdata="$(_fetch_that_file "-" $url)"
+    if [ $? -ne 0 ] ; then
+        echo "cannot fetch info about $tool" >&2
+        return 1
+    fi
+    dev_version="$(echo "$tmpdata" | grep /Jguer/yay/tree/v | head -n 1 | sed 's|^.*/tree/v\([0-9\.]*\)" .*$|\1|')"
+
+    _common_show_version
+}
+
+_yay_hook_check_latest_old() {
+    # check if AUR PKGBUILD has the latest version of yay from the developer
+    local tool=yay
+    local url=https://github.com/Jguer/$tool/releases
+    local tmpfile=$(mktemp)
+    local Pkgbuild="$PKGBUILD_ROOTDIR"/$tool/PKGBUILD
+    local localversion=$(_Get_pkgver "$Pkgbuild")
+    local dev_version
+
+    _fetch_that_file $tmpfile $url || {
+        echo "cannot fetch info about $tool" >&2
+        rm -f $tmpfile
+        return 1
+    }
+    #dev_version="$(grep "Release v[0-9]" $tmpfile | sed 's|^.*Release v\([0-9\.]*\).*$|\1|')"
+    dev_version="$(grep /Jguer/yay/tree/v $tmpfile | head -n 1 | sed 's|^.*/tree/v\([0-9\.]*\)" .*$|\1|')"
+
+    _common_show_version
+    rm -f $tmpfile
+}
+
+_nvidia-installer-db_hook() {
+    # nvidia-site-check-and-update-db
+    return
+
+    # check if Nvidia has changed its driver archive (db) site
+    local archive=https://www.nvidia.com/en-us/drivers/unix
+    local store="$HOME"/.nvidia-installer/archive.html
+    mkdir -p "$(dirname "$store")"
+    local tmpfile="$(mktemp "$store".tmp.XXXXX)"
+
+    _fetch_that_file "$tmpfile" $archive || {
+        rm -f "$tmpfile"
+        return 1
+    }
+    if (diff "$tmpfile" "$store" >& /dev/null) ; then
+        rm -f "$store".tmp.*  # no diffs
+    else
+        mv "$store" "$store".tmp
+        mv "$tmpfile" "$store"
+        mv "$store".tmp "$tmpfile"
+        printf "$archive changed! Run nvidia-installer-check to see if there's a problem. " >&2
+    fi
+}
+
+_inxi_hook_check_latest() {
+    # check if AUR PKGBUILD has the latest version of inxi from the developer
+    local tool=inxi
+    local url=https://github.com/smxi/$tool/releases
+    local tmpdata
+    local Pkgbuild="$PKGBUILD_ROOTDIR"/$tool/PKGBUILD
+    local localversion=$(_Get_pkgver "$Pkgbuild")
+    local dev_version
+    local prefer_dev_version=yes
+
+    tmpdata="$(_fetch_that_file - $url)"
+    if [ $? -ne 0 ] ; then
+        echo "cannot fetch info about $tool" >&2
+        return 1
+    fi
+    # Inxi has a version number "conflicting" with Arch versioning. Have to change inxi's '-' to '.'.
+    dev_version="$(echo "$tmpdata" | grep /smxi/inxi/releases/tag/ | head -n 1 | sed -e 's|^.*/tag/||' -e 's|".*$||' | tr '-' '.')"
+
+    if [ "$prefer_dev_version" = "yes" ] ; then
+        sed -i $Pkgbuild -e 's|^pkgver='"$localversion"'$|pkgver='"$dev_version"'|'
+        # echo -n "#" >&2
+        _Updpkgsums "$Pkgbuild"
+        return 11  # pkgver was changed
+    else
+        _common_show_version
+    fi
+}
+
+_downgrade_hook_check_latest() {
+    # check if AUR PKGBUILD has the latest version of downgrade from the developer
+    local tool=downgrade
+    local url=https://github.com/pbrisbin/$tool/releases
+    local tmpdata
+    local Pkgbuild="$PKGBUILD_ROOTDIR"/$tool/PKGBUILD
+    local localversion=$(_Get_pkgver "$Pkgbuild")
+    local dev_version
+
+    tmpdata="$(_fetch_that_file - $url)"
+    if [ $? -ne 0 ] ; then
+        echo "cannot fetch info about $tool" >&2
+        return 1
+    fi
+    dev_version="$(echo "$tmpdata" | grep /pbrisbin/downgrade/releases/tag/v | head -n 1 | sed 's|^.*/tag/v\([0-9\.]*\).*$|\1|')"
+
+    _common_show_version
+}
+
+_kalu_hook_fix_files() {
+    # fix kalu.install
+    sed -i "$PKGBUILD_ROOTDIR"/kalu/kalu.install \
+        -e 's| usr/sbin/|/usr/sbin/|'
+
+    # use names instead of numbers in "chown" command
+    sed -i "$PKGBUILD_ROOTDIR"/kalu/PKGBUILD \
+        -e 's|chown 0:102|chown root:polkitd|' \
+        -e 's|^\(pkgrel=[0-9]*\)$|\1.1|'
+}
+_yad_hook_add_gspell() {
+    # add gspell to 'depends', and modify 'pkgrel'
+    sed -i "$PKGBUILD_ROOTDIR"/yad/PKGBUILD \
+        -e 's|^depends=(\([^\)]*\))$|depends=(\1 gspell)|' \
+        -e 's|^\(pkgrel=[0-9]*\)$|\1.1|'
+}
+
+_diff_file_and_data() {
+    local file="$1"
+    local data="$2"
+    local datafile="$3"
+    local retval
+
+    echo "$data" > $datafile
+    diff "$file" "$datafile"
+}
+
+_eos-bash-shared_hook_check_ksetwallpaper_py() {
+    # Check if we have the latest version of file ksetwallpaper.py.
+    # See https://github.com/pashazz/ksetwallpaper/raw/master/ksetwallpaper.py
+
+    local file=ksetwallpaper.py
+    local url="https://github.com/pashazz/ksetwallpaper/raw/master/$file"
+    local current="$PKGBUILD_ROOTDIR"/eos-bash-shared/$file
+    local new
+    local diffs answer
+
+    new="$(_fetch_that_file - "$url")"
+    if [ $? -ne 0 ] ; then
+        echo "Warning: cannot fetch '$url'." >&2
+        return 1
+    fi
+    if [ "$(cat "$current")" != "$new" ] ; then
+        local newfile=$(mktemp)
+        diffs="$(_diff_file_and_data "$current" "$new" "$newfile")"
+        echo "" >&2
+        echo "$diffs" >&2
+        echo "" >&2
+        read -p "eos-bash-shared: file '$file' differs from current, update (Y/n)? " answer >&2
+        case "$answer" in
+            "" | [yY]*)
+                rm -f $current
+                mv $newfile $current
+                _Updpkgsums "$current"
+                ;;
+        esac
+        rm -f "$newfile"
+    fi
+}
+
+declare -A ASSET_PACKAGE_HOOKS
+ASSET_PACKAGE_HOOKS["bashdb"]=_bashdb_hook
+ASSET_PACKAGE_HOOKS["ckbcomp"]=_ckbcomp_hook
+ASSET_PACKAGE_HOOKS["eos-bash-shared"]=_eos-bash-shared_hook_check_ksetwallpaper_py
+
+# Temporary hooks for replacing *-bin versions to non-bin versions.
+ASSET_PACKAGE_HOOKS["rate-mirrors"]=_rate-mirrors_hook
+ASSET_PACKAGE_HOOKS["paru"]=_paru_hook
+
+#ASSET_PACKAGE_HOOKS["nvidia-installer-db"]=_nvidia-installer-db_hook
+#ASSET_PACKAGE_HOOKS["ckbcomp"]=_ckbcomp_hook_change_version
+#ASSET_PACKAGE_HOOKS["downgrade"]=_downgrade_hook_check_latest
+#ASSET_PACKAGE_HOOKS["inxi"]=_inxi_hook_check_latest
+#ASSET_PACKAGE_HOOKS["kalu"]=_kalu_hook_fix_files
+#ASSET_PACKAGE_HOOKS["yad"]=_yad_hook_add_gspell
+#ASSET_PACKAGE_HOOKS["yay"]=_yay_hook_check_latest
+#ASSET_PACKAGE_HOOKS["paper-icon-theme-git"]=_paper-icon-theme-git_hook
+# Special hooks. Implemented via package hooks.
+
+_assets_download_break() {
+    return 0  # same contents under different asset tags, so always break after first download
+}
+ASSET_PACKAGE_HOOKS["assets_mirrors"]=_assets_download_break

@@ -1,0 +1,41 @@
+# Original Maintainer: Gustau Castells <karasu@antergos.com>
+# Maintainer: @manuel
+# Contributor: joekamprad <joekamprad@Encrypt-OS.com>
+
+pkgname=nvidia-installer-dkms
+pkgver=3.4
+pkgrel=1
+pkgdesc="Script to setup nvidia drivers (dkms version) in Encrypt-OS"
+url=https://github.com/Encrypt-OS/PKGBUILDS/tree/master/$pkgname
+_url=https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/$pkgname
+arch=('any')
+license=('GPL2')
+conflicts=(nvidia-installer)
+depends=(
+  python
+  nvidia-installer-db
+  nvidia-installer-common
+  dkms
+)
+
+optdepends=(
+  'linux-headers: for nvidia-installer-dkms with kernel linux'
+  'linux-lts-headers: for nvidia-installer-dkms with kernel linux-lts'
+  'linux-hardened-headers: for nvidia-installer-dkms with kernel linux-hardened'
+  'linux-zen-headers: for nvidia-installer-dkms with kernel linux-zen'
+)
+
+source=(
+  $_url/$pkgname
+  $_url/nvidia-installer-check
+)
+sha512sums=('24ab4b1c3932ad92dd87a9f3d25fb640839338c2f0f786acf2cbaacf1c0fec8ab969f3f4274ad6792b446def42580a0176cd8eea74598ba2f1f99fd599e191aa'
+            '548ff0da65baa07dfb9831318a78cfb93cda48510e5f81f74a9abe241813e74ebb8a3711f853b9c4335a855d7531de00f8f511830aaf39d7f85a251b61a606e9')
+
+package() {
+  sed -i $pkgname \
+      -e 's|^VERSION = .*$|VERSION = "'$pkgver'"|'
+
+  install -Dm755 $pkgname                         $pkgdir/usr/bin/$pkgname
+  install -Dm755 nvidia-installer-check           $pkgdir/usr/bin/nvidia-installer-check
+}

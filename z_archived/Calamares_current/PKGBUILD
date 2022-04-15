@@ -1,0 +1,43 @@
+# Maintainers: Portergos Linux <portergoslinux@gmail.com>, Encrypt-OS info@Encrypt-OS.com
+# Multipurpose installer for arch based distros
+
+pkgname=calamares_current
+reponame_clone=Calamares_current
+reponame=calamares
+pkgver=3.2.12
+pkgrel=2
+destdir="/usr"
+pkgdesc="calamares installer for arch based distros"
+arch=('any')
+url="https://github.com/Encrypt-OS"
+license=('GPL3')
+makedepends=('git')
+conflicts=('calamares_offline' 'calamares_netinstall_test')
+provides=("${pkgname}")
+options=(!strip !emptydirs)
+source=("git+https://github.com/Encrypt-OS/$reponame_clone.git#branch=master")
+sha256sums=('SKIP')
+
+FILE_NAME="pack.sh"
+URL="https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/$reponame_clone/pack.sh"
+
+if [ ! -f $FILE_NAME ]; then wget $URL; chmod +x $FILE_NAME; fi
+source ./$FILE_NAME
+
+prepare() {
+
+_prepare
+
+}
+
+build() {
+
+_build
+
+}
+
+package() {
+
+_package
+
+}

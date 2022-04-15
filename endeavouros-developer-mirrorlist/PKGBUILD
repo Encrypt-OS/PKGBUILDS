@@ -1,0 +1,21 @@
+# Maintainers: Portergos Linux <portergoslinux@gmail.com>, Encrypt-OS <info@Encrypt-OS.com>
+
+pkgname=Encrypt-OS-mirrorlist
+reponame=Encrypt-OS-mirrorlist
+pkgver=1
+pkgrel=3
+pkgdesc="Encrypt-OS mirrorlist"
+arch=('any')
+url="https://github.com/Encrypt-OS"
+license=('GPL3')
+makedepends=('git')
+provides=("${pkgname}")
+options=(!strip !emptydirs)
+source=("https://github.com/Encrypt-OS/PKGBUILDS/raw/master/Encrypt-OS-mirrorlist/Encrypt-OS-mirrorlist")
+sha256sums=('SKIP')
+
+package() {
+ mkdir -p "${pkgdir}/etc/pacman.d"
+ install -Dm644 "${srcdir}/Encrypt-OS-mirrorlist" \
+ "${pkgdir}/etc/pacman.d/Encrypt-OS-mirrorlist"
+}

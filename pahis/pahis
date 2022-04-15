@@ -1,0 +1,154 @@
+#!/bin/bash
+#
+# Show info about pacman history.
+#
+
+DIE()    { echo "Error: $@" >&2 ; Usage ; exit 1 ; }
+ArgVal() { echo "${1#*=}" ; }
+
+Usage() {
+    local progname="$(basename $0)"
+    cat <<EOF >&2
+
+$progname: shows history information about package operations.
+
+Usage: $progname [options] [operation] [package]
+
+    options:       -h | --help       This help.
+                   --no-pkgchk       Do not pre-check the existence of the given package.
+                   --no-pager        Do not use a pager for the output.
+                   --everything
+                   -everything       Show all contents of pacman.log. Lots of material!
+
+    operation:     One of: $(Main --operations).
+                   Default: all operations.
+                   Tip: press the Tab key to complete the word!
+
+    package:       Package name.
+                   Default: all packages.
+
+Note1: Bash command completion is available.
+Note2: Output is paged with '$pager'. Use the PAGER variable to set another pager.
+
+Examples:
+    pahis --upgraded firefox    # shows info about firefox updates
+    pahis --installed           # shows info about installed packages
+    pahis --Running             # shows info about pacman commands used
+    pahis geany                 # shows info about operations on geany
+    pahis -everything           # shows info about all operations
+
+EOF
+}
+
+Main()
+{
+    local op=""
+    local pkg
+    local output
+    local line
+    local pacmanlog=/var/log/pacman.log
+    local pkgchk=1
+    local everything=no
+    local pager="$PAGER"
+    local Default_pager=less
+
+    [ -n "$pager" ] || pager=$Default_pager
+
+    #if [ -z "$1" ] ; then
+    #    Usage              # usage info doesn't hurt...
+    #    sleep 0.67
+    #fi
+
+    for arg in "$@" ; do
+        case "$arg" in
+            --all-options)   # supports bash command completion
+                line="$(Main --operations)"
+                line+=" --no-pkgchk -h --help --operations --all-options --everything -everything"
+                echo "$line"
+                return
+                ;;
+            --operations)
+                line="--upgraded --downgraded --installed --removed --reinstalled --Running"
+                line+=" -upgraded -downgraded -installed -removed -reinstalled -Running"
+                echo "$line"
+                return
+                ;;
+            -h | --help)
+                Usage
+                return
+                ;;
+
+            --upgraded | --downgraded | --installed | --removed | --reinstalled | --Running | \
+                -upgraded | -downgraded | -installed | -removed | -reinstalled  | -Running)
+                op="${arg##*-}"   # not checking if operation is already given
+                ;;
+            --no-pkgchk)  # useful for packages that existed but no more!
+                pkgchk=0
+                ;;
+            --no-pager)
+                pager=""
+                ;;
+            --everything | -everything)
+                everything=yes
+                ;;
+            -*)
+                DIE "unsupported parameter '$arg'"
+                ;;
+            *)
+                # a pkg name; not checking if pkg is already given
+                pkg="$arg"
+                ;;
+        esac
+    done
+
+    if [ "$everything" = "yes" ] ; then
+        output="$(cat $pacmanlog)"
+    else
+        if [ -n "$pkg" ] ; then
+            if [ $pkgchk -eq 1 ] ; then
+                yay -Si "$pkg" >& /dev/null || DIE "package '$pkg' does not exist."
+            fi
+            if [ -n "$op" ] ; then
+                case "$op" in
+                    Running)
+                        output="$(grep " \[PACMAN\] $op $pkg " $pacmanlog)" ;;
+                    *)
+                        output="$(grep " \[ALPM\] $op $pkg " $pacmanlog)" ;;
+                esac
+            else
+                output="$(grep " \[ALPM\] [a-z]*ed $pkg " $pacmanlog)"
+            fi
+        else
+            if [ -n "$op" ] ; then
+                case "$op" in
+                    Running)
+                        output="$(grep " \[PACMAN\] $op " $pacmanlog)" ;;
+                    *)
+                        output="$(grep " \[ALPM\] $op " $pacmanlog)" ;;
+                esac
+            else
+                output="$(grep " \[ALPM\] [a-z]*ed " $pacmanlog)"
+            fi
+        fi
+    fi
+
+
+    if [ -n "$output" ] ; then
+        if [ -n "$pager" ] ; then
+            echo "$output" | tac | $pager
+        else
+            echo "$output" | tac
+        fi
+    else
+        echo "Requested info is not available."
+        echo "Probable reasons:"
+        echo "  - '$pkg' was never installed"
+        case "$op" in
+            "" | installed) ;;
+            *) echo "  - '$pkg' was never $op" ;;
+        esac
+        echo "  - '$pkg' was installed while installing the system"
+    fi
+}
+
+Main "$@"

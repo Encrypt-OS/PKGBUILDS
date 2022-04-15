@@ -1,0 +1,28 @@
+# Maintainers: Portergos Linux <portergoslinux@gmail.com>, Encrypt-OS <info@Encrypt-OS.com>
+
+pkgname=Encrypt-OS-keyring
+pkgver=1
+pkgrel=5
+pkgdesc="Encrypt-OS keyring"
+arch=('any')
+# url="https://github.com/Encrypt-OS/PKGBUILDS/raw/master/$pkgname"
+url="https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/$pkgname"
+license=('GPL3')
+
+install=$pkgname.install
+[ -r $install ] || curl -o $install -s --max-time 30 $url/$install
+
+source=(
+  $url/Encrypt-OS.gpg
+  $url/$install
+)
+
+sha512sums=('53a4fa6595d86df7ccf024df0a79c1969b47758c4170685935484f7594a61a100b7024b8ad8b118254cf71453c2e3097a7da2fde52095aa3759fec16eab9ae80'
+            'd0fcd2fdabd610c2c656ae71d61780a3d69ec0cb2f30952af7658d8a9a50fe366d15b1ccfcd2d74675dfbcade143f593b91437ed3a9071f9eb3d0b94eb61ac54')
+
+package() {
+    local destdir=usr/share/pacman/keyrings
+
+    install -d $pkgdir/$destdir
+    install -Dm644 Encrypt-OS.gpg $pkgdir/$destdir/Encrypt-OS.gpg
+}

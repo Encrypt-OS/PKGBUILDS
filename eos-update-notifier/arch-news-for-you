@@ -1,0 +1,214 @@
+#!/bin/bash
+#
+# Show only the latest Arch news headline.
+# Useful e.g. for 'kalu' news.conf.
+#
+# Usage: $0 [days]
+# where
+#     days    Show headlines that are no more that 'days' old AND
+#             the related package in the headline is currently installed.
+# Without 'days' show only the latest available headline.
+
+#######################################################################
+EOS_SCRIPTS_YAD=/usr/share/Encrypt-OS/scripts/eos-script-lib-yad
+test -r  $EOS_SCRIPTS_YAD || {
+    echo "ERROR: cannot find $EOS_SCRIPTS_YAD" >&2
+    exit 1
+}
+source $EOS_SCRIPTS_YAD
+unset EOS_SCRIPTS_YAD
+
+#export -f eos_yad
+export -f eos_yad_terminal
+export -f eos_yad_check_internet_connection
+export -f eos_yad_GetArgVal
+export -f eos_yad_RunCmdTermBash
+export -f eos_yad_problem
+export -f eos_yad_DIE
+export -f eos_yad_WARN
+#######################################################################
+
+eos_yad2() { # TODO: VEKS
+    GDK_BACKEND=x11 /usr/bin/yad "$@"
+}
+
+LatestHeadlines() {
+    local infofile="$1"
+    grep 'title="View full article:' $infofile | sed -e 's|&gt;|>|g' -e 's|^.*">[ ]*||' -e 's|</a>$||'
+}
+
+LatestDates() {
+    local infofile="$1"
+    local tmp=$(mktemp)
+    grep "timestamp" $infofile | sed -e 's|^.*">||' -e 's|</p>$||'    >> $tmp
+    grep "</dt>"     $infofile | sed -e 's|^.*<dt>||' -e 's|</dt>$||' >> $tmp
+    cat $tmp
+    rm -f $tmp
+}
+
+LessThanDays() {
+    local latestdate="$1"        # 2020-01-01
+    local days="$2"              # nr of days
+
+    local days_in_sec=$((days * 24 * 3600))
+    local latestdate_in_sec=$(date --date="$latestdate" +%s)
+    local curdate_in_sec=$(date +%s)
+
+    if [ $((curdate_in_sec - days_in_sec)) -gt $latestdate_in_sec ] ; then
+        return 1  # too old
+    else
+        return 0  # within day range
+    fi
+}
+
+ExtractPackageNameFromHeadline() {
+    # ASSUME: the first word contains the package name!
+    # Remove possible trailing version comparison.
+    local headline="$1"
+    echo "$headline" | awk '{print $1}' | sed -e 's|[<>=].*$||'  # -e 's|`||g'
+}
+
+IsThisNews() {
+    local headline="$1"
+    local pkgname="$(ExtractPackageNameFromHeadline "$headline")"
+
+    test "${pkgname::1}" = "\`" && \
+        return 0  # A new required package? Make it news.
+
+    pacman -Q "$pkgname" >& /dev/null && \
+        return 0  # It is news if the package is installed.
+
+    return 1   # not news
+}
+
+CheckHeadlines()
+{
+    # Show a headline only if the related package is installed and
+    # it is less than given days old.
+
+    local days="$1"
+    local kalu="$2"
+    local headlines headline
+    local dates date
+    local ix matches
+    local news_source=https://archlinux.org
+    local hlinfo=$(mktemp)
+
+    # wget -q -T 10 -O $hlinfo $news_source || {
+    curl --fail -Lsm 10 -o $hlinfo $news_source || {
+        rm -f $hlinfo
+        eos_yad_DIE "fetching Arch news headlines failed"
+    }
+
+    readarray -t headlines <<< "$(LatestHeadlines $hlinfo)"
+
+    test "$kalu" = "yes" && {
+        echo "${headlines[0]}"
+        rm -f $hlinfo
+        return         # nothing more for 'kalu'
+    }
+
+    readarray -t dates <<< "$(LatestDates $hlinfo)"
+
+    test ${#headlines[@]} -eq ${#dates[@]} || {
+        rm -f $hlinfo
+        eos_yad_DIE "sorry, headlines do not match with their dates!!"
+    }
+
+    if [ -n "$headlines" ] ; then
+        if [ "$ignore_saved" = "no" ] ; then
+            if [ -r "$EOS_NEWS_CONF" ] ; then
+                if [ "$(cat "$EOS_NEWS_CONF")" = "${headlines[0]}" ] ; then
+                    echo "You have already seen all $eos_banner." >&2
+                    rm -f $hlinfo
+                    return
+                fi
+            fi
+        fi
+        echo "${headlines[0]}" > "$EOS_NEWS_CONF"
+
+        matches=0
+        for ((ix=0; ix < ${#headlines[@]}; ix++)) ; do
+            headline="${headlines[$ix]}"
+            date="${dates[$ix]}"
+            # Check that the news line is recent enough.
+            LessThanDays "$date" "$days" && {
+                # Yes, it is recent enough.
+                IsThisNews "$headline" && {
+                    echo "    $date : $headline"
+                    ((matches++))
+                }
+            }
+        done > $hlinfo   # re-purposing tmp file...
+
+        if [ $matches -ne 0 ] ; then
+            # Now there are news for you! Show them.
+            cat $hlinfo | \
+                eos_yad2 --text-info --title="Arch news headlines for you!" \
+                        --width=700 --height=500 --tail --wrap \
+                        --button=yad-quit:0 \
+                        --button=" See details at Arch pages!archlinux!$news_source":1 || \
+                xdg-open $news_source >& /dev/null
+        else
+            echo "No $eos_banner." >&2     # don't show a dialog, simple terminal line suffices
+        fi
+    fi
+    rm -f $hlinfo
+}
+
+EOS_NEWS_CONF=$HOME/.config/EOS-arch-news-for-you.conf
+
+IsNumber() { test "$(echo "$1" | tr -d '0-9')" = "" ; }
+
+DIE() {
+    while true ; do
+        echo "Error: $1"
+        Usage
+        break
+    done | eos_yad_problem "Error" "$@"
+    exit 1
+}
+
+Usage() {
+    cat <<EOF
+
+Show the latest Arch news that affect this machine.
+
+Usage: $progname [-f] [days]
+
+Parameters:
+   <days>     Show only news that are newer than <days> days.
+   -f         Show the news even though have seen them before.
+
+Without any parameters, show the latest news headline,
+even if it doesn't affect this machine.
+EOF
+}
+
+Main()
+{
+    local days=""
+    local kalu=no     # yes: show only the latest news line for 'kalu'. no: news for you
+    local ignore_saved=no
+
+    local progname=arch-news-for-you
+    local eos_banner="Arch news for you"
+    local xx
+
+    for xx in "$@" ; do
+        case "$xx" in
+            -f) ignore_saved=yes ;;
+            -*) DIE "unsupported option '$xx'" ;;
+            *)  test -n "$days" && DIE "<days> already has a value '$days'"
+                days="$xx"
+                IsNumber "$days" || DIE "value '$days' for <days> is not a number"
+                ;;
+        esac
+    done
+
+    #test -z "$days" && kalu=yes
+
+    CheckHeadlines "$days" "$kalu"
+}
+
+Main "$@"

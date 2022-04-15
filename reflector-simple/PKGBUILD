@@ -1,0 +1,56 @@
+# Maintainer: Encrypt-OS <info@Encrypt-OS.com>
+
+pkgname=reflector-simple
+pkgdesc="Simple GUI wrapper for 'reflector'."
+pkgver=2021.12.31
+pkgrel=1
+arch=('any')
+license=('GPL')
+depends=(
+  reflector whois geoip bind-tools
+  eos-bash-shared
+)
+optdepends=(
+  'reflector-bash-completion: useful for plain reflector usage'
+)
+backup=(
+  etc/$pkgname.conf
+  etc/${pkgname}-tool.conf
+)
+
+#url=https://github.com/Encrypt-OS/PKGBUILDS
+url=https://github.com/Encrypt-OS/PKGBUILDS/tree/master/$pkgname
+_url="https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/$pkgname"
+
+source=(
+  $_url/$pkgname
+  $_url/$pkgname.desktop
+  $_url/$pkgname.conf
+  $_url/${pkgname}-tool.conf
+  $_url/mirrorlist-rank-info
+  $_url/eos-latest-arch-mirrorlist
+)
+sha512sums=('ceab19e081c64a8fc327efa55afee2a3861e0370a65c647e4aad47f753805359a5c6c5baade3b544ccaa03e9806b69b94d4c42d9eba3a2701f2d212693000f6f'
+            '3435d083e8df72f17a291cca4c3cc62ac7824d1f528e746bf689f8962159fbdd97b6a57d45b3b379a2191e2e49536b77040b13d704a58753fbed00017f4403d0'
+            'aa149c8fc273e6a9fb5ddc38bde8a37b8fb095ec8877a324b957be57e156ef583adbed5988f0184ef06d5d09ec13e01e4a58b81fffef5d6d316405a3881895c3'
+            '8b101caac9f38238d30f293176a09f1bb483ec1cdc474ef126ec087a8b548b50eee5c35617f0616dd1618e4dce72e14b70270f47658577e20e04a133405510aa'
+            'c56090338b01f6eb251e3250d69d32c2b96c8393ebe921896de3ad1bd5c622c01ae637a09c6d0d0aa40e71d55be608a8d77066be05929d586723e79e0f24002c'
+            '84fbd6a973dadaa8c11ddfb8ed505a332a8788f0d5e43cfcf234bba0441c0e4dde2534acb7ddbdf8d1422a2f57491ee79485ab4f7ebf4e6cf9d00aa12edb894b')
+
+package() {
+  cd $srcdir
+
+  sed -i $pkgname -e "s|local VERSION_INFO=.*$|local VERSION_INFO=${pkgver}-$pkgrel|"
+
+  install -d $pkgdir/usr/bin
+  install -d $pkgdir/etc
+  install -d $pkgdir/usr/share/applications
+
+  install -Dm755 $pkgname                     $pkgdir/usr/bin/$pkgname
+  install -Dm755 eos-latest-arch-mirrorlist   $pkgdir/usr/bin/eos-latest-arch-mirrorlist
+  install -Dm755 mirrorlist-rank-info         $pkgdir/usr/bin/mirrorlist-rank-info
+  
+  install -Dm644 $pkgname.conf           $pkgdir/etc/$pkgname.conf
+  install -Dm644 ${pkgname}-tool.conf    $pkgdir/etc/${pkgname}-tool.conf
+  install -Dm644 $pkgname.desktop        $pkgdir/usr/share/applications/$pkgname.desktop
+}

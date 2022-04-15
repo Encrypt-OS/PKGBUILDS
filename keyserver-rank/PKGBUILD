@@ -1,0 +1,26 @@
+#!/bin/bash
+# Maintainer: Encrypt-OS <info@Encrypt-OS.com>
+
+pkgname=keyserver-rank
+pkgdesc="Ranks some keyservers."
+url="https://github.com/Encrypt-OS/PKGBUILDS/raw/master/$pkgname"
+pkgver=1.2.4
+pkgrel=1
+arch=('any')
+license=('GPL')
+depends=(
+    bash
+    time    # for timing commands
+)
+
+source=(
+    "$url/$pkgname"
+    "$url/$pkgname"-helper
+)
+sha512sums=('a2bb225ad1c73f64414f37ceb5542e6bdc75c40647ba1aa44de1315947de4aa47d132916c3ab1daa3819af4fa012721f44c05a06c5a75685ee068a96b3b382c2'
+            '9943d580d16517bb14b743c99cb06dde80025abec286210245b0c7303a7261460e6cee7f702903812cb66563b96b312d2e0643efc7871401430ce37163e0776c')
+
+package() {
+  install -Dm755 ${pkgname}           $pkgdir/usr/bin/${pkgname}
+  install -Dm755 ${pkgname}-helper    $pkgdir/usr/bin/${pkgname}-helper
+}

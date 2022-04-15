@@ -1,0 +1,24 @@
+# Maintainers: Portergos Linux <portergoslinux@gmail.com>, Encrypt-OS <info@Encrypt-OS.com>
+
+pkgname=Encrypt-OS-mirrorlist
+pkgver=4.4.2
+pkgrel=1
+pkgdesc="Encrypt-OS mirrorlist"
+arch=('any')
+url=https://github.com/Encrypt-OS/PKGBUILDS/tree/master/$pkgname
+_url="https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/$pkgname"
+
+license=('GPL3')
+options=(!strip !emptydirs)
+backup=("etc/pacman.d/$pkgname")  # to keep possibly ranked mirrorlist
+
+conflicts_aarch64=(Encrypt-OS-arm-mirrorlist)
+conflicts_armv7h=(Encrypt-OS-arm-mirrorlist)
+
+source=($_url/$pkgname)
+sha512sums=('c2ca7b38fd8dcae85dbf06dbadd9c0cdbe68bcdd82a04409d060be7a7eba4dd537be7f554554c12b3ef1e5a47b5638a89c43314a58994923a14846ed6384a5f2')
+
+package() {
+ #install -d "$pkgdir/etc/pacman.d"
+ install -Dm644 "$srcdir/$pkgname" "$pkgdir/etc/pacman.d/$pkgname"
+}

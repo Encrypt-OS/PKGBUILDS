@@ -1,0 +1,36 @@
+# Maintainer: Encrypt-OS <info@Encrypt-OS.com>
+pkgname=Encrypt-OS-theming
+pkgver=8.0
+pkgrel=1
+pkgdesc='Default Encrypt-OS background images and icons for all different DE'
+arch=('any')
+replaces=('Encrypt-OS-theming')
+url='https://www.Encrypt-OS.com'
+license=('GPL3')
+source=('git+https://github.com/Encrypt-OS/Encrypt-OS-theming.git')
+md5sums=('SKIP')
+sha512sums=('SKIP')
+install=$pkgname.install
+
+package() {
+  cd "$srcdir/${pkgname}"
+  install -d "${pkgdir}/usr/share/Encrypt-OS"
+  install -d "${pkgdir}/usr/share/pixmaps"
+  install -d "${pkgdir}/usr/share/Encrypt-OS/backgrounds"
+
+  install -Dm644 *.png *.svg           "${pkgdir}/usr/share/Encrypt-OS"
+  install -Dm644 Encrypt-OS.{svg,png} "${pkgdir}/usr/share/pixmaps"
+  install -Dm644 Encrypt-OS-icon.png  "${pkgdir}/usr/share/pixmaps"
+  
+  cd backgrounds
+  install -Dm644 *.png                 "${pkgdir}/usr/share/Encrypt-OS/backgrounds"
+
+  # make symlinks for KDE:
+  cd "${pkgdir}/usr/share/pixmaps"
+  ln -s Encrypt-OS.png Encrypt-OS-logo.png
+  ln -s Encrypt-OS.svg Encrypt-OS-logo.svg
+
+  # cleanup
+  cd $srcdir
+  rm -rf ../${pkgname}
+}

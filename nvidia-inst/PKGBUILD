@@ -1,0 +1,35 @@
+# Original Maintainer: Gustau Castells <karasu@antergos.com>
+# Maintainer: manuel at Encrypt-OS.com
+# Contributor: joekamprad <joekamprad@Encrypt-OS.com>
+
+pkgname=nvidia-inst
+pkgver=1.0.3
+pkgrel=1
+pkgdesc="Script to setup nvidia drivers (dkms version) in Encrypt-OS"
+url=https://github.com/Encrypt-OS/PKGBUILDS/tree/master/$pkgname
+_url=https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/$pkgname
+arch=('any')
+license=('GPL2')
+depends=(
+  nvidia-installer-common
+  dkms
+)
+
+optdepends=(
+  "linux-headers: for $pkgname with kernel linux"
+  "linux-lts-headers: for $pkgname with kernel linux-lts"
+  "linux-hardened-headers: for $pkgname with kernel linux-hardened"
+  "linux-zen-headers: for $pkgname with kernel linux-zen"
+)
+
+source=(
+  $_url/$pkgname
+  $_url/$pkgname.bash-completion
+)
+sha512sums=('ea1beafd7311b41f87dce3e5202f58606277d837ccbfcd874390d721b6c3aaac4d21976b7c033e597a1915ef10a94bf9f7b10fe938062bb6a6fdddba7af21627'
+            'b8857ff98870ac8cff78e31c660bde3b7308752ee4e6547682340866ee59f5801f09ede41e490380a40926536f47259f5d347fd59e8e2ffa67a8cb57f07c44e6')
+
+package() {
+  install -Dm755 $pkgname                         $pkgdir/usr/bin/$pkgname
+  install -Dm644 $pkgname.bash-completion         $pkgdir/usr/share/bash-completion/completions/$pkgname
+}

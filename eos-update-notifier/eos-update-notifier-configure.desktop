@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Configure EOS Update Notifier
+Comment=Configures the Update Notifier and Updater for Encrypt-OS
+Comment[fi]=Konfiguroi päivitysten näyttäjä
+Exec=eos-update-notifier-configure
+Icon=Encrypt-OS-icon
+# StartupNotify=false
+# Terminal=False
+Hidden=false
+X-GNOME-Autostart-enabled=true
+X-KDE-autostart-after=panel
+Categories=System

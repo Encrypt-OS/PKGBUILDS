@@ -1,0 +1,24 @@
+# Maintainer: Encrypt-OS <info@Encrypt-OS.com>
+
+pkgname=pahis
+pkgdesc="Show history of package operations of one or all packages."
+url=https://github.com/Encrypt-OS/PKGBUILDS/tree/master/$pkgname
+_url="https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/$pkgname"
+pkgver=0.3.4
+pkgrel=1
+
+arch=('any')
+license=('GPL')
+depends=('bash' 'pacman')
+
+source=(
+    "$_url/$pkgname"
+    "$_url/$pkgname.completion"
+)
+sha512sums=('2964b910708e4f348ead17f5326256c8c3d80b0fabcf6632f5a4eadae3705b5be282637d96875e3be9aad152b8a4844a1e18a02441e4d51548c9c8196a70ea9f'
+            '74cc392d8c19e3ffc8338c99c8ded6e45eaef3c34bfe5eb39d6b0bbc6ceb23a2a7cf9df410c66ef9a88a42f3dbdd7e9db0aa12addd9622fa3d879199d147f4f6')
+
+package() {
+  install -Dm755 $pkgname             $pkgdir/usr/bin/$pkgname
+  install -Dm644 $pkgname.completion  $pkgdir/usr/share/bash-completion/completions/$pkgname
+}

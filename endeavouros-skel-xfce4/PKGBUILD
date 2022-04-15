@@ -1,0 +1,28 @@
+# Maintainer: SnailDOS <encryptos@snaildos.com>
+# Contributor: joekamprad <joekamprad@Encrypt-OS.com>
+
+_pkgname=Encrypt-OS-xfce4-theming
+pkgname=Encrypt-OS-skel-xfce4
+pkgver=2.0
+pkgrel=6
+pkgdesc="pre user creation skel setup for xfce4 under Encrypt-OS"
+arch=('any')
+groups=('Encrypt-OS')
+url="https://github.com/Encrypt-OS/${_pkgname}"
+license=('GPL')
+makedepends=('git')
+depends=('Encrypt-OS-skel-default')
+source=("${_pkgname}::git+https://github.com/Encrypt-OS/${_pkgname}.git#branch=master")
+sha256sums=('SKIP')
+
+package() {
+    PREFIX=/etc/skel
+    cd "$_pkgname"
+    mkdir -p "${pkgdir}${PREFIX}/.config/"
+    mkdir -p "${pkgdir}${PREFIX}/.config/xfce4/"
+    cp -R ".config/Thunar" "${pkgdir}${PREFIX}/.config/Thunar"
+    cp -R ".config/autostart" "${pkgdir}${PREFIX}/.config/autostart"
+    cp -R ".config/xfce4/panel" "${pkgdir}${PREFIX}/.config/xfce4/panel"
+    cp -R ".config/xfce4/xfconf" "${pkgdir}${PREFIX}/.config/xfce4/xfconf"
+    install -Dm755 "set_once_xfce4.sh" "${pkgdir}${PREFIX}/set_once_xfce4.sh"
+}

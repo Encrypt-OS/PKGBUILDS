@@ -1,0 +1,343 @@
+#!/bin/bash
+
+# Show man page from (Arch) web.
+# Additionally show info from names that have no man page.
+
+echo2() { echo "$@" >&2 ; }
+
+DIE() {
+    echo2 "$progname: error: $1"
+    exit 1
+}
+
+Usage() {
+    cat <<EOF >&2
+Usage: $progname [basic-options] [man-section] name
+       $progname help-options
+
+Name:
+    The name for which the manual page or other info is searched.
+
+Man-section:
+    The section of a man page, e.g. 1. See 'man(1)'.
+
+Basic-options:
+    --find-other-info   Find other info if man page doesn't exist.
+    --skip-other-info   Don't find other info if man page doesn't exist (default).
+    --wipe-cache        Delete cached man page files. Use this option when any of the
+                        cached man pages in $manstore2 is outdated.
+
+Help-options:
+    -h | --help         This help.
+
+Config file $real_progname.conf is searched from the following folders in this order:
+    ~/.config/$real_progname
+    /etc/$real_progname
+
+Config file may contain variables:
+    EOS_APPS_INFO_BROWSER=<name-of-web-browser>
+    EOS_APPS_INFO_BROWSER_OPTS="<browser-options>"
+
+Web page infos can be written info folder 'pageinfo' under a config file folder (see above).
+Web page info files can be:
+    <name>.url          Contains one URL to the <name> info page.
+    <name>.helpcmd      Contains a command to show help for <name>.
+
+EOF
+}
+
+Man2html() {
+    # Convert a local man page to a html page.
+
+    local app="$1"
+
+    mkdir -p "$manstore"
+
+    if [ 1 -eq 1 ] ; then
+        # check if a man page has already been converted to html
+        if [ -r "$manstore/$app.html" ] ; then
+            url="$manstore/$app.html"
+            return
+        fi
+    fi
+
+    local manpage="$(MANSECT="$mansect" /usr/bin/man -w "$app" 2>/dev/null)"
+    if [ -z "$manpage" ] ; then
+        echo2 "$FUNCNAME: local man page for '$app' missing."
+        return 1
+    fi
+
+    /usr/bin/cp "$manpage" /tmp || DIE "copying man page failed."
+    manpage="$(/usr/bin/basename "$manpage" .gz)"
+    rm -f "/tmp/$manpage"
+    /usr/bin/gunzip "/tmp/$manpage.gz"
+
+    case "$app" in
+        downgrade"foobar")
+            printf "# NAME\n\n" > "/tmp/$app.md"
+            sed -i "/tmp/$manpage" -e 's|^\.SH USAGE$|.SH SYNOPSIS|'
+            ;;
+        *)
+            /usr/bin/rm -f "/tmp/$app.md"
+            ;;
+    esac
+    /usr/bin/pandoc -f man "/tmp/$manpage" -t gfm >> "/tmp/$app.md"
+    /usr/bin/sed -i "/tmp/$app.md" \
+                 -e 's|^# \([A-Z]\)\(.*\)|## \1\L\2|' \
+                 -e "s|^## Name$|# $app|"
+    /usr/bin/pandoc -f gfm "/tmp/$app.md" -o "$manstore/$app.html"
+    rm -f "/tmp/$app.md" "/tmp/$manpage"
+
+    url="$manstore/$app.html"
+}
+
+URL_from_own_list() {
+    local pkgname="$1"
+    if [ -n "OwnInfoApps" ] ; then
+        [ -n "$pkgname" ] && url="${OwnInfoApps[$pkgname]}"
+        case "$url" in
+            URL) URL_from_package "$pkgname" ;;
+        esac
+    fi
+}
+
+URL_from_package() {
+    local pkgname="$1"
+    local opt
+    local prog
+    for prog in /usr/bin/yay /usr/bin/pacman ; do
+        if [ -x $prog ] ; then
+            for opt in "-Qi" "-Si" ; do
+	        url="$(LANG=C $prog $opt "$pkgname" 2>/dev/null | grep -w ^URL | head -n1 | awk '{print $NF}')"
+	        if [ -n "$url" ] ; then
+	            return
+	        fi
+            done
+            return
+        fi
+    done
+    DIE "cannot find yay or pacman!!"
+}
+
+URL_from_local_man() {
+    # Find the section of the Arch man page
+
+    if [ -z "$section" ] ; then
+        local file=$(MANSECT="$mansect" /usr/bin/man -w "$name" 2>/dev/null)
+        section=$(echo "$file" | /usr/bin/sed 's|.*\.\([0-9npl]*\)\.gz$|\1|')
+    fi
+    if [ -n "$section" ] ; then
+        url="https://man.archlinux.org/man/$name.$section"
+        # Test if Arch man page exists in the internet. If not, then try use a local man page.
+        if ! /usr/bin/curl -Lsm 10 --fail "$url" >/dev/null ; then
+            # if this man page is not available on Arch, look for a local man page
+            # and convert it to a local html page
+            Man2html "$name"
+        fi
+    fi
+}
+
+URL_from_bonus() {
+    # in: $name
+    # out: $url
+
+    # ad hoc urls. See option --show-bonus above.
+    case "$name" in
+        bashdb)
+            if [ "$SUPPORT_MAN_BASHDB" = "yes" ] ; then
+                # Fetch the http document to your home folder
+                url="$HOME/.config/$real_progname/bashdb.html"
+                if [ ! -r "$url" ] ; then
+                    local url2=http://bashdb.sourceforge.net/bashdb.html
+                    mkdir -p "$(dirname "$url")"
+                    Wget2Curl --user-agent="" -q --timeout=10 -O "$url" $url2 || url=""
+                fi
+            fi
+            ;;
+        code-oss)      url=https://code.visualstudio.com/docs;;
+        grub)          url=https://www.gnu.org/software/grub/manual/grub/grub.html;;
+        #libreoffice)  url=https://documentation.libreoffice.org/en/english-documentation;;
+        linux)         url=https://www.kernel.org;;
+        linux-lts)     url=https://www.kernel.org;;
+        nvidia)        url=https://www.nvidia.com/en-us/drivers/unix;;
+        virtualbox)    url=https://www.virtualbox.org/manual/UserManual.html;;
+    esac
+}
+
+GetConfigs() {
+    # Get configured values
+    for folder in "${folders[@]}" ; do
+        if [ -r $folder/$real_progname.conf ] ; then
+            source $folder/$real_progname.conf 2>/dev/null && {
+                if [ -n "$EOS_APPS_INFO_BROWSER" ]; then
+                    br="$EOS_APPS_INFO_BROWSER"
+                    if [ -n "$(which "$br" 2>/dev/null)" ]; then
+                        if [ -n "$EOS_APPS_INFO_BROWSER_OPTS" ]; then
+                            br+=" $EOS_APPS_INFO_BROWSER_OPTS"
+                        fi
+                    else
+                        echo2 "Browser '$br' not found, using default $br_default."
+                        br="$br_default"
+                    fi
+                fi
+                if [ -n "$EOS_SEARCH_PROVIDER" ] ; then
+                    case "$EOS_SEARCH_PROVIDER" in
+                        duckduckgo | google) searcher="$EOS_SEARCH_PROVIDER" ;;
+                        *) echo2 "Search provider '$EOS_SEARCH_PROVIDER' not supported, using $searcher." ;;
+                    esac
+                fi
+            }
+            break
+        fi
+    done
+}
+
+Options()
+{
+    local opts
+    local long_opts="help,return-url,find-other-info,skip-other-info,show-system-folder,show-bonus,section:,wipe-cache"
+    local short_opts="h,s:"
+
+    opts="$(/usr/bin/getopt -o=$short_opts --longoptions $long_opts --name "$progname" -- "$@")" || {
+        Options -h
+        return 1
+    }
+
+    eval set -- "$opts"
+
+    while true ; do
+        case "$1" in
+            --return-url)
+                return_url=yes;;
+            --find-other-info)
+                find_other_info=yes;;
+            --skip-other-info)
+                find_other_info=no;;
+            --show-system-folder)
+                echo "${folders[1]}"; exit;;    # for bash completion
+            --show-bonus)
+                echo "grub linux linux-lts nvidia virtualbox"  # supported bonus apps!
+                exit
+                ;;
+            --wipe-cache)
+                rm -rf "$manstore"
+                exit
+                ;;
+            -s | --section)
+                section="$2"
+                shift
+                ;;
+
+            -h | --help)
+                Usage
+                exit
+                ;;
+            
+            --) shift ; break ;;
+        esac
+        shift
+    done
+
+    # handle remaining params
+
+    if [ -n "$2" ] ; then
+        section="$1"
+        name="$2"
+        case "$section" in
+            1 | 1p | n | l | 8 | 3 | 3p | 0 | 0p | 2 | 5 | 4 | 9 | 6 | 7) ;;
+            *) DIE "unsupported section '$section'" ;;
+        esac
+    else
+        name="$1"
+    fi
+
+    # Special adjustments
+    case "$name" in
+        eos-welcome) name=welcome ;;
+    esac
+
+    [ -n "$name" ] || DIE "Error: give name for command/package/..."
+}
+
+
+Main()
+{
+    source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || return 1   # for Wget2Curl()
+
+    local progname=eos-apps-info-helper          # "$(basename "$0")"
+    local real_progname=${progname%-helper}
+    local name=""
+    local find_other_info=yes   # default: will find other web info if $name has no man page
+    local return_url=no
+    local section=""
+        # Examples of 'man -w':
+        #   /usr/share/man/man1/ps.1.gz
+        #   /usr/share/man/mann/proc.n.gz    # this is weird, man section 5 should be before n
+        # $MANSECT default:
+        #   1 1p n l 8 3 3p 0 0p 2 5 4 9 6 7
+    local mansect="1,1p,5,n,l,8,3,3p,0,0p,2,5,4,9,6,7"      # MANSECT: 5 before n
+    
+    local folders=(
+        $HOME/.config/$real_progname
+        /etc/$real_progname
+    )
+    local manstore="$HOME/.cache/$progname"
+    local manstore2="\$HOME/.cache/$progname"
+    local folder
+    local url=""
+    local br_default="/usr/bin/xdg-open"
+    local br="$br_default"
+    local EOS_APPS_INFO_BROWSER=""
+    local searcher=duckduckgo
+    local dir
+
+    declare -A OwnInfoApps
+
+    Options "$@"
+
+    GetConfigs
+
+    # find the URL
+
+    [ -z "$url" ] && URL_from_own_list "$name"
+
+    if [ -z "$url" ] ; then
+        for folder in "${folders[@]}" ; do
+            dir="$folder/pageinfo"
+            if [ -r "$dir/$name/$name.html" ] ; then
+                url="$dir/$name/$name.html"
+                break
+            elif [ -r "$dir/$name.url" ] ; then
+                url=$(/usr/bin/cat "$dir/$name.url")
+                echo2 "==> '$url'"
+                break
+            elif [ -x "$dir/$name.helpcmd" ] ; then
+                url="$("$dir/$name.helpcmd")"
+                [ -z "$url" ] && return
+            fi
+        done
+    fi
+    [ -z "$url" ] && URL_from_bonus
+    [ -z "$url" ] && URL_from_local_man "$name"
+    [ -z "$url" ] && URL_from_package "$name"
+    if [ "$EOS_APPS_INFO_SEARCH" = "enabled" ] ; then
+        if [ -z "$url" ] ; then
+            case "$searcher" in
+                duckduckgo)  url="https://duckduckgo.com/?q=$name" ;;
+                google)      url="https://www.google.com/search?q=$name" ;;
+            esac
+        fi
+    fi
+
+    if [ -n "$url" ] ; then
+        if [ "$return_url" = "yes" ] ; then
+            echo "$url"
+        else
+            /usr/bin/setsid $br "$url" 2>/dev/null &
+        fi
+    else
+        DIE "sorry, no info found."
+    fi
+}
+
+Main "$@"

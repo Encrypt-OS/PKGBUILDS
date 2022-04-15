@@ -1,0 +1,31 @@
+# Maintainers: Portergos Linux <portergoslinux@gmail.com>, Encrypt-OS info@Encrypt-OS.com
+# Multipurpose installer for arch based distros
+
+pkgname=calamares_offline
+reponame=calamares-offlineinstaller
+pkgver=1
+pkgrel=5
+destdir="/usr"
+pkgdesc="calamares installer for arch based distros"
+arch=('any')
+url="https://github.com/Encrypt-OS"
+license=('GPL3')
+makedepends=('git')
+conflicts=('Encrypt-OS-calamares-git' 'Encrypt-OS-calamares-dev-git')
+provides=("${pkgname}")
+options=(!strip !emptydirs)
+source=("git+https://github.com/Encrypt-OS/$reponame.git")
+sha256sums=('SKIP')
+
+build() {
+    mkdir -p $srcdir/$reponame/build/$pkgname
+    cd $srcdir/$reponame/build
+	cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_LIBDIR=/usr/lib -DCMAKE_INSTALL_PREFIX=/usr
+	export DESTDIR="$srcdir/$reponame/build/$pkgname" && make -j4 install
+
+  }
+
+package() {
+	cd $srcdir/$reponame/build/$pkgname
+    cp -r "${srcdir}/${reponame}/build/$pkgname/"* "${pkgdir}${destdir}"
+}

@@ -1,0 +1,60 @@
+# Maintainer: Encrypt-OS <info@Encrypt-OS.com>
+
+pkgname=eos-apps-info
+pkgdesc="Documentation about apps in the Encrypt-OS repository."
+pkgver=1.2.5
+pkgrel=1
+arch=('any')
+license=('GPL')
+depends=(
+  bash
+  yad-eos
+)
+optdepends=(
+  'pandoc: generate html pages from github-markdown and man files'
+  'imagemagick: save space with picture files'
+)
+
+_appsinfodir=etc/${pkgname}
+
+backup=(
+  $_appsinfodir/${pkgname}.conf
+)
+url=https://github.com/Encrypt-OS/PKGBUILDS/tree/master/${pkgname}
+_url="https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/${pkgname}"
+
+source=(
+  $_url/${pkgname}
+  $_url/${pkgname}-helper
+  $_url/${pkgname}-collect   # not installed as app, used only under PKGBUILDS/eos-apps-info
+  $_url/${pkgname}.desktop
+  $_url/${pkgname}.conf
+  $_url/${pkgname}-pages.tar.gz
+)
+
+sha512sums=('a1e64e956f99c06c1bb4e47789b960ef115aa5e8aa7cdb42032415894d92edafa6b2617ef8d47bd339e055a0b85d8f762540d4f562a0c9dd6d3e4400b51771ca'
+            '34d527b87538cf591bfaa26da735559447deb23e4a17dafe17ded33bebefd0f80b4b9adce88f5b9a5fadb11541f461175d179f385b3a5cc47093d3e4d0215c60'
+            'a76f677731c03719d70f7433f838e822c5f42750de5ae0c13a2f63b91b5ab793d566b7b091bc260ccf9d97215bfefcdb1f7a9fdbc8a60a8dd6659bd0e7c02336'
+            '8a0692ff5e714a0690c7a90d04a928b2edf2e01515f8707b345d0da36ee95cab7f4f9badf3dca6cbd280438a08519957c5852be92e7936da9f0affef3d895b17'
+            '4b5eef3ce297cfa66d38b6ad92739eee905050228f72bd2c58d7f05700269b0ef434b0aa5c6ff8423a98af33918089f1255858bd2385ef3db2967d71e0d1d350'
+            'aabcff236233dae46cc38a1d7d368014d100b8a7111352390edf0168b9d7b0aec24a70e23c554c20a795b104cae51042bb07f18f588c1dba804dcebb8b329403')
+
+package() {
+  local xx
+
+  install -Dm755 ${pkgname}                  $pkgdir/usr/bin/${pkgname}
+  install -Dm755 ${pkgname}-helper           $pkgdir/usr/bin/${pkgname}-helper
+  install -Dm644 ${pkgname}.desktop          $pkgdir/usr/share/applications/${pkgname}.desktop
+  install -Dm644 ${pkgname}.conf             $pkgdir/$_appsinfodir/${pkgname}.conf
+
+  install -d $pkgdir/$_appsinfodir
+
+  for xx in pageinfo/*/* ; do
+      case "$xx" in
+          *.html | *.png)
+              install -Dm644 "$xx" "$pkgdir/$_appsinfodir/$xx" ;;
+          *)
+              echo "$pkgname: warning: unsupported page '$xx'" >&2 ;;
+      esac
+  done
+}

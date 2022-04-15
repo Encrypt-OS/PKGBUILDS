@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = filesystem
+
+[Action]
+Description = Add Encrypt-OS specific config.
+When = PostTransaction
+Exec = /usr/bin/eos-hooks-runner os-release
