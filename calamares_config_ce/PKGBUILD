@@ -11,7 +11,7 @@ url='https://www.Encrypt-OS.com'
 license=('GPL3')
 source=("https://github.com/Encrypt-OS/${_repo_name}/archive/refs/tags/${pkgver}.tar.gz")
 
-sha512sums=('4fd794ca818ba21bd560e5dbaa1fbffe071df761e67fcda8b8000b4ad580fcc1dd59413d1c5fe8d9f0539c3ce6556c5ae559eaa01f12027711391aec4453483b')
+sha512sums=('aaf38d9bdb29d11d3d996defcf01edf5daa03ac2e04c6755cbded0a6ac6ada7fba4202d68e1034aeda7932aef7a03b3c7d0bf9ce6b3ecf96b475c46644fef092')
 
 
 _caldir="$pkgname/calamares"
