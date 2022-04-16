@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = eos-hooks
+
+[Action]
+Description = Update Encrypt-OS specific hooks.
+When = PostTransaction
+Exec = /usr/bin/eos-hooks-runner

@@ -3,10 +3,10 @@ pkgver=0.9
 pkgrel=1
 pkgdesc='Enables systemd-boot automation using kernel-install on Encrypt-OS'
 arch=(any)
-url='https://github.com/Encrypt-OS/eos-systemd-boot'
+url='https://github.com/endeavouros-team/eos-systemd-boot'
 license=(GPL2)
 depends=(systemd)
-source=(git+https://github.com/Encrypt-OS/eos-systemd-boot.git)
+source=(git+https://github.com/endeavouros-team/eos-systemd-boot.git)
 sha256sums=('SKIP')
 
 package()

@@ -1,0 +1,1 @@
+../src/yad-settings.in

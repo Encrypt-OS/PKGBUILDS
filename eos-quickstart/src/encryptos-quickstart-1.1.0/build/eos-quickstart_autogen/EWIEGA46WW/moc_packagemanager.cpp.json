@@ -1,0 +1,24 @@
+{
+    "classes": [
+        {
+            "className": "PackageManager",
+            "object": true,
+            "qualifiedClassName": "PackageManager",
+            "slots": [
+                {
+                    "access": "public",
+                    "name": "installPackages",
+                    "returnType": "bool"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "packagemanager.h",
+    "outputRevision": 68
+}

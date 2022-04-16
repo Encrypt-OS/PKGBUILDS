@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# Avoid unnecessary reboots: don't notify if an updated package is
+# - not currently running (e.g. alternative kernel)
+# - not in use (e.g. alternative driver)
+
+IsRunningKernel() {
+    if [ -z "$running_kernel" ] ; then
+        if [ -r /proc/version ] ; then
+            # this works with grub and refind
+            running_kernel=$(cat /proc/version | sed 's|.*(\([^@]*\)@archlinux).*|\1|')
+        else
+            # this works with grub but not with refind
+            running_kernel=$(cat /proc/cmdline | awk '{print $1}' | sed 's|^.*/vmlinuz-\(.*\)$|\1|')
+        fi
+    fi
+    test "$1" = "$running_kernel"
+}
+
+DoNotify() { /usr/bin/eos-reboot-required ; exit 0 ; }
+
+Main() {
+    local targets=$(cat)  # list of updated package names from the hook (stdin)
+    local target
+    local running_kernel=""
+
+    for target in $targets ; do
+        case "$target" in
+            linux | linux-lts | linux-zen | linux-hardened | linux-lts?? | linux-lts???)
+                # Note: only official and older LTS kernels are checked.
+                if IsRunningKernel "$target" ; then
+                    DoNotify
+                fi
+                ;;
+            nvidia)
+                if IsRunningKernel linux ; then
+                    DoNotify
+                fi
+                ;;
+            nvidia-lts)
+                if IsRunningKernel linux-lts ; then
+                    DoNotify
+                fi
+                ;;
+            amd-ucode)
+                if [ "$(device-info --cpu)" = "AuthenticAMD" ] ; then
+                    DoNotify
+                fi
+                ;;
+            intel-ucode)
+                if [ "$(device-info --cpu)" = "GenuineIntel" ] ; then
+                    DoNotify
+                fi
+                ;;
+            btrfs-progs)
+                # Notify only if btrfs is in use
+                if [ -n "$(/usr/bin/df -hT | awk '{print $2}' | grep -w btrfs)" ] ; then
+                    DoNotify
+                fi
+                ;;
+            wayland | egl-wayland)
+                case "$XDG_SESSION_TYPE" in
+                    x11) ;;
+                    *) DoNotify ;;
+                esac
+                ;;
+            *)
+                DoNotify
+                ;;
+        esac
+    done
+}
+
+Main "$@"

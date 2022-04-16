@@ -7,28 +7,28 @@ arch=('any')
 replaces=('Encrypt-OS-theming')
 url='https://www.Encrypt-OS.com'
 license=('GPL3')
-source=('git+https://github.com/Encrypt-OS/Encrypt-OS-theming.git')
+source=('git+https://github.com/endeavouros-team/endeavouros-theming.git')
 md5sums=('SKIP')
 sha512sums=('SKIP')
 install=$pkgname.install
 
 package() {
-  cd "$srcdir/${pkgname}"
-  install -d "${pkgdir}/usr/share/Encrypt-OS"
+  cd "$srcdir/endeavouros-theming"
+  install -d "${pkgdir}/usr/share/endeavouros"
   install -d "${pkgdir}/usr/share/pixmaps"
-  install -d "${pkgdir}/usr/share/Encrypt-OS/backgrounds"
+  install -d "${pkgdir}/usr/share/endeavouros/backgrounds"
 
-  install -Dm644 *.png *.svg           "${pkgdir}/usr/share/Encrypt-OS"
-  install -Dm644 Encrypt-OS.{svg,png} "${pkgdir}/usr/share/pixmaps"
-  install -Dm644 Encrypt-OS-icon.png  "${pkgdir}/usr/share/pixmaps"
+  install -Dm644 *.png *.svg           "${pkgdir}/usr/share/endeavouros"
+  install -Dm644 endeavouros.{svg,png} "${pkgdir}/usr/share/pixmaps"
+  install -Dm644 endeavouros-icon.png  "${pkgdir}/usr/share/pixmaps"
   
   cd backgrounds
-  install -Dm644 *.png                 "${pkgdir}/usr/share/Encrypt-OS/backgrounds"
+  install -Dm644 *.png                 "${pkgdir}/usr/share/endeavouros/backgrounds"
 
   # make symlinks for KDE:
   cd "${pkgdir}/usr/share/pixmaps"
-  ln -s Encrypt-OS.png Encrypt-OS-logo.png
-  ln -s Encrypt-OS.svg Encrypt-OS-logo.svg
+  ln -s endeavouros.png endeavouros-logo.png
+  ln -s endeavouros.svg endeavouros-logo.svg
 
   # cleanup
   cd $srcdir

@@ -1,0 +1,1473 @@
+<h1 id="yad">yad</h1>
+<p>yad - display GTK+ dialogs from shell scripts or command-line</p>
+<h2 id="synopsis">Synopsis</h2>
+<p><strong>yad</strong> [<em>OPTIONS</em>]</p>
+<h2 id="description">Description</h2>
+<p><strong>YAD</strong> is a program that will display GTK+ dialogs, and
+return (either in the return code or on standard output) the users
+input. This allows you to present information, and ask for information
+from the user, from all manner of shell scripts.</p>
+<p><strong>YAD</strong> is the fork of <strong>Zenity</strong>
+program.</p>
+<h2 id="options">Options</h2>
+<p>This program follows the usual GNU command line syntax, with long
+options starting with two dashes (`-').</p>
+<h2 id="dialog-options">Dialog options</h2>
+<p><strong>--about</strong><br />
+Display about dialog.</p>
+<p><strong>--app</strong><br />
+Display application selection dialog.</p>
+<p><strong>--calendar</strong><br />
+Display calendar dialog.</p>
+<p><strong>--color</strong><br />
+Display color selection dialog.</p>
+<p><strong>--dnd</strong><br />
+Display drag-and-drop box.</p>
+<p><strong>--entry</strong><br />
+Display text entry dialog.</p>
+<p><strong>--icons</strong><br />
+Display box with shortcut icons.</p>
+<p><strong>--file</strong><br />
+Display file selection dialog.</p>
+<p><strong>--font</strong><br />
+Display font selection dialog.</p>
+<p><strong>--form</strong><br />
+Display form dialog</p>
+<p><strong>--html</strong><br />
+Display HTML dialog</p>
+<p><strong>--list</strong><br />
+Display list dialog</p>
+<p><strong>--multi-progress</strong><br />
+Display multi progress bars dialog.</p>
+<p><strong>--notebook</strong><br />
+Display notebook dialog.</p>
+<p><strong>--notification</strong><br />
+Display notification icon.</p>
+<p><strong>--print</strong><br />
+Display print dialog.</p>
+<p><strong>--progress</strong><br />
+Display progress indication dialog.</p>
+<p><strong>--text-info</strong><br />
+Display text information dialog.</p>
+<p><strong>--scale</strong><br />
+Display scale dialog.</p>
+<h2 id="general-options">General options</h2>
+<p><strong>--title=<em>TITLE</em></strong><br />
+Set the dialog title.</p>
+<p><strong>--window-icon=<em>ICON</em></strong><br />
+Set the window icon.</p>
+<p><strong>--width=<em>WIDTH</em></strong><br />
+Set the dialog window width.</p>
+<p><strong>--height=<em>HEIGHT</em></strong><br />
+Set the dialog window height.</p>
+<p><strong>--posx=<em>NUMBER</em></strong><br />
+Set the X position of dialog window. <em>NUMBER</em> can be
+negative.</p>
+<p><strong>--posy=<em>NUMBER</em></strong><br />
+Set the Y position of dialog window. <em>NUMBER</em> can be
+negative.</p>
+<p><strong>--geometry=<em>WIDTHxHEIGHT+X+Y</em></strong><br />
+Use standard X Window geometry notation for placing dialog. When this
+option is used, <em>width</em>, <em>height</em>, <em>posx</em>,
+<em>posy</em>, <em>mouse</em> and <em>center</em> options are
+ignored.</p>
+<p><strong>--timeout=<em>TIMEOUT</em></strong><br />
+Set the dialog timeout in seconds.</p>
+<p><strong>--timeout-indicator=<em>POSITION</em></strong><br />
+Show timeout indicator in given position. Positions are <em>top</em>,
+<em>bottom</em>, <em>left</em> or <em>right</em>. Style of indicator may
+be set through the users CSS styles.</p>
+<p><strong>--kill-parent=<em>[SIGNAL]</em></strong><br />
+Send SIGNAL to parent process. Default value of SIGNAL is a SIGTERM.
+SIGNAL may be specified by it's number or symbolic name with or without
+SIG prefix. See signal(7) for details about signals.</p>
+<p><strong>--print-xid=<em>[FILENAME]</em></strong><br />
+Output X Window ID of a yad's window to the specified file or
+stderr.</p>
+<p><strong>--plug=<em>KEY</em></strong><br />
+Run dialog in plug mode for swallow as a notebook tab. See
+<em>NOTEBOOK</em> section for more.</p>
+<p><strong>--tabnum=<em>NUMBER</em></strong><br />
+Set the tab number for plugged dialog. See <em>NOTEBOOK</em> section for
+more.</p>
+<p><strong>--text=<em>STRING</em></strong><br />
+Set the dialog text.</p>
+<p><strong>--text-width=<em>NUMBER</em></strong><br />
+Set the maximum dialog text width in characters.</p>
+<p><strong>--text-align=<em>TYPE</em></strong><br />
+Set type of dialog text justification. <em>TYPE</em> may be
+<em>left</em>, <em>right</em>, <em>center</em> or <em>fill</em>.</p>
+<p><strong>--image=<em>IMAGE</em></strong><br />
+Set the dialog image which appears on the left side of dialog.
+<em>IMAGE</em> might be file name or icon name from current icon
+theme.</p>
+<p><strong>--icon-theme=<em>THEME</em></strong><br />
+Use specified GTK icon theme instead of default.</p>
+<p><strong>--keep-icon-size</strong><br />
+Don't scale icons. This option affects icons outside icon theme.</p>
+<p><strong>--expander=<em>[TEXT]</em></strong><br />
+Hide main widget with expander. <em>TEXT</em> is an optional argument
+with expander's label.</p>
+<p><strong>--button=<em>BUTTON:ID</em></strong><br />
+Add the dialog button. May be used multiple times. <em>ID</em> is an
+exit code or a command. <em>BUTTON</em> may be a yad stock item name for
+predefined buttons (like yad-close or yad-ok) or text in a form
+<em>LABEL[!ICON[!TOOLTIP]]</em> where `!' is an item separator. Full
+list of stock items may be found in section <em>STOCK ITEMS</em>. If no
+buttons specified <em>OK</em> and <em>Cancel</em> buttons used. See
+<strong>EXIT STATUS</strong> section for more. If <em>ID</em> have a
+non-numeric value it treats as a command and click on such button
+doesn't close the dialog.</p>
+<p><strong>--no-buttons</strong><br />
+Don't show buttons.</p>
+<p><strong>--buttons-layout=<em>TYPE</em></strong><br />
+Set buttons layout type. Possible types are: <em>spread</em>,
+<em>edge</em>, <em>start</em>, <em>end</em> or <em>center</em>. Default
+is <em>end</em>.</p>
+<p><strong>--no-markup</strong><br />
+Don't use pango markup in dialog's text.</p>
+<p><strong>--no-escape</strong><br />
+Don't close dialog if <em>Escape</em> was pressed.</p>
+<p><strong>--escape-ok</strong><br />
+<em>Escape</em> acts like pressing <em>OK</em> button.</p>
+<p><strong>--always-print-result</strong><br />
+Print result for any of the return codes. This option doesn't work if
+timeout was reached or <em>Escape</em> was pressed.</p>
+<p><strong>--use-interp=<em>[INTERP]</em></strong><br />
+All commands runs unter specified interpreter. Default is <em>bash -c
+"%s"</em>. This option can reduse quoting in commands. If <em>%s</em> is
+specified, it will be replaced by the command. Otherwise command will be
+appended to the end of command line.</p>
+<p><strong>--uri-handler=<em>CMD</em></strong><br />
+Use <em>CMD</em> as uri handler. By default yad uses
+<em>open-command</em> parameter from settings. URI replace <em>%s</em>
+in command string or adds as a last part of command line.</p>
+<p><strong>--f1-action=<em>CMD</em></strong><br />
+Set the command running when F1 was pressed.</p>
+<p><strong>--borders=<em>NUM</em></strong><br />
+Set dialog window borders.</p>
+<p><strong>--sticky</strong><br />
+Make window visible on all desktops.</p>
+<p><strong>--fixed</strong><br />
+Make window fixed width and height.</p>
+<p><strong>--center</strong><br />
+Place window on center of screen.</p>
+<p><strong>--mouse</strong><br />
+Place window under mouse position.</p>
+<p><strong>--on-top</strong><br />
+Place window over other windows.</p>
+<p><strong>--undecorated</strong><br />
+Make window undecorated (remove title and window borders).</p>
+<p><strong>--skip-taskbar</strong><br />
+Don't show window in taskbar and pager.</p>
+<p><strong>--maximized</strong><br />
+Run dialog window maximized.</p>
+<p><strong>--fullscreen</strong><br />
+Run dialog in fullscreen mode. This option may not work on all window
+managers.</p>
+<p><strong>--splash</strong><br />
+Open window with "splashscreen" window hints. For details see
+description of <em>_NET_WM_WINDOW_TYPE_SPLASH</em> in EWMH
+specification. The behavior of dialog with this option is HIGHLY DEPENDS
+on settings of your window manager.</p>
+<p><strong>--no-focus</strong><br />
+Dialog window never take focus.</p>
+<p><strong>--close-on-unfocus</strong><br />
+Close the dialog window when it loose the focus.</p>
+<p><strong>--selectable-labels</strong><br />
+If set, user can select dialog's text and copy it to clipboard. This
+option also affects on label fields in form dialog.</p>
+<p><strong>--image-path=<em>PATH</em></strong><br />
+Add specified path to the standard list of directories for looking for
+icons. This option can be used multiple times.</p>
+<p><strong>--rest=<em>FILENAME</em></strong><br />
+Read extra arguments from given file instead of command line. Each line
+of a file treats as a single argument.</p>
+<p><strong>--response=<em>NUMBER</em></strong><br />
+Set default exit code to <em>NUMBER</em> instead of <em>0</em>.</p>
+<p><strong>--css=<em>STRING</em></strong><br />
+Read and parse additional GTK+ CSS styles from given data. If
+<em>STRING</em> is filename, the content of file is loaded. If not
+<em>STRING</em> treats like CSS data.</p>
+<p><strong>--gtkrc=<em>FILENAME</em></strong><br />
+Read and parse additional GTK+ CSS styles from given file. This option
+is deprecated. Use <strong>--css</strong> instead.</p>
+<p><strong>--hscroll-policy=<em>TYPE</em></strong><br />
+Set the policy type for horizontal scrollbars. <em>TYPE</em> can be one
+of the <em>auto</em>, <em>always</em> or <em>never</em>. Default is
+<em>auto</em>.</p>
+<p><strong>--vscroll-policy=<em>TYPE</em></strong><br />
+Set the policy type for vertical scrollbars. <em>TYPE</em> can be one of
+the <em>auto</em>, <em>always</em> or <em>never</em>. Default is
+<em>auto</em>.</p>
+<p><strong>--enable-spell</strong><br />
+Enable spell checking in textview widgets</p>
+<p><strong>--spell-lang=<em>LANGUAGE</em></strong><br />
+Set spell checking language to <em>LANGUAGE</em>. By default language
+guesses from current locale. Use <em>yad-tools(1)</em> to get list of
+all possible languages.</p>
+<p><strong>--bool-fmt=<em>TYPE</em></strong><br />
+Set the output type of boolean values to <em>TYPE</em>. Possible types
+are <em>T</em>, <em>t</em>, <em>Y</em>, <em>y</em>, <em>O</em>,
+<em>o</em> and <em>1</em>.<br />
+<em>T</em> and <em>t</em> - for <em>true/false</em> pair in appropriate
+case.<br />
+<em>Y</em> and <em>y</em> - for <em>yes/no</em> pair in appropriate
+case.<br />
+<em>O</em> and <em>o</em> - for <em>on/off</em> pair in appropriate
+case.<br />
+<em>1</em> - for <em>1/0</em> pair.</p>
+<h2 id="custom-about-dialog-options">Custom about dialog options</h2>
+<p><strong>--pname=<em>STRING</em></strong><br />
+Set programm name.</p>
+<p><strong>--image=<em>IMAGE</em></strong><br />
+Set programm icon name.</p>
+<p><strong>--pversion=<em>STRING</em></strong><br />
+Set programm version string.</p>
+<p><strong>--copyright=<em>STRING</em></strong><br />
+Set programm copyrightstring.</p>
+<p><strong>--comments=<em>STRING</em></strong><br />
+Set programm detailed description.</p>
+<p><strong>--license=<em>STRING</em></strong><br />
+Set programm license. The value of this option can be one of predefined
+licenses (<em>GPL2</em>, <em>GPL3</em>, <em>LGPL2</em>, <em>LGPL3</em>,
+<em>BSD</em>, <em>MIT</em> or <em>ARTISTIC</em>,), file name with
+license text or arbitrary string.</p>
+<p><strong>--authors=<em>STRING</em></strong><br />
+Set list of programm authors separated by comma.</p>
+<p><strong>--website=<em>URI</em></strong><br />
+Set a link to programm website.</p>
+<p><strong>--website-label=<em>LABEL</em></strong><br />
+Set a label for programm website link.</p>
+<h2 id="application-selection-options">Application selection
+options</h2>
+<p><strong>--enable-fallback</strong><br />
+Show fallback applications.</p>
+<p><strong>--enable-other</strong><br />
+Show other applications.</p>
+<p><strong>--enable-all</strong><br />
+Show all available applications.</p>
+<p><strong>--extened</strong><br />
+Shown extended information about choosen application. By default only
+executable is shown. In extended form the output fields are name,
+display name, description, icon and executable.</p>
+<p>Additional argument for application dialog is a mime-type. If
+mime-type is not specified <em>text/plain</em> will be used.</p>
+<h2 id="calendar-options">Calendar options</h2>
+<p><strong>--day=<em>NUMBER</em></strong><br />
+Set the calendar day.</p>
+<p><strong>--month=<em>NUMBER</em></strong><br />
+Set the calendar month.</p>
+<p><strong>--year=<em>NUMBER</em></strong><br />
+Set the calendar year.</p>
+<p><strong>--date-format=<em>PATTERN</em></strong><br />
+Set the format for the returned date. By default is `%x'. See
+<em>strftime(3)</em> for more details.</p>
+<p><strong>--show-weeks</strong><br />
+Show the week numbers at the left side of calendar.</p>
+<p><strong>--details=<em>FILENAME</em></strong><br />
+Read days description from <em>FILENAME</em>.</p>
+<p>File with days details must be in following format:</p>
+<blockquote>
+<p>&lt;date&gt; &lt;description&gt;</p>
+</blockquote>
+<p><em>date</em> field is date in format, specified with
+<em>--date-format</em> option. <em>description</em> is a string with
+date details, which may include Pango markup.</p>
+<h2 id="color-selection-options">Color selection options</h2>
+<p><strong>--init-color=<em>COLOR</em></strong><br />
+Set initial color value.</p>
+<p><strong>--gtk-palette</strong><br />
+Show system palette inside color dialog. For GTK+3 builds this option
+shows palette instead of color editor.</p>
+<p><strong>--alpha</strong><br />
+Add opacity to output color string.</p>
+<p><strong>--palette=<em>[FILENAME]</em></strong><br />
+Show palette and set predefined colors from given filename. By default
+yad use file <em>/etc/X11/rgb.txt</em>.</p>
+<p><strong>--expand-palette</strong><br />
+Expander for list of user-defined colors will be initially opened.</p>
+<p><strong>--mode=<em>MODE</em></strong><br />
+Set output color mode. Possible values are <em>hex</em> or <em>rgb</em>.
+Default is <em>hex</em>. HEX mode looks like <em>#rrggbbaa</em>, RGB
+mode - <em>rgba(r, g, b, a)</em>. In RGBA mode opacity have values from
+0.0 to 1.0.</p>
+<h2 id="drag-and-drop-box-options">Drag-and-Drop box options</h2>
+<p><strong>--tooltip</strong><br />
+Use dialog text as a tooltip for Drag-and-Drop box.</p>
+<p><strong>--command=<em>CMD</em></strong><br />
+Run command when data received. Data strings pass to command as an
+argument or replace <em>%s</em> modifier in a command. By default data
+just prints to stdout.</p>
+<p><strong>--exit-on-drop=<em>NUMBER</em></strong><br />
+Exit after <em>NUMBER</em> of drops was reached. 0 means infinite number
+of drops, this is the default.</p>
+<h2 id="text-entry-options">Text entry options</h2>
+<p><strong>--entry-label=<em>STRING</em></strong><br />
+Set the entry label text.</p>
+<p><strong>--entry-text=<em>STRING</em></strong><br />
+Set the initial entry text or default item in combo-box.</p>
+<p><strong>--hide-text</strong><br />
+Hide the entry text.</p>
+<p><strong>--completion</strong><br />
+Use completion instead of combo-box.</p>
+<p><strong>--complete=<em>TYPE</em></strong><br />
+Use specific type for extended completion. <em>TYPE</em> can be
+<em>any</em> for match any of typed words, <em>all</em> for match all of
+typed words or <em>regex</em> when typed text treats as regular
+expression.</p>
+<p><strong>--editable</strong><br />
+Allow make changes to text in combo-box.</p>
+<p><strong>--numeric</strong><br />
+Use spin button instead of text entry. Additional parameters in command
+line treats as minimum and maximum values, step value and precisions (in
+that order). All this values are optional. Default range is from 0 to
+65535 with step 1.</p>
+<p><strong>--float-precision=<em>NUMBER</em></strong><br />
+Set precision of floating point numbers. By default precision is three
+digits after point.</p>
+<p><strong>--licon=<em>IMAGE</em></strong><br />
+Set an icon on a left side of entry.</p>
+<p><strong>--licon-action=<em>CMD</em></strong><br />
+Specify a command which will be run when the left icon clicked. Output
+of command will be set as entry text.</p>
+<p><strong>--ricon=<em>IMAGE</em></strong><br />
+Set an icon on a right side of entry.</p>
+<p><strong>--ricon-action=<em>CMD</em></strong><br />
+Specify a command which will be run when the right icon clicked. Output
+of command will be set as entry text.</p>
+<p><strong>--num-output</strong><br />
+Output index of active element instead of text for combo-box entry.</p>
+<p>Any extra data specified in command line adds as an items of
+combo-box entry, except of numeric mode.</p>
+<p>If icon specified and icon action is not given, click on icon just
+clear the entry. Numeric fields will ignore the icons.</p>
+<h2 id="iconbox-options">Iconbox options</h2>
+<p><strong>--read-dir=<em>PATH</em></strong><br />
+Read .desktop files from specified directory.</p>
+<p><strong>--monitor</strong><br />
+Watch for changes in directory and automatically update content of
+iconbox.</p>
+<p><strong>--generic</strong><br />
+Use field GenericName instead of Name for shortcut label.</p>
+<p><strong>--sort-by-name</strong><br />
+Use field Name instead of filename for sorting items.</p>
+<p><strong>--descend</strong><br />
+Sort items in descending order. If data reads from stdin this option is
+useless without <em>--sort-by-name</em>.</p>
+<p><strong>--listen</strong><br />
+Read data from stdin. Data must be in order - <em>Name</em>,
+<em>Tooltip</em>, <em>Icon</em>, <em>Command</em>, <em>InTerm</em>
+separated by newline. <em>InTerm</em> is a case insensitive boolean
+constant (<em>TRUE</em> or <em>FALSE</em>). Sending <em>FormFeed</em>
+character clears iconbox.</p>
+<p><strong>--item-width</strong><br />
+Set items width.</p>
+<p><strong>--icon-size</strong><br />
+Force using specified icon size. This option doesn't work in compact
+mode.</p>
+<p><strong>--compact</strong><br />
+Use compact mode. Icon and name of each item is placed in a single
+row.</p>
+<p><strong>--single-click</strong><br />
+Activate items by single mouse click. This option may not works properly
+in case of compact mode.</p>
+<p><strong>--term</strong><br />
+Pattern for terminal. By default use `xterm -e %s' where %s replaced by
+the command.</p>
+<p>If both directory and stdin specified, content of iconbox will be
+read from directory.</p>
+<h2 id="file-selection-options">File selection options</h2>
+<p><strong>--filename=<em>FILENAME</em></strong><br />
+Set the filename.</p>
+<p><strong>--multiple</strong><br />
+Allow selection of multiple filenames in file selection dialog.</p>
+<p><strong>--directory</strong><br />
+Activate directory-only selection.</p>
+<p><strong>--save</strong><br />
+Activate save mode.</p>
+<p><strong>--separator=<em>STRING</em></strong><br />
+Specify separator character when returning multiple filenames.</p>
+<p><strong>--confirm-overwrite=<em>[TEXT]</em></strong><br />
+Confirm file selection if filename already exists. Optional argument is
+a text for confirmation dialog.</p>
+<p><strong>--quoted-output</strong><br />
+Output values will be shell-style quoted.</p>
+<h2 id="font-selection-options">Font selection options</h2>
+<p><strong>--fontname=<em>FONTNAME</em></strong><br />
+Set the initial font. <em>FONTNAME</em> is a string with font
+representation in the form <em>"[FAMILY-LIST] [STYLE-OPTIONS]
+[SIZE]"</em>.</p>
+<p><strong>--preview</strong><br />
+Set the preview text.</p>
+<p><strong>--separate-output</strong><br />
+Separate output of selected font description.</p>
+<p><strong>--separator=<em>STRING</em></strong><br />
+Set output separator character. Default is `|'.</p>
+<p><strong>--quoted-output</strong><br />
+Output data will be in shell-style quotes.</p>
+<h2 id="form-options">Form options</h2>
+<p><strong>--field=<em>LABEL[!TOOLTIP][:TYPE]</em></strong><br />
+Add field to form. Type may be <em>H</em>, <em>RO</em>, <em>NUM</em>,
+<em>CHK</em>, <em>CB</em>, <em>CBE</em>, <em>CE</em>, <em>FL</em>,
+<em>SFL</em>, <em>DIR</em>, <em>CDIR</em>, <em>FN</em>, <em>MFL</em>,
+<em>MDIR</em>, <em>DT</em>, <em>SCL</em>, <em>APP</em>, <em>CLR</em>,
+<em>BTN</em>, <em>FBTN</em>, <em>LBL</em> or <em>TXT</em>.<br />
+<strong>H</strong> - hidden field type. All characters are displayed as
+the invisible char.<br />
+<strong>RO</strong> - field is in read-only mode.<br />
+<strong>NUM</strong> - field is a numeric. Initial value format for this
+field is <em>VALUE[!RANGE[!STEP![PREC]]]</em>, where <em>RANGE</em> must
+be in form <em>MIN..MAX</em>. `!' is a default item separator.
+<em>PREC</em> is a precision for decimals.<br />
+<strong>CHK</strong> - checkbox field. Initial value is a case
+insensitive boolean constant (<em>TRUE</em> or <em>FALSE</em>).<br />
+<strong>CB</strong> - combo-box field. Initial value is a list
+<em>VAL1!VAL2!...</em>. The separator is the same as in <em>NUM</em>
+field. Value started with `^' threats as default for combo-box.<br />
+<strong>CBE</strong> - editable combo-box field. Initial value same as
+for combo-box.<br />
+<strong>CE</strong> - entry with completion. Initial value same as for
+combo-box.<br />
+<strong>FL</strong> - file selection button.<br />
+<strong>SFL</strong> - field for create file.<br />
+<strong>DIR</strong> - directory selection button.<br />
+<strong>CDIR</strong> - field for create folder.<br />
+<strong>FN</strong> - font selection button. Initial value same as in
+font dialog.<br />
+<strong>MFL</strong> - select multiple files. Value of this field is a
+list of files separated by <em>item-separator</em>.<br />
+<strong>MDIR</strong> - select multiple folders. Value of this field is
+a list of folders separated by <em>item-separator</em>.<br />
+<strong>DT</strong> - date field.<br />
+<strong>SCL</strong> - scale field. Value of this field in a range
+0..100.<br />
+<strong>APP</strong> - application selection button. Input value for
+this field is mime-type. Output value - executable for selected
+application.<br />
+<strong>ICON</strong> - icon field. Like average entry field but has two
+icons. Left shows current icon and right is clickable and calls
+<em>yad-con-browser</em> for choosing icon.<br />
+<strong>CLR</strong> - color selection button. Output values for this
+field generates in the same manner as for color dialog.<br />
+<strong>BTN</strong> - button field. Label may be in form text in a form
+<em>LABEL[!ICON[!TOOLTIP]]</em> where `!' is an item separator.
+<em>LABEL</em> is a text of button label or yad stock id. <em>ICON</em>
+is a buttons icon (stock id or file name). <em>TOOLTIP</em> is an
+optional text for popup help string. Initial value is a command which is
+running when button is clicked. A special sympols <em>%N</em> in command
+are replaced by value of field <em>N</em>. If command starts with
+<em>@</em>, the output of command will be parsed and lines started with
+number and colon will be treats as a new field values. A quoting style
+for value when <em>sh -c</em> is used - a single quotes around command
+and double quotes around -c argument<br />
+<strong>FBTN</strong> - same as button field, but with full relief of a
+button.<br />
+<strong>LINK</strong> - link button field.<br />
+<strong>LBL</strong> - text label. If field name is empty, horizontal
+separator line will be shown.<br />
+<strong>TXT</strong> - multiline text entry. This field is always occupy
+all of form width.</p>
+<p>Without type field will be a simple text entry.</p>
+<p><strong>--align=<em>TYPE</em></strong><br />
+Set alignment of field labels. Possible types are <em>left</em>,
+<em>center</em> or <em>right</em>. Default is left.</p>
+<p><strong>--columns=<em>NUMBER</em></strong><br />
+Set number of columns in form. Fields will be placed from top to
+bottom.</p>
+<p><strong>--separator=<em>STRING</em></strong><br />
+Set output separator character. Default is `|'.</p>
+<p><strong>--focus-field=<em>NUMBER</em></strong><br />
+Set focused field.</p>
+<p><strong>--cycle-read</strong><br />
+Cycled reading of stdin data. Sending FormFeed character clears the
+form. This symbol may be sent as <em>echo -e '\f'</em>.</p>
+<p><strong>--align-buttons</strong><br />
+Align label on button fields according to <em>--align</em> settings.</p>
+<p><strong>--item-separator=<em>STRING</em></strong><br />
+Set separator character for combo-box or scale values. Default is
+`!'.</p>
+<p><strong>--date-format=<em>PATTERN</em></strong><br />
+Set the format for the date fields (same as in calendar dialog).</p>
+<p><strong>--float-precision=<em>NUMBER</em></strong><br />
+Set precision of floating point numbers. By default precision is three
+digits after point.</p>
+<p><strong>--complete=<em>TYPE</em></strong><br />
+Use specific type for extended completion. <em>TYPE</em> can be
+<em>any</em> for match any of typed words, <em>all</em> for match all of
+typed words or <em>regex</em> when typed text treats as regular
+expression.</p>
+<p><strong>--scroll</strong><br />
+Make form scrollable.</p>
+<p><strong>--homogeneous</strong><br />
+Make form fields height the same.</p>
+<p><strong>--changed-action=<em>CMD</em></strong><br />
+Run <em>CMD</em> when <em>CHK</em> or <em>CB</em> field values are
+changed. Command runs with two arguments - number of changed field and
+its current value. Output of a command parsing in a same manner as in
+<em>BTN</em> fields with <em>@</em> prefix. <strong>Attention</strong> -
+this option may slow down your dialog.</p>
+<p><strong>--quoted-output</strong><br />
+Output values will be in shell-style quotes.</p>
+<p><strong>--output-by-row</strong><br />
+Output field values row by row if several columns is specified.</p>
+<p><strong>--num-output</strong><br />
+Output index of active element instead of text for combo-box fields.</p>
+<p>Additional data in command line interprets as a default values for
+form fields. A special value <em>@disabled@</em> makes corresponding
+field inactive. If no extra arguments specified in a command line, data
+will be readed from stdin, one value per line. Cycled reading means that
+for <em>N</em> fields <em>N+1</em> value will replace the first field.
+Empty values are skipped when reading from stdin.</p>
+<h2 id="html-options">HTML options</h2>
+<p><strong>--uri=<em>URI</em></strong><br />
+Open specified location. <em>URI</em> can be a filename or internet
+address. If <em>URI</em> is not an existing file and protocol is not
+specified a prefix <em>http://</em> will be added to <em>URI</em>.</p>
+<p><strong>--browser</strong><br />
+Turn on browser mode. In this mode all clicked links will be opened in
+html widget and command <em>Open</em> will be added to context menu.</p>
+<p><strong>--print-uri</strong><br />
+Print clicked links to standard output. By default clicked links opens
+with <em>xdg-open</em>.</p>
+<p><strong>--mime=<em>MIME</em></strong><br />
+Set mime type of data passed to standard input to <em>MIME</em>. Default
+is <em>text/html</em>.</p>
+<p><strong>--encodintg=<em>ENCODING</em></strong><br />
+Set encoding of data passed to standard input to <em>ENCODING</em>.
+Default is <em>UTF-8</em>.</p>
+<p><strong>--uri-handler=<em>CMD</em></strong><br />
+Set external handler for clicked uri. <em>%s</em> will be replaced by
+activated uri. Return code of the <em>CMD</em> must be <em>0</em> for
+keep working, <em>1</em> for ignoring uri and <em>2</em> for downloading
+uri. This option works only in browser mode. There are two environment
+variables available in handler - <em>YAD_HTML_BUTTON</em> with value of
+pressed mouse button and <em>YAD_HTML_STATE</em> with value of bitmask
+with the the state of the modifier keys.</p>
+<p><strong>--user-agent=<em>STRING</em></strong><br />
+Set user agent string. Default is <em>YAD-Webkit (@VERSION@)</em></p>
+<p><strong>--user-style=<em>URI</em></strong><br />
+Set path or uri to custom user styles. Path to local file can be an
+absolute file name or uri with <em>file://</em> prefix.</p>
+<p><strong>--disable-search</strong><br />
+Disable search bar.</p>
+<p><strong>--wk-prop=<em>PROP</em></strong><br />
+Set additional WebKit setting. This option may be used multiply times.
+Setting <em>PROP</em> must be in a form "setting-name value". First
+character of value must be a type identifier <em>b</em> for booleans,
+<em>i</em> for integers and <em>s</em> for strings. The values itself
+following by a colon. List of possible settings can be found on this
+page - <a
+href="https://webkitgtk.org/reference/webkit2gtk/stable/WebKitSettings.html">https://webkitgtk.org/reference/webkit2gtk/stable/WebKitSettings.html</a></p>
+<p>When dialog works in browser mode additional data in command line
+interprets as <em>URI</em>.</p>
+<h2 id="list-options">List options</h2>
+<p><strong>--column=<em>STRING[:TYPE]</em></strong><br />
+Set the column header. Types are <em>TEXT</em>, <em>NUM</em>,
+<em>SZ</em>, <em>FLT</em>, <em>CHK</em>, <em>RD</em>, <em>BAR</em>,
+<em>IMG</em>, <em>HD</em> or <em>TIP</em>. <em>TEXT</em> type is
+default. Use <em>NUM</em> for integers and <em>FLT</em> for double
+values. <em>TIP</em> is used for define tooltip column. <em>SZ</em> size
+column type. Works exactly like <em>NUM</em> column but shows human
+readable sizes instead of numbers. <em>CHK</em> (checkboxes) and
+<em>RD</em> (radio toggle) are a boolean columns. <em>BAR</em> is a
+progress bar column. Value must be between <em>0</em> and <em>100</em>.
+If value is outside is range it will be croped to neares legal value.
+<em>HD</em> type means a hidden column. Such columns are not displayes
+in the list, only in output. <em>IMG</em> may be path to image or icon
+name from currnet GTK+ icon theme. Size of icons may be set in gtk
+config file at GTK_ICON_SIZE_MENU position of gtk-icon-sizes. Images
+specified by icon names will be scaled to <em>GTK_ICON_SIZE_MENU</em>
+until --force-icon-size option is not sets. Image field prints as empty
+value.</p>
+<p>Special column names <em>@fore@</em>, <em>@back@</em> and
+<em>@font@</em> sets corresponding rows attributes. Values of those
+columns don't show in results.</p>
+<p>Column title can be specified in form <em>name!tooltip</em> and Pango
+markup can be used in <em>name</em> and <em>tooltip</em> parts.</p>
+<p><strong>--tree</strong><br />
+Enbale tree mode. In this mode extra data in form
+<em>ROW_ID[:PARENT_ID]</em> must be passed to yad before each row. See
+<strong>EXAMPLES</strong> for details.</p>
+<p><strong>--checklist</strong><br />
+Use check boxes for the first column. Output checked rows instead of
+selected rows. Disable multiple selection.</p>
+<p><strong>--radiolist</strong><br />
+Same as <em>--checklist</em> but with a radio toggle for the first
+column.</p>
+<p><strong>--separator=<em>STRING</em></strong><br />
+Set output separator characters.</p>
+<p><strong>--multiple</strong><br />
+Allow multiple rows to be selected.</p>
+<p><strong>--editable</strong><br />
+Allow changes to text.</p>
+<p><strong>--editable-cols=<em>LIST</em></strong><br />
+Set the list of editable columns. <em>LIST</em> must be a string of
+numbers separated by comma.</p>
+<p><strong>--no-headers</strong><br />
+Do not show column headers.</p>
+<p><strong>--no-click</strong><br />
+Disable sorting of column content by clicking on its header.</p>
+<p><strong>--no-rules-hint</strong><br />
+Don't draw even and odd rows by a different colors. This option depends
+on your current gtk theme and may not work.</p>
+<p><strong>--grid-lines=<em>TYPE</em></strong><br />
+Draw grid lines of type <em>TYPE</em> in list dialog. <em>TYPE</em> can
+be one of the <em>hor[izontal]</em>, <em>vert[ical]</em> of
+<em>both</em>.</p>
+<p><strong>--no-selection</strong><br />
+Disable selection in list.</p>
+<p><strong>--print-all</strong><br />
+Print all data from the list.</p>
+<p><strong>--print-column=<em>NUMBER</em></strong><br />
+Specify what column will be printed to standard output. <em>0</em> may
+be used to print all columns (this is default).</p>
+<p><strong>--hide-column=<em>NUMBER</em></strong><br />
+Hide a specific column.</p>
+<p><strong>--expand-column=<em>NUMBER</em></strong><br />
+Set the column expandable by default. <em>0</em> sets all columns
+expandable.</p>
+<p><strong>--search-column=<em>NUMBER</em></strong><br />
+Set the quick search column. <em>0</em> mean to disable searching. By
+default search mades on first column.</p>
+<p><strong>--tooltip-column=<em>NUMBER</em></strong><br />
+Set the column with popup tooltips.</p>
+<p><strong>--sep-column=<em>NUMBER</em></strong><br />
+Set the row separator column. If the cell value from this column equal
+to specified row separator value such row will be draw as separator.
+Separator value must be set.</p>
+<p><strong>--sep-value=<em>TEXT</em></strong><br />
+Set the <em>TEXT</em> as a row separator value. This feature highly
+depends on your current GTK+ theme and may not work properly.</p>
+<p><strong>--limit=<em>NUMBER</em></strong><br />
+Set the number of rows in list dialog. Will be shown only the last
+<em>NUMBER</em> rows. This option will take effect only when data
+reading from stdin.</p>
+<p><strong>--wrap-width=<em>NUMBER</em></strong><br />
+Set the width of column before wrapping to <em>NUMBER</em>.</p>
+<p><strong>--wrap-cols=<em>LIST</em></strong><br />
+Set the list of wrapped columns. <em>LIST</em> must be a string of
+numbers separated by comma.</p>
+<p><strong>--ellipsize=<em>TYPE</em></strong><br />
+Set ellipsize mode for text columns. <em>TYPE</em> may be <em>NONE</em>,
+<em>START</em>, <em>MIDDLE</em> or <em>END</em>.</p>
+<p><strong>--ellipsize-cols=<em>LIST</em></strong><br />
+Set the list of ellipsized columns. <em>LIST</em> must be a string of
+numbers separated by comma.</p>
+<p><strong>--dclick-action=<em>CMD</em></strong><br />
+Set the <em>CMD</em> as a double-click command. When user double-clicked
+on row, <em>CMD</em> will be launched with values of all columns as an
+arguments. By default double-click selects row and act as <em>OK</em>
+button for simple lists, set the checkbox if <em>--checklist</em>
+specified and do nothing when list run with <em>--multiple</em> option.
+When double-click specified <em>Enter</em> acts as a double-click and
+<em>Ctrl+Enter</em> acts as an <em>OK</em> button. <em>CMD</em> may
+contain a special character `%s' for setting a position for arguments.
+By default arguments will be concatenated to the end of <em>CMD</em>. If
+<em>CMD</em> starts with <em>@</em>, its output will replace values of
+current row. This option doesn't work with <em>--editable</em>.</p>
+<p><strong>--select-action=<em>CMD</em></strong><br />
+Set the <em>CMD</em> as a action when selection is changed. <em>CMD</em>
+will be launched with values of all columns as an arguments.
+<em>CMD</em> may contain a special character `%s' for setting a position
+for arguments. By default arguments will be concatenated to the end of
+<em>CMD</em>. This option doesn't work with <em>--multiple</em>.</p>
+<p><strong>--row-action=<em>CMD</em></strong><br />
+Set the <em>CMD</em> as a action when the row is added, modified or
+removed. First argument for the command is the name of action
+(<em>add</em>, <em>edit</em> or <em>del</em>). The rest of command line
+is data from selected row. Output of this command sets the new row
+values.</p>
+<p><strong>--tree-expanded</strong><br />
+Expand all tree nodes at startup.</p>
+<p><strong>--regex-search</strong><br />
+Use regular expressions in search for text fields.</p>
+<p><strong>--listen</strong><br />
+Listen data from stdin even if command-line values was specified.</p>
+<p><strong>--quoted-output</strong><br />
+Output values will be shell-style quoted.</p>
+<p><strong>--float-precision=<em>NUMBER</em></strong><br />
+Set precision of floating point numbers. By default precision is three
+digits after point.</p>
+<p><strong>--add-on-top</strong><br />
+Add new records at the top of the list.</p>
+<p><strong>--tail</strong><br />
+Autoscroll to the end of the list when a new row will be added.</p>
+<p><strong>--iec-format</strong><br />
+Use IEC (base 1024) units with for size values. With this option values
+will have suffixes KiB, MiB, GiB.</p>
+<p><strong>--simple-tips</strong><br />
+Don't use markup in tooltips even if text has a valid markup.</p>
+<p><strong>--header-tips</strong><br />
+Use header name as a fallback tooltip text.</p>
+<p>Sending FormFeed character to list clears it. This symbol may be sent
+as <em>echo -e '\f'</em>.</p>
+<h2 id="notebook-options">Notebook options</h2>
+<p><strong>--key=<em>KEY</em></strong><br />
+Set the key of the children.</p>
+<p><strong>--tab=<em>TEXT</em></strong><br />
+Add tab with specified label to notebook. <em>TEXT</em> may be in a form
+<em>LABEL[!ICON[!TOOLTIP]]</em> where `!' is an item separator. For
+stack mode <em>TEXT</em> for label uses as is.</p>
+<p><strong>--tab-pos=<em>TYPE</em></strong><br />
+Set the tabs position. Value may be <em>top</em>, <em>bottom</em>,
+<em>left</em>, or <em>right</em>. Default is <em>top</em>. For stack
+mode only <em>top</em> or <em>bottom</em> positions available.</p>
+<p><strong>--tab-borders=<em>NUMBER</em></strong><br />
+Set the borders width around widget in tabs.</p>
+<p><strong>--active-tab=<em>NUMBER</em></strong><br />
+Set active tab.</p>
+<p><strong>--expand</strong><br />
+Expand all tabs to full width of a dialog window.</p>
+<p><strong>--stack</strong><br />
+Use stack mode (GtkStack instead of GtkNotebook).</p>
+<p>See <strong>NOTEBOOK and PANED</strong> section for more about
+notebook dialog.</p>
+<h2 id="notification-options">Notification options</h2>
+<p><strong>--command=<em>CMD</em></strong><br />
+Set the command running when clicked on the icon. Default action is
+<em>quit</em> if <em>--listen</em> not specified.</p>
+<p><strong>--listen</strong><br />
+Listen for commands on stdin. See <strong>NOTIFICATION</strong>
+section.</p>
+<p><strong>--separator=<em>STRING</em></strong><br />
+Set separator character for menu values. Default is <em>|</em>.</p>
+<p><strong>--item-separator=<em>STRING</em></strong><br />
+Set separator character for menu items. Default is <em>!</em>.</p>
+<p><strong>--menu=<em>STRING</em></strong><br />
+Set initial menu for right-click.</p>
+<p><strong>--no-middle</strong><br />
+Disable exit on middle click.</p>
+<p><strong>--hidden</strong><br />
+Doesn't show icon at startup.</p>
+<p><strong>--icon-size=<em>SIZE</em></strong><br />
+Set notification icon size to <em>SIZE</em>. This option doesn't works
+for themed icons.</p>
+<p>See <strong>NOTIFICATION</strong> section for more about
+separators.</p>
+<h2 id="paned-options">Paned options</h2>
+<p><strong>--key=<em>KEY</em></strong><br />
+Set the key of the children.</p>
+<p><strong>--orient=<em>TYPE</em></strong><br />
+Set orientation of panes inside dialog. <em>TYPE</em> may be in
+<em>hor[izontal]</em> or <em>vert[ical]</em>.</p>
+<p><strong>--splitter=<em>POS</em></strong><br />
+Set the initial splitter position.</p>
+<p><strong>--focused=<em>PANE</em></strong><br />
+Set pane for initial focus. <em>PANE</em> must be 1 or 2. Default is
+1.</p>
+<p>See <strong>NOTEBOOK and PANED</strong> section for more about paned
+dialog.</p>
+<h2 id="picture-options">Picture options</h2>
+<p><strong>--size=<em>VALUE</em></strong><br />
+Set initial size of picture. Available values are <em>fit</em> for
+fitting image in window or <em>orig</em> for show picture in original
+size.</p>
+<p><strong>--inc=<em>NUMBER</em></strong><br />
+Set increment value for scaling image.</p>
+<p><strong>--filename=<em>FILENAME</em></strong><br />
+Set picture filename.</p>
+<p>Some actions on a picture like scaling or rotating available from
+popup menu. Those actions can be made only on static images.</p>
+<h2 id="print-options">Print options</h2>
+<p><strong>--type=<em>TYPE</em></strong><br />
+Set source file type. <em>TYPE</em> may be a <em>TEXT</em> for text
+files, <em>IMAGE</em> for image files or <em>RAW</em> for files in
+postscript or pdf formats.</p>
+<p><strong>--filename=<em>FILENAME</em></strong><br />
+Set name or path to the source file.</p>
+<p><strong>--headers</strong><br />
+Add headers to the top of page with filename and page number. This
+option doesn't work for <em>RAW</em> type.</p>
+<p><strong>--add-preview</strong><br />
+Add <em>Preview</em> button to the print dialog. This option doesn't
+work for <em>RAW</em> type.</p>
+<p><strong>--fontname=<em>FONTNAME</em></strong><br />
+Set the font for printing text. <em>FONTNAME</em> is a string with font
+representation in the form <em>"[FAMILY-LIST] [STYLE-OPTIONS]
+[SIZE]"</em>. This option works only for <em>TEXT</em> type.</p>
+<h2 id="progress-options">Progress options</h2>
+<p>When the --progress option is used, yad reads lines of progress data
+from stdin. When the lines begin with <em>#</em> the text after
+<em>#</em> is displayed in the progress bar label. Numeric values treats
+like a persents for progress bar.</p>
+<p><strong>--bar=<em>LABEL[:TYPE]</em></strong><br />
+Add progress bar. <em>LABEL</em> is a text label for progress bar.
+<em>TYPE</em> is a progress bar type. Types are: <em>NORM</em> for
+normal progress bar, <em>RTL</em> for inverted progress bar and
+<em>PULSE</em> for pulsate progress bar. If no bars specified, the
+progress dialog works in <em>single-bar</em> mode.</p>
+<p><strong>--vertical</strong><br />
+Set vertical orientation of progress bars.</p>
+<p><strong>--align=<em>TYPE</em></strong><br />
+Set alignment of bar labels. Possible types are <em>left</em>,
+<em>center</em> or <em>right</em>. Default is left.</p>
+<p><strong>--progress-text=<em>TEXT</em></strong><br />
+Set the label of progress bar to <em>TEXT</em>. This option works only
+in <em>single-bar</em> mode.</p>
+<p><strong>--hide-text</strong><br />
+Hide text in progress bars.</p>
+<p><strong>--rtl</strong><br />
+Set Right-To-Left progress bar direction. This option works only in
+<em>single-bar</em> mode.</p>
+<p><strong>--auto-close</strong><br />
+Close dialog when 100% has been reached.</p>
+<p><strong>--auto-kill</strong><br />
+Kill parent process if cancel button is pressed.</p>
+<p><strong>--pulsate</strong><br />
+Pulsate progress bar. This option works only in <em>single-bar</em>
+mode.</p>
+<p><strong>--scroll</strong><br />
+Make layout scrollable.</p>
+<p><em><em>--enable-log</em>[=TEXT]</em>**<br />
+Show log window. This window gathers all of lines from stdin, started
+from <em>#</em> instead of setting appropriate progress text. Optional
+argument <em>TEXT</em> is a text label for window expander.</p>
+<p><strong>--log-on-top</strong><br />
+Place log window above progress bars.</p>
+<p><strong>--log-expanded</strong><br />
+Start with expanded log window.</p>
+<p><strong>--log-height</strong><br />
+Set the height of log window.</p>
+<p>Initial values for bars sets as an extra arguments. Each lines with
+progress data passed to stdin must be started from <em>N:</em> where
+<em>N</em> is a number of progress bar. In a <em>single-bar</em> mode
+<em>N:</em> is not needed.</p>
+<h2 id="text-info-options">Text info options</h2>
+<p><strong>--filename=<em>FILENAME</em></strong><br />
+Open specified file.</p>
+<p><strong>--editable</strong><br />
+Allow changes to text.</p>
+<p><strong>--wrap</strong><br />
+Enable text wrapping.</p>
+<p><strong>--formatted</strong><br />
+Enable Pango markup. This option doesn't work with <em>--editable</em>
+option.</p>
+<p><strong>--justify=<em>TYPE</em></strong><br />
+Set justification. <em>TYPE</em> may be <em>left</em>, <em>right</em>,
+<em>center</em> or <em>fill</em>. Default is <em>left</em>.</p>
+<p><strong>--margins=<em>NUMBER</em></strong><br />
+Set text margins to <em>NUMBER</em>.</p>
+<p><strong>--tail</strong><br />
+Autoscroll to end when new text appears. Works only when text is read
+from stdin.</p>
+<p><strong>--show-cursor</strong><br />
+Show cursor in read-only mode.</p>
+<p><strong>--show-uri</strong><br />
+Make links in text clickable. Links opens with <em>xdg-open</em>
+command.</p>
+<p><strong>--fore=<em>COLOR</em></strong><br />
+Set default color for text.</p>
+<p><strong>--back=<em>COLOR</em></strong><br />
+Set default color for background.</p>
+<p><strong>--uri-color=<em>COLOR</em></strong><br />
+Set color for links. Default is <em>blue</em>.</p>
+<p><strong>--listen</strong><br />
+Listen data from stdin even if filename was specified.</p>
+<p><strong>--in-place</strong><br />
+Save file on exit instead of print it content on stdout. This option
+works only if file was specified from command-line.</p>
+<p><strong>--file-op</strong><br />
+Enable file operations. This option adds open and save menu items to
+popup menu, This option works only in editable mode.</p>
+<p><strong>--disable-search</strong><br />
+Disable search bar.</p>
+<p><strong>--confirm-save=<em>[TEXT]</em></strong><br />
+Confirm file saving if file content was changed. This option works only
+when <em>--in-place</em> is specified. Optional argument is a text for
+confirmation dialog.</p>
+<p>Next options works only if yad builds with GtkSourceView.</p>
+<p><strong>--lang=<em>LANGUAGE</em></strong><br />
+Highlight syntax for specified <em>LANGUAGE</em>.</p>
+<p><strong>--theme=<em>THEME</em></strong><br />
+Set used theme to <em>THEME</em>. Use <em>yad-tools(1)</em> to get list
+of all available themes.</p>
+<p><strong>--line-num</strong><br />
+Show line numbers.</p>
+<p><strong>--line-hl</strong><br />
+Highlight current line.</p>
+<p><strong>--line-marks</strong><br />
+Enable line marks mode. There are two types of marks. First type sets by
+left mouse button and second by the right mouse button.</p>
+<p><strong>--mark1-color=<em>COLOR</em></strong><br />
+Set background color for marks of first type to <em>COLOR</em>. Default
+is lightgreen.</p>
+<p><strong>--mark2-color=<em>COLOR</em></strong><br />
+Set background color for marks of second type to <em>COLOR</em>. Default
+is pink.</p>
+<p><strong>--right-margin=<em>[POS]</em></strong><br />
+Enable mark of right margin. Optional argument <em>POS</em> is a margin
+position in characters. Default is 80.</p>
+<p><strong>--brackets</strong><br />
+Highlight matching brackets.</p>
+<p><strong>--indent</strong><br />
+Enable autoindent. This option also sets <em>TAB</em> key as indent
+key.</p>
+<p><strong>--smart-he=<em>TYPE</em></strong><br />
+Set behavior of <em>HOME</em> and <em>END</em> keys. The <em>TYPE</em>
+is one of <em>newer</em>, <em>before</em>, <em>after</em> or
+<em>always</em>.</p>
+<p><strong>--smart-bs</strong><br />
+Enable smart mode for <em>BackSpace</em>. If this option is enabled
+BackSpace will delete spaces to the next tab position.</p>
+<p><strong>--tab-width</strong><br />
+Set tabulation step.</p>
+<p><strong>--indent-width</strong><br />
+Set indentation step.</p>
+<p><strong>--spaces</strong><br />
+Insert spaces instead of tabulation.</p>
+<p>If <em>fontname</em> option is specified for text dialog, the
+description of font must be in CSS style (not in a Pango style). Sending
+FormFeed character to text dialog clears it. This symbol may be sent as
+<em>echo -e '\f'</em>. Pressing <em>Ctrl+S</em> popups the search entry
+in text dialog.</p>
+<h2 id="scale-options">Scale options</h2>
+<p><strong>--value=<em>VALUE</em></strong><br />
+Set initial value.</p>
+<p><strong>--min-value=<em>VALUE</em></strong><br />
+Set minimum value.</p>
+<p><strong>--max-value=<em>VALUE</em></strong><br />
+Set maximum value.</p>
+<p><strong>--step=<em>VALUE</em></strong><br />
+Set step size.</p>
+<p><strong>--enforce-step</strong><br />
+Only allow values in step increments.</p>
+<p><strong>--page=<em>VALUE</em></strong><br />
+Set paging size. By default page value is STEP*10.</p>
+<p><strong>--print-partial</strong><br />
+Print partial values.</p>
+<p><strong>--hide-value</strong><br />
+Hide value.</p>
+<p><strong>--vertical</strong><br />
+Show vertical scale.</p>
+<p><strong>--invert</strong><br />
+Invert scale direction.</p>
+<p><strong>--inc-buttons</strong><br />
+Show buttons on edges of a scale for increasing or decreasing scale
+value.</p>
+<p><strong>--mark=<em>[NAME]:VALUE</em></strong><br />
+Add a mark to scale. May be used multiple times. <em>NAME</em> is an
+optional arguments for set label to mark.</p>
+<h2 id="file-filters-options">File filters options</h2>
+<p><strong>--file-filter=<em>NAME</em> | PATTERN1 PATTERN2
+...</strong><br />
+Add a filename filter. <em>NAME</em> is a displayed filter name,
+<em>PATTERN</em> is a shell-style filename pattern (for example *.txt).
+This option may be used multiple times.</p>
+<p><strong>--mime-filter=<em>NAME</em> | MIME1 MIME2 ...</strong><br />
+Add a mime-type filter. <em>NAME</em> is a displayed filter name,
+<em>PATTERN</em> is a name of mime type (for example text/plain). This
+option may be used multiple times.</p>
+<p><strong>--image-filter=<em>[NAME]</em></strong><br />
+Add filter for images supported by gdk-pixbuf library. <em>NAME</em> in
+as optional name for this filter.</p>
+<p>This options applies to all of yad's file chooser dialogs.</p>
+<h2 id="file-preview-options">File preview options</h2>
+<p><strong>--add-preview</strong><br />
+Add preview widget. Preview images loads from normal (default) or large
+thumbnails according to XDG Thumbnails specification v0.8.0 (<a
+href="http://standards.freedesktop.org/thumbnail-spec/latest/">http://standards.freedesktop.org/thumbnail-spec/latest/</a>)
+or creates by yad for image files and saves as normal or large
+thumbnails.</p>
+<p><strong>--large-preview</strong><br />
+Use large previews by default. This option can be permanently turned on
+through yad settings.</p>
+<p>This options applies to all of yad's file chooser dialogs.</p>
+<p><strong>NOTE:</strong> YAD doesn't check mtime for thumbnailed images
+and doesn't updates preview if origial file was changed after thumbnail
+was created.</p>
+<h2 id="miscellaneous-options">Miscellaneous options</h2>
+<p><strong>-?, --help</strong><br />
+Show summary of options.</p>
+<p><strong>--about</strong><br />
+Display an about dialog.</p>
+<p><strong>--version</strong><br />
+Show version of program.</p>
+<p>Also the standard GTK+ options are accepted.</p>
+<h2 id="notebook-and-paned">Notebook and paned</h2>
+<p>Notebook is a complex dialog which swallow other dialogs in his tabs.
+Dialogs identifies by unique key (integer) and must be runs in a special
+plug mode (--plug option). Following example runs notebook dialog with
+two tabs, first has a simple text and second is an entry dialog.</p>
+<pre><code>#! /bin/sh
+
+yad --plug=12345 --tabnum=1 --text=&quot;first tab with text&quot; &amp;&gt; res1 &amp;
+yad --plug=12345 --tabnum=2 --text=&quot;second tab&quot; --entry &amp;&gt; res2 &amp;
+yad --notebook --key=12345 --tab=&quot;Tab 1&quot; --tab=&quot;Tab 2&quot;</code></pre>
+<p>NOTE: The order of output results for tabs is undefined!</p>
+<p>Paned works in a same manner as a notebook with one restriction -
+only first and secong plug dialogs will be swallowed to panes.</p>
+<h2 id="notification">Notification</h2>
+<p>Allows commands to be sent to yad in the form
+<strong>command:args</strong>. Possible commands are <em>icon</em>,
+<em>tooltip</em>, <em>visible</em>, <em>action</em>, <em>menu</em> and
+<em>quit</em>.</p>
+<p><strong>icon:ICONNAME</strong><br />
+Set notification icon to ICONNAME.</p>
+<p><strong>tooltip:STRING</strong><br />
+Set notification tooltip.</p>
+<p><strong>visible:[true|false|blink]</strong><br />
+Set notification icon to visible, invisible or blinking states.</p>
+<p><strong>action:COMMAND</strong><br />
+Specify the command running when click on the icon. There are two
+special commands - <em>menu</em> for popup user defined menu and
+<em>quit</em> for exit the program.</p>
+<p><strong>menu:STRING</strong><br />
+Set popup menu for notification icon. STRING must be in form
+<em>name1[!action1[!icon1]]|name2[!action2[!icon2]]...</em>. Empty name
+add separator to menu. Separator character for values (e.g. `|') sets
+with --separator argument. Separator character for menu items (e.g. `!')
+sets with --item-separator argument.</p>
+<p><strong>quit</strong><br />
+Exit the program. Middle click on icon also send <em>quit</em>
+command.</p>
+<h2 id="stock-items">Stock items</h2>
+<p>This is a list of predefined items available in <em>yad</em>.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ID</td>
+<td style="text-align: left;">Label text</td>
+<td style="text-align: left;">Icon name</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">_</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-about</td>
+<td style="text-align: left;">About</td>
+<td style="text-align: left;">help-about</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-add</td>
+<td style="text-align: left;">Add</td>
+<td style="text-align: left;">list-add</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-apply</td>
+<td style="text-align: left;">Apply</td>
+<td style="text-align: left;">gtk-apply</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-cancel</td>
+<td style="text-align: left;">Cancel</td>
+<td style="text-align: left;">gtk-cancel</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-clear</td>
+<td style="text-align: left;">Clear</td>
+<td style="text-align: left;">document-clear</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-close</td>
+<td style="text-align: left;">Close</td>
+<td style="text-align: left;">window-close</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-edit</td>
+<td style="text-align: left;">Edit</td>
+<td style="text-align: left;">gtk-edit</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-execute</td>
+<td style="text-align: left;">Execute</td>
+<td style="text-align: left;">system-run</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-no</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">gtk-no</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-ok</td>
+<td style="text-align: left;">OK</td>
+<td style="text-align: left;">gtk-ok</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-open</td>
+<td style="text-align: left;">Open</td>
+<td style="text-align: left;">document-open</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-print</td>
+<td style="text-align: left;">Print</td>
+<td style="text-align: left;">document-print</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-quit</td>
+<td style="text-align: left;">Quit</td>
+<td style="text-align: left;">application-exit</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-refresh</td>
+<td style="text-align: left;">Refresh</td>
+<td style="text-align: left;">view-refresh</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-remove</td>
+<td style="text-align: left;">Remove</td>
+<td style="text-align: left;">list-remove</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-save</td>
+<td style="text-align: left;">Save</td>
+<td style="text-align: left;">document-save</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-search</td>
+<td style="text-align: left;">Search</td>
+<td style="text-align: left;">system-search</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-settings</td>
+<td style="text-align: left;">Settings</td>
+<td style="text-align: left;">gtk-preferences</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-yes</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">gtk-yes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="environment-variables">Environment variables</h2>
+<p><strong>YAD_OPTIONS</strong><br />
+This variable can holds some default options for <em>yad</em>. All
+options in this variable may be redefined from command line.</p>
+<p><strong>YAD_PID</strong><br />
+This variable sets to the value of current dialog's pid and accessible
+in all dialog children.</p>
+<p><strong>YAD_XID</strong><br />
+This variable sets to the value of current dialog's X Window ID and
+accessible in all dialog children. This variable is not set in print and
+notification dialogs, and in a dialogs which acts as a notebook or paned
+children.</p>
+<h2 id="user-defined-signals">User defined signals</h2>
+<p><strong>SIGUSR1</strong><br />
+Close dialog with 0 exit code.</p>
+<p><strong>SIGUSR2</strong><br />
+Close dialog with 1 exit code.</p>
+<h2 id="exit-status">Exit status</h2>
+<p><strong>0</strong><br />
+The user has pressed <em>OK</em> button</p>
+<p><strong>1</strong><br />
+The user has pressed <em>Cancel</em> button</p>
+<p><strong>70</strong><br />
+The dialog has been closed because the timeout has been reached.</p>
+<p><strong>252</strong><br />
+The dialog has been closed by pressing <em>Esc</em> or used the window
+functions to close the dialog</p>
+<p>Exit codes for user-specified buttons must be specified in command
+line. Even exit code mean to print result, odd just return exit
+code.</p>
+<h2 id="widgets-names">Widgets names</h2>
+<p>The look and feel of yad's dialogs can be customized through gtkrc
+file. Here is the names of yad's widgets:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Widget name</td>
+<td style="text-align: left;">Widget type</td>
+<td style="text-align: left;">Description</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">_</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-dialog-window</td>
+<td style="text-align: left;">GtkDialog</td>
+<td style="text-align: left;">Dialog window</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-dialog-image</td>
+<td style="text-align: left;">GtkImage</td>
+<td style="text-align: left;">Dialog image</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-dialog-label</td>
+<td style="text-align: left;">GtkLabel</td>
+<td style="text-align: left;">Dialog text</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-app-widget</td>
+<td style="text-align: left;">GtkAppChooserWidget</td>
+<td style="text-align: left;">Application selection widget</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-calendar-widget</td>
+<td style="text-align: left;">GtkCalendar</td>
+<td style="text-align: left;">Calendar widget</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-color-widget</td>
+<td style="text-align: left;">GtkColorChooser</td>
+<td style="text-align: left;">Color selection widget</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-color-palette</td>
+<td style="text-align: left;">GtkTreeView</td>
+<td style="text-align: left;">Predefined colors list</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-entry-label</td>
+<td style="text-align: left;">GtkLabel</td>
+<td style="text-align: left;">Entry label</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-entry-widget</td>
+<td style="text-align: left;">GtkEntry</td>
+<td style="text-align: left;">Entry widget</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-entry-spin</td>
+<td style="text-align: left;">GtkSpinButton</td>
+<td style="text-align: left;">Entry widget for numeric values</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-entry-combo</td>
+<td style="text-align: left;">GtkComboBox</td>
+<td style="text-align: left;">Entry widget with combo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-entry-edit-combo</td>
+<td style="text-align: left;">GtkComboBoxEntry</td>
+<td style="text-align: left;">Entry widget with editable combo</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-file-widget</td>
+<td style="text-align: left;">GtkFileChooser</td>
+<td style="text-align: left;">File selection widget</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-font-widget</td>
+<td style="text-align: left;">GtkFontChooser</td>
+<td style="text-align: left;">Font selection widget</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-form-flabel</td>
+<td style="text-align: left;">GtkLabel</td>
+<td style="text-align: left;">Field label in form</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-form-button</td>
+<td style="text-align: left;">GtkButton</td>
+<td style="text-align: left;">Button field in form</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-form-entry</td>
+<td style="text-align: left;">GtkEntrfy</td>
+<td style="text-align: left;">Entry field in form</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-form-spin</td>
+<td style="text-align: left;">GtkSpinButton</td>
+<td style="text-align: left;">Numeric entry field in form</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-form-check</td>
+<td style="text-align: left;">GtkCheckButton</td>
+<td style="text-align: left;">Checkbox field in form</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-form-combo</td>
+<td style="text-align: left;">GtkComboBox</td>
+<td style="text-align: left;">Combo field in form</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-form-edit-combo</td>
+<td style="text-align: left;">GtkComboBoxEntry</td>
+<td style="text-align: left;">Editable combo field in form</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-form-link</td>
+<td style="text-align: left;">GtkLinkButton</td>
+<td style="text-align: left;">Link field in form</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-form-file</td>
+<td style="text-align: left;">GtkFileChooserButton</td>
+<td style="text-align: left;">File or directory field in form</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-form-font</td>
+<td style="text-align: left;">GtkFontChooserButton</td>
+<td style="text-align: left;">Font field in form</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-form-app</td>
+<td style="text-align: left;">GtkAppChooserButton</td>
+<td style="text-align: left;">Application field in form</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-form-color</td>
+<td style="text-align: left;">GtkColorChooserButton</td>
+<td style="text-align: left;">Color field in form</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-form-label</td>
+<td style="text-align: left;">GtkLabel</td>
+<td style="text-align: left;">Label field in form</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-form-scale</td>
+<td style="text-align: left;">GtkScale</td>
+<td style="text-align: left;">Scale widget in form</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-form-separator</td>
+<td style="text-align: left;">GtkSeparator</td>
+<td style="text-align: left;">Separator in form</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-form-text</td>
+<td style="text-align: left;">GtkTextView</td>
+<td style="text-align: left;">Multiline text field in form</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-icons-full</td>
+<td style="text-align: left;">GtkIconView</td>
+<td style="text-align: left;">Icons widget for normal mode</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-icons-compact</td>
+<td style="text-align: left;">GtkTreeView</td>
+<td style="text-align: left;">Icons widget for compact mode</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-list-widget</td>
+<td style="text-align: left;">GtkTreeView</td>
+<td style="text-align: left;">List widget</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-notebook-widget</td>
+<td style="text-align: left;">GtkNotebook</td>
+<td style="text-align: left;">Notebook widget</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-paned-widget</td>
+<td style="text-align: left;">GtkPaned</td>
+<td style="text-align: left;">Horizontal or vertical pane widget</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-progress-widget</td>
+<td style="text-align: left;">GtkProgressBar</td>
+<td style="text-align: left;">Progressbar widget</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-scale-widget</td>
+<td style="text-align: left;">GtkScale</td>
+<td style="text-align: left;">Scale widget</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-stack-widget</td>
+<td style="text-align: left;">GtkStack</td>
+<td style="text-align: left;">Stack widget</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-stack-switcher-widget</td>
+<td style="text-align: left;">GtkStackSwitcher</td>
+<td style="text-align: left;">Stack switcher widget</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yad-text-widget</td>
+<td style="text-align: left;">GtkTextView</td>
+<td style="text-align: left;">Text info widget</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yad-timeout-indicator</td>
+<td style="text-align: left;">GtkProgreeBar</td>
+<td style="text-align: left;">Timeout indicator</td>
+</tr>
+</tbody>
+</table>
+<h2 id="settings">Settings</h2>
+<p>YAD keeps settings in gsettings database. Use <em>gsettings list-keys
+yad.settings</em> to get list of available settings. Settings values can
+be obtained by <em>gsettings get yad.settings &lt;key&gt;</em> and
+changed by <em>gsettings set yad.settings &lt;key&gt;
+&lt;new-value&gt;</em></p>
+<h2 id="examples">Examples</h2>
+<p>Display a file selector with the title <em>Select a file to</em>
+remove. The file selected is returned on standard output.</p>
+<blockquote>
+<p>yad --title="Select a file to remove" --file-selection</p>
+</blockquote>
+<p>Display a text entry dialog with the title <em>Select Host</em> and
+the text <em>Select the host you would like to flood-ping</em>. The
+entered text is returned on standard output.</p>
+<blockquote>
+<p>yad --title "Select Host" --entry --text "Select the host you would
+like to flood-ping"</p>
+</blockquote>
+<p>Display a dialog, asking <em>Microsoft Windows has been found!
+Would</em> you like to remove it?. The return code will be 0 (true in
+shell) if <em>YES</em> is selected, and 1 (false) if <em>NO</em> is
+selected.</p>
+<blockquote>
+<p>yad --image "dialog-question" --title "Alert" --button=gtk-yes:0
+--button=gtk-no:1 --text "Microsoft Windows has been found! Would you
+like to remove it?"</p>
+</blockquote>
+<p>Show the search results in a list dialog with the title <em>Search
+Results</em> and the text <em>Finding all header files...</em>.</p>
+<blockquote>
+<p>find . -name '*.h' | yad --list --title "Search Results" --text
+"Finding all header files.." --column "Files"</p>
+</blockquote>
+<p>Show an icon in the notification area</p>
+<blockquote>
+<p>yad --notification --image=update.png --text "System update
+necessary!" --command "xterm -e apt-get upgrade"</p>
+</blockquote>
+<p>Display a weekly shopping list in a check list dialog with
+<em>Apples</em> and <em>Oranges</em> pre selected</p>
+<blockquote>
+<p>yad --list --checklist --column "Buy" --column "Item" TRUE Apples
+TRUE Oranges FALSE Pears FALSE Toothpaste</p>
+</blockquote>
+<p>Display a progress dialog while searching for all the postscript
+files in your home directory</p>
+<blockquote>
+<p>find $HOME -name '*.ps' | yad --progress --pulsate</p>
+</blockquote>
+<p>Display a box with all of the installed desktop applications</p>
+<blockquote>
+<p>yad --icons --read-dir=/usr/share/applications</p>
+</blockquote>
+<p>Display list in tree mode</p>
+<blockquote>
+<p>yad --list --tree --column "Items" f Fruits 1:f Apple 2:f Lemon v
+Vegetables 3:v Popato 4:v Onion</p>
+</blockquote>
+<h2 id="development">Development</h2>
+<p>There are some developers features providing with YAD.</p>
+<p><em>YAD icon browser</em> is a graphical tool for discover icons in
+current or user-specified GTK+ icon theme. Launch it as</p>
+<p>yad-icon-browser [theme]</p>
+<p>When using autoconf you may use special m4 macro <em>AM_PATH_YAD</em>
+for looking for yad and check it version. Usage of this macro is</p>
+<blockquote>
+<p>AM_PATH_YAD([MINIMUM-VERSION],\ [ACTION-IF-FOUND],\
+[ACTION-IF-NOT-FOUND])</p>
+</blockquote>
+<h2 id="authors">Authors</h2>
+<p><strong>Yad</strong> was written by Victor Ananjevsky &lt;<a
+href="mailto:ananasik@gmail.com">ananasik@gmail.com</a>&gt;. Yad icon
+created by Bogdan Lisovich.</p>
+<h2 id="see-also">See also</h2>
+<p><strong>gdialog</strong>(1), <strong>dialog</strong>(1),
+<strong>zenity</strong>(1), <strong>yad-tools</strong>(1)</p>

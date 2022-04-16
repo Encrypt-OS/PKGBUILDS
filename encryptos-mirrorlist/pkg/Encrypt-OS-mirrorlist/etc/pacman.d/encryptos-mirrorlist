@@ -1,0 +1,16 @@
+######################################################
+####                                              ####
+###           EncryptOS  Mirror List               ###
+####                                              ####
+######################################################
+#### Entry in file /etc/pacman.conf:
+###     [encryptos]
+###     SigLevel = PackageRequired
+###     Include = /etc/pacman.d/encryptos-mirrorlist
+######################################################
+### Tip: Use the 'eos-rankmirrors' program to rank
+###      these mirrors or re-order them manually.
+######################################################
+
+## GitHub
+Server = https://raw.githubusercontent.com/Encrypt-OS/repo/main/$repo/$arch

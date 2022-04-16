@@ -1,0 +1,2 @@
+/home/snaildos/Documents/git/PKGBUILDS/eos-quickstart/src/encryptos-quickstart-1.1.0/build/eos-quickstart_autogen/include/../EWIEGA46WW/moc_packagemanager.cpp.json
+/home/snaildos/Documents/git/PKGBUILDS/eos-quickstart/src/encryptos-quickstart-1.1.0/build/eos-quickstart_autogen/include/../EWIEGA46WW/moc_packagemodel.cpp.json

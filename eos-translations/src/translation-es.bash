@@ -1,0 +1,1 @@
+/home/snaildos/Documents/git/PKGBUILDS/eos-translations/translation-es.bash

@@ -1,0 +1,133 @@
+<h1 id="welcome">welcome</h1>
+<p>Welcome is an application that helps users by providing</p>
+<ul>
+<li>tools for system management and customization</li>
+<li>links for additional information</li>
+</ul>
+<p>and more.</p>
+<p>Welcome has two main uses:</p>
+<ul>
+<li>helps in the install phase</li>
+<li>helps in the system usage phase</li>
+</ul>
+<br>
+
+<p><img src="welcome-man.png" /></p>
+<h2 id="synopsis">Synopsis</h2>
+<p>eos-welcome [options]</p>
+<h2 id="options">Options</h2>
+<pre><code>--enable | -f     Enable this Welcome app.
+--disable         Disable this Welcome app.
+--lang=X          Use language X on the user interface. Default for X: &#39;en&#39;
+--version         Show the version of this app.
+--startdelay=X    Wait before actually starting this app.
+                  X value syntax is the same as in the &#39;sleep&#39; command.
+--changelog       Show the changelog of this package.
+</code></pre>
+<h2 id="description">Description</h2>
+<h3 id="enabling-or-disabling-welcome">Enabling or disabling
+Welcome</h3>
+<p>To have Welcome app started when you log in, make sure</p>
+<ul>
+<li>Welcome app is selected in the Autostart feature of the DE<br>
+or</li>
+<li><code>Hidden=false</code> is set in file
+<code>/etc/xdg/autostart/welcome.desktop</code></li>
+</ul>
+<p>On DEs that do not work well with system's <em>Autostart</em>
+feature, you may also disable the Welcome app from the app itself</p>
+<ul>
+<li>with the <code>--disable</code> option</li>
+<li>with a button in the app (some DEs only)</li>
+</ul>
+<p>To re-enable the app, click the Welcome app icon, or use the terminal
+command</p>
+<pre><code>eos-welcome --enable</code></pre>
+<p>Note: check also settings in the configuration file
+<code>~/.config/EOS-greeter.conf</code>.</p>
+<h3 id="personalizing-welcome">Personalizing Welcome</h3>
+<p>User may add own buttons into the Welcome app. The buttons will
+appear under the <strong>Personal Commands</strong> tab.</p>
+<h3 id="language-support">Language support</h3>
+<p>Option <code>--lang=X</code> currently supports a small set of
+languages.<br> The X should consist of two (or more) letters (like 'en'
+for English or 'pt_BR' for Brazilian Portuguese).</p>
+<p>See the supported languages (the X) e.g. by terminal command</p>
+<pre><code>ls -1 /usr/share/endeavouros/scripts/translation-*.bash | \
+   sed &#39;s|.*/translation-\([a-zA-Z_]*\)\.bash|\1|&#39;</code></pre>
+<p>If option <code>--lang</code> is not given, the language value is
+extracted from the first letters of the environment variable LANG.<br>
+If the extracted value is not supported by Welcome, English will be
+used.</p>
+<h2 id="tips">Tips</h2>
+<h3 id="software-news">Software news</h3>
+<p>Welcome app window includes a button <strong>Software News</strong>
+on the lower left corner.<br> It contains useful and important news for
+the user about the EndeavourOS software, e.g. manual interventions or
+important code changes.</p>
+<p>Make sure you click that button regularly!</p>
+<h3 id="add-favorite-packages-at-install-time">Add favorite packages at
+install time</h3>
+<p>To customize the <em>online</em> mode install phase, you can directly
+modify file <code>$HOME/user_pkglist.txt</code> and add package names to
+that file. Note that only Arch and EndeavourOS packages are supported,
+but not AUR packages.</p>
+<h3 id="add-commands-at-install-time-advanced">Add commands at install
+time (<em>Advanced</em>)</h3>
+<p>To customize the <em>online</em> mode install phase, you can directly
+modify file<br></p>
+<pre><code>/home/liveuser/user_commands.bash</code></pre>
+<p>and add almost any commands to that file. See more instructions in
+this file.</p>
+<p>Examples of things you can do with the commands in
+<code>user_commands.bash</code>:</p>
+<ul>
+<li>install or remove packages</li>
+<li>enable or disable systemd services</li>
+<li>customize new user's personal files at $HOME</li>
+<li>and more!</li>
+</ul>
+<p>Here's an example code for <code>user_commands.bash</code>. It will
+be called with the bash interpreter, so it must have bash syntax:</p>
+<pre><code>#!/bin/bash
+
+pacman -R --noconfirm xed                   # uninstall packages
+pacman -S --noconfirm --needed geany gufw   # install packages
+systemctl enable ufw                        # enable a systemd service
+
+user=$(cat /tmp/new_username.txt)           # get the new username!
+home=/home/$user                            # get the $HOME folder path
+if [ &quot;$user&quot; != &quot;&quot; ] ; then
+  cat &lt;&lt;EOF &gt;&gt; $home/.bashrc                # add more configuration to your ~/.bashrc
+
+alias pacdiff=eos-pacdiff
+alias df=&#39;df -hT&#39;
+
+EOF
+chown $user:$user $home/.bashrc             # make sure ~/.bashrc has the right owner
+fi</code></pre>
+<p>Yet another tip: download <em>your</em>
+<code>user_commands.bash</code> from your website! For example:</p>
+<pre><code>$ pwd
+/home/liveuser
+$ wget -O user_commands.bash https://&lt;your-website&gt;/user_commands.bash</code></pre>
+<p>Examples of commands that <em>cannot</em> be used here:</p>
+<ul>
+<li>yay</li>
+<li>makepkg</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>eos-welcome --lang=en         # use English instead of the local language
+eos-welcome --disable         # disable Welcome from starting automatically
+eos-welcome --enable          # re-enable Welcome after disabling it
+
+# Adding packages at install. Close Welcome app first, then commmand:
+
+cat &lt;&lt;EOF &gt;&gt; ~/user_pkglist.txt
+  gufw
+  emacs
+EOF
+eos-welcome &amp;</code></pre>
+<h2 id="see-also">See also</h2>
+<p><a
+href="https://discovery.endeavouros.com/endeavouros-tools/welcome">https://discovery.endeavouros.com/endeavouros-tools/welcome</a></p>

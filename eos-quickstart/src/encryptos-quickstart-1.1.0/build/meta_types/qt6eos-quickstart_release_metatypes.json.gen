@@ -1,0 +1,43 @@
+[
+    {
+        "classes": [
+            {
+                "className": "PackageManager",
+                "object": true,
+                "qualifiedClassName": "PackageManager",
+                "slots": [
+                    {
+                        "access": "public",
+                        "name": "installPackages",
+                        "returnType": "bool"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "packagemanager.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "PackageModel",
+                "object": true,
+                "qualifiedClassName": "PackageModel",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QAbstractListModel"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "packagemodel.h",
+        "outputRevision": 68
+    }
+]

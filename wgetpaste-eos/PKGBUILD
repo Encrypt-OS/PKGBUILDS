@@ -42,3 +42,6 @@ _wgetpaste-eos_prepare() {
 
 _wgetpaste-eos_prepare
 unset -f _wgetpaste-eos_prepare
+sha256sums=('621dbafbc7bcf5438f11447a325d8974069e3df03ef0c8bb2a2cc3de2c0cdb13'
+            'SKIP'
+            'cbc0437f7e04d95ffd224011ee2a056a84dfd7143e314e6962688295f68def4d')
