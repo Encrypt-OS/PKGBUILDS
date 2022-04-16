@@ -6,10 +6,10 @@
 # calamares_config_ce - Community Edition settings
 
 pkgname=calamares_current
-_eos_changes=Encrypt-OS-calamares
+_eos_changes=EncryptOS-calamares
 _reponame=calamares
 _calamares_ver=3.2.54
-pkgver=22.04.1.4
+pkgver=10.1.0
 pkgrel=1
 pkgdesc="Calamares installer for Encrypt-OS"
 arch=('any')
@@ -28,7 +28,7 @@ source=(
   "https://github.com/calamares/calamares/releases/download/v$_calamares_ver/$_reponame-$_calamares_ver.tar.gz"
 )
 
-sha256sums=('e0aa5cf1f707fb4051673e8922807ebce5c378fbcf4975267171095c09ad4acb'
+sha256sums=('4f1c6bbcf25b870abd09704b0088ce8a40d6bfaf32661be3b98678fbc60ad6a2'
             '4df74b6c3b238cf0bff01a04566e265de3f143c297fbd8e0c0aa9447595cc8e9')
 
 prepare() {

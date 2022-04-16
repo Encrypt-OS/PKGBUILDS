@@ -1,0 +1,1 @@
+/home/snaildos/Documents/git/PKGBUILDS/arc-gtk-theme-eos/arc-gtk-theme-eos-20220405.tar.xz.sig

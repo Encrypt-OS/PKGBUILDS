@@ -2,16 +2,16 @@
 
 
 pkgname=calamares_config_default
-pkgver=22.04.1.4
+pkgver=10.1.0
 pkgrel=1
-_repo_name=Encrypt-OS-calamares
-pkgdesc='Encrypt-OS calamares configuration files and branding'
+_repo_name=EncryptOS-calamares
+pkgdesc='Encrypt-OS calamares configuration files for Community Editions'
 arch=('any')
 url='https://www.Encrypt-OS.com'
 license=('GPL3')
 source=("https://github.com/Encrypt-OS/${_repo_name}/archive/refs/tags/${pkgver}.tar.gz")
 
-sha512sums=('c6d349ef8c4c1ab756caf93f2caa1956294030e195698ace69dfeb74c689a8b1d362bd78b830a09e68440912beeca3805dda072e501619ab2fd409127ca50702')
+sha512sums=('aaf38d9bdb29d11d3d996defcf01edf5daa03ac2e04c6755cbded0a6ac6ada7fba4202d68e1034aeda7932aef7a03b3c7d0bf9ce6b3ecf96b475c46644fef092')
 
 
 _date=$(date +%Y.%m.%d)
@@ -20,7 +20,7 @@ prepare() {
     mv "$_repo_name-$pkgver"            "$_repo_name"
 
     # set date for calamares_branding
-    sed -i "$srcdir/${_repo_name}/calamares/branding/Encrypt-OS/branding.desc" \
+    sed -i "$srcdir/${_repo_name}/calamares/branding/EncryptOS/branding.desc" \
     -e "s|^\(    version:[ ]*\).*$|\1$_date|" \
     -e "s|^\(    shortVersion:[ ]*\).*$|\1$_date|"
 

@@ -1,0 +1,570 @@
+#!/bin/bash
+
+Line2()   { echo "$@" >&2 ; }
+Printf2() { printf "$@" >&2 ; }
+
+# use monospace (non-proportional) fonts!
+#FormatVersion()     { printf "%s<tt>  </tt>" "$1" ; }
+FormatVersion()     { printf "%s%s  " "$1" "$2" ; }
+FormatName()        { FormatVersion "$1" ; }
+
+RepoType() {
+    test -z "$(grep "^\[testing\]$" /etc/pacman.conf)" && echo "Stable" || echo "Testing"
+}
+
+Header() {
+    local fname="${FUNCNAME[1]}"
+    case "$fname" in
+        KernelOrg) fname="$KOName" ;;
+        KOVersion) fname="$KOVersionName" ;;
+    esac
+    local hdr="<b>$fname</b>"
+
+    if [ "$fname" = "$(RepoType)" ] ; then
+        hdr+=" (current)"
+    fi
+    FormatVersion "$hdr"
+}
+
+LocalVersion() {
+    local pkg="$(/usr/bin/basename "$1")"
+    $pacman -Q "$pkg" 2>/dev/null | /usr/bin/awk '{print $2}'
+}
+Exist()        { test -n "$version" && echo TRUE || echo FALSE ; }
+
+Choose() {
+    local version exist xx
+    cmd+=(--field="$(Header)":LBL "")
+    for xx in "${kernels[@]}" ; do
+        version="$(LocalVersion "$xx")"
+        exist="$(Exist)"
+        cmd+=(--field="":CHK "$exist")   # Field has one space, workaround for a yad bug.
+                                         # Fixed in yad 7.2-1, removed workaround.
+    done
+}
+
+PkgName() {
+    local xx
+    cmd+=(--field="$(Header)":LBL "")
+    for xx in "${kernels[@]}" ; do
+        cmd+=(--field="$(FormatName "$xx")":LBL "")
+    done
+}
+
+Installed() {
+    local version xx
+    local running=$(pacman -Q $(cat /proc/cmdline | sed 's|.*/vmlinuz-\([^ ]*\) .*|\1|') | awk '{print $2}')
+    local ind
+    cmd+=(--field="$(Header)":LBL "")
+    for xx in "${kernels[@]}" ; do
+        version="$(LocalVersion "$xx")"
+        ind=""
+        if [ "$version" = "$running" ] ; then
+            case "$xx" in
+                *-headers) ;;
+                *) ind=" <tt>$km</tt>"
+            esac
+        fi
+        if IsLatestKO "$version" ; then
+            cmd+=(--field="$(FormatVersion "<b>$version</b>" "$ind")":LBL "")
+        else
+            cmd+=(--field="$(FormatVersion "$version" "$ind")":LBL "")
+        fi
+    done
+}
+
+StableVersion() {
+    local pkg="$1"
+    local repo=""
+
+    # prevent usage of the 'testing' repo:
+    case "$pkg" in
+        linux | linux-headers | linux-lts*) repo=core/ ;;
+        linux-zen* | linux-hardened*)       repo=extra/ ;;
+    esac
+    LANG=C $pacman -Si $repo"$pkg" 2>/dev/null | grep ^Version | awk '{print $3}'
+}
+
+Stable() {
+    local version xx
+    cmd+=(--field="$(Header)":LBL "")
+    for xx in "${kernels[@]}" ; do
+        version="$(StableVersion "$xx")"
+        cmd+=(--field="$(FormatVersion "$version")":LBL "")
+    done
+}
+
+TestingVersion() {
+    local pkg="$(/usr/bin/basename "$1")"
+    echo "$testinginfo" | grep -A2 /packages/testing/x86_64/$pkg/ | tail -n 1 | sed 's|^.*>\([0-9][0-9a-z\.\-]*\)<.*$|\1|'
+}
+
+Testing() {
+    local URL="https://archlinux.org/packages/?sort=&repo=Testing&q=linux+kernel+and+modules"
+    local testinginfo="$(/usr/bin/curl -s $URL_timeout $URL)"
+    local version xx
+
+    [ -n "$testinginfo" ] || DIE "Fetching info from https://archlinux.org failed!"
+
+    cmd+=(--field="$(Header)":LBL "")
+    for xx in "${kernels[@]}" ; do
+        version="$(TestingVersion "$xx")"
+        test -n "$version" || version="$na"
+        cmd+=(--field="$(FormatVersion "$version")":LBL "")
+    done
+}
+
+KernelOrgVersion() {
+    local type="$1"
+    local count="$2"
+    [ -n "$count" ] || count=1
+    local result="$(echo "$kernelorg" | grep -A2 $type: | grep -v EOL | grep strong | sed -e 's|^.*<strong>||' -e 's|</strong>.*$||')"
+    case "$type" in
+        mainline) ;;
+        longterm) result="$(echo "$result" | head -n $count)" ;;
+        *) result="$(echo "$result" | grep -v "[0-9][0-9\.]*-rc")" ;;
+    esac
+    echo "$result"
+}
+
+KernelOrg() {
+    local version versions xx count=${#kernels[@]}
+    cmd+=(--field="$(Header)":LBL "")
+    for xx in "${org_kernels[@]}" ; do
+        readarray -t versions <<< "$(KernelOrgVersion "$xx")"
+        for version in "${versions[@]}" ; do
+            cmd+=(--field="$(FormatName "$xx")":LBL "")
+            ((count--))
+        done
+    done
+    PaddingLines
+}
+
+KOVersion() {
+    local version versions xx count=${#kernels[@]}
+    local stableversion="$(KernelOrgVersion stable)"
+    cmd+=(--field="$(Header)":LBL "")
+    for xx in "${org_kernels[@]}" ; do
+        readarray -t versions <<< "$(KernelOrgVersion "$xx")"
+        case "$xx" in
+            stable|longterm)
+                for version in "${versions[@]}" ; do
+                    cmd+=(--field="$(FormatVersion "<b>$version</b>")":LBL "")
+                    ((count--))
+                done
+                ;;
+            *)
+                for version in "${versions[@]}" ; do
+                    cmd+=(--field="$(FormatVersion "$version")":LBL "")
+                    ((count--))
+                done
+                ;;
+        esac
+    done
+    PaddingLines
+}
+
+IsLatestKO() {
+    local installed_version="$1"
+    local type versions version
+
+    installed_version="$(echo "$installed_version" | sed -e 's|-.*||' -e 's|\.[a-z].*||')"   # skip Arch suffixes
+
+    for type in stable longterm ; do
+        readarray -t versions <<< "$(KernelOrgVersion "$type" 100)"
+        for version in "${versions[@]}" ; do
+            if [ "$installed_version" = "$version" ] ; then
+                return 0
+            fi
+        done
+    done
+    return 1
+}
+
+PaddingLines() {
+    for ((xx=0; xx<count; xx++)) ; do
+        cmd+=(--field="$(FormatVersion "")":LBL "")
+    done
+}
+
+CommonStuff() {
+    local EOS_SCRIPTS_YAD=/usr/share/Encrypt-OS/scripts/eos-script-lib-yad
+    if [ ! -f $EOS_SCRIPTS_YAD ] ; then
+        Line2 "Sorry, package 'eos-bash-shared' is not installed."
+        exit 1
+    fi
+    source $EOS_SCRIPTS_YAD
+    export -f eos_yad
+    export -f eos_yad_RunCmdTermBash
+    export -f eos_yad_terminal
+
+    curl --silent --connect-timeout 8 https://archlinux.org >/dev/null || DIE "Sorry, archlinux site is unavailable!"
+}
+
+AkmConfig() {
+    local conf=/etc/akm.conf
+    if [ -f $conf ] ; then
+        source $conf
+
+        [ -n "$KERNEL_HEADER_WITH_KERNEL" ] && connect_header_with_kernel="$KERNEL_HEADER_WITH_KERNEL"
+        [ -n "$AKM_KERNELS_HEADERS" ]       && akm_kernels_headers_user=("${AKM_KERNELS_HEADERS[@]}")
+        [ -n "$AKM_WINDOW_WIDTH" ]          && akm_window_width=$AKM_WINDOW_WIDTH
+
+        Line2 "==> Config file $conf read."
+    fi
+}
+
+DIE() {
+    eos_yad --form --width=400 --title="AKM failure" --image=error --text="$1" --button=yad-quit
+    exit 1
+}
+
+UniqueArr() {
+    # remove duplicates from an array 'arr'
+    local -n arr=$1
+    local to=()
+    local xx yy
+
+    for xx in "${arr[@]}" ; do
+        for yy in "${to[@]}" ; do
+            [ "$xx" = "$yy" ] && break
+        done
+        [ "$xx" != "$yy" ] && to+=("$xx")
+    done
+    arr=("${to[@]}")
+}
+
+Options() {
+    local arg
+    for arg in "$@" ; do
+        case "$arg" in
+            --connect-header) connect_header_with_kernel=yes ;;
+            --scroll) scroll=yes ;;
+            -h | --help)
+                cat <<EOF >&2
+Usage: $progname [options]
+options:
+    --connect-header      Make kernel and header package go together at install or uninstall.
+    --scroll              Enable scrolling in the kernel info window. Useful if additional kernels are available.
+    --help | -h           This help.
+EOF
+                exit 0
+                ;;
+            -*) DIE "unsupported option '$arg'" ;;
+            *) DIE "unsupported parameter '$arg'" ;;
+        esac
+    done
+}
+
+AvailableKernelsAndHeaders() {
+
+    # Find kernel packages by finding packages which have words 'linux' and 'headers'.
+    # From the output of 'pacman -Sl'
+    # - find lines that have words: 'linux' and 'headers'
+    # - drop lines containing 'testing' (=testing repo, causes duplicates) and 'linux-api-headers' (=not a kernel header)
+    # - show the (header) package names
+    # Now we have names of the kernel headers.
+    # Then add the kernel packages to proper places and output the result.
+    # Then display possible kernels and headers added by the user.
+
+    # The output consists of a list of reponame and a package name formatted as: "reponame/pkgname"
+    # For example:
+    #    reponame/linux-xxx reponame/linux-xxx-headers
+    #    reponame/linux-yyy reponame/linux-yyy-headers
+    #    ...
+
+    local header
+    local kernel
+    local pacman=/usr/bin/pacman
+    local headers=$($pacman -Sl | awk '{printf("%s/%s\n", $1, $2)}' | grep "/linux[^ ]*-headers$" | grep -Pv '^testing/|/linux-api-headers$')
+
+    # Get kernel names from header names and display them all
+    for header in $headers ; do
+        kernel=$(echo "$header" | sed 's|-headers$||')
+        echo "$kernel $header"
+    done
+
+    # Display kernels added by the user
+    [ -n "${akm_kernels_headers_user}" ] && echo "${akm_kernels_headers_user[@]}"
+}
+
+Manual() {
+    xdg-open $(eos-github2gitlab https://github.com/Encrypt-OS/PKGBUILDS/blob/master/akm/README.md)
+}
+export -f Manual
+
+Changelog() {
+    xdg-open $(eos-github2gitlab https://github.com/Encrypt-OS/PKGBUILDS/commits/master/akm)
+}
+export -f Changelog
+
+FindNewRepoLineNumber() {
+    local linenr="$(grep -n '^# An example of ' /etc/pacman.conf | cut -d':' -f1)"
+    if [ -n "$linenr" ] ; then
+        ((linenr = linenr - 1))
+    else
+        linenr="$(grep -n '^\[Encrypt-OS\]' /etc/pacman.conf | cut -d':' -f1)"
+        if [ -n "$linenr" ] ; then
+            ((linenr = linenr + 3))
+        else
+            linenr=1
+        fi
+    fi
+    echo "$linenr"
+}
+
+GetSudoEditor() {
+    local editor ed1
+
+    for editor in "${EOS_SUDO_EDITORS[@]}" "$SUDO_EDITOR" "$VISUAL" "$EDITOR" nano ; do
+        ed1="$(echo "$editor" | awk '{print $1}')"
+        if (/usr/bin/which "$ed1" >& /dev/null) ; then
+            case "$ed1" in
+                mousepad | /usr/bin/mousepad)
+                    Editor="/usr/bin/dbus-launch $editor" ;;
+                *)
+                    Editor="$editor" ;;
+            esac
+            echo "$Editor"
+            return
+        fi
+    done
+    DIE "suitable editor not found"
+}
+
+PacmanConfEditor() {
+    local linenr="$1"
+    local editor="$(GetSudoEditor)"
+    local ed1="$(echo "$editor" | awk '{print $1}')"
+
+    case "$ed1" in
+        emacs|vim|nano | /usr/bin/emacs|/usr/bin/vim|/usr/bin/nano)
+            echo "$editor +$linenr"
+            ;;
+        *)
+            echo "$editor"
+            ;;
+    esac
+}
+
+Main()
+{
+    local progname="$(basename "$0")"
+    local pacman=/usr/bin/pacman
+    local na="(-)"
+    local kernels=()
+    local connect_header_with_kernel=no    # default, change with option --connect-header
+    local akm_kernels_headers_user=()
+    local akm_window_width=900
+    local scroll=no
+    local nrofkernelitems                  # 8 with only upstream kernels
+
+    CommonStuff
+    AkmConfig
+    Options "$@"
+
+    Line2 "==> Info: detecting available kernel packages."
+    kernels=( $(AvailableKernelsAndHeaders) )
+
+    #kernels=(
+    #    linux             linux-headers
+    #    linux-lts         linux-lts-headers
+    #    linux-zen         linux-zen-headers
+    #    linux-hardened    linux-hardened-headers
+    #)
+
+    local functions=(  # order is important!
+        Choose
+        PkgName
+        Installed
+        Stable
+        Testing
+        KernelOrg
+        KOVersion
+    )
+
+    nrofkernelitems=${#kernels[@]}
+    [ $nrofkernelitems -gt 8 ] && scroll=yes
+
+    # Line2 "connect_header_with_kernel = $connect_header_with_kernel"
+
+    local URL_timeout="--max-time 30"                      # used for all curl calls here
+
+    local URL="https://www.kernel.org"
+    local kernelorg=""
+    local org_kernels=(mainline stable longterm linux-next)
+    local KOName="K.o.category"
+    local KOVersionName="K.o.version"
+    local xx
+    local t1=""
+    local km="*"
+
+    t1+="Here you'll see information about currently installed and available Linux kernels.\n"
+    t1+="You can install and/or uninstall kernel packages using the checkboxes on the leftmost column.\n"
+    t1+="\n"
+    t1+="Column headers:\n"
+    t1+="<tt>"
+    t1+="    Choose        Checkboxes for installing/uninstalling kernel packages.\n"
+    t1+="    PkgName       Kernel package name.\n"
+    t1+="    Installed     Installed kernel package versions. A $km marks the currently running kernel.\n"
+    t1+="                  A bolded string means the latest K.o. version.\n"
+    t1+="    Stable        Versions available from the stable repos.\n"
+    t1+="    Testing       Versions available from the testing repos.\n"
+    t1+="    $KOName  Kernel category at kernel.org.\n"
+    t1+="    $KOVersionName   Latest version announced at kernel.org.\n\n"
+    t1+="</tt>"
+    t1+="Your current repos are either Stable or Testing (see /etc/pacman.conf).\n"
+    t1+="Marking <b>$na</b> means: info not available.\n"
+    if [ "$connect_header_with_kernel" = "yes" ] ; then
+        t1+="\n"
+        t1+="You have configured the header to install/uninstall along with the kernel.\n"
+        t1+="If a chosen kernel setting below contradicts its header setting, the kernel setting is used for header, too.\n"
+    else
+        t1+="\n"
+        t1+="You have configured the header and kernel to install/uninstall separately (default behavior).\n"
+        t1+="See file /etc/akm.conf for more info.\n"
+    fi
+    local linenr="$(FindNewRepoLineNumber)"
+    local editor="$(PacmanConfEditor $linenr)"
+
+    local cmd=(
+        eos_yad
+        --width=$akm_window_width
+        --use-interp
+        --form --title="Simple kernel manager" --columns=${#functions[@]}
+        --text="$t1"
+        --image=system-software-update
+        --button=" Changelog!applications-development!Show latest changes of this program":"Changelog"
+        # --button=" Edit /etc/pacman.conf!!Add or remove repositories in /etc/pacman.conf":"RunInTerminalEx $EOS_ROOTER '$editor /etc/pacman.conf'"
+        --button=" Help!help-contents!Helps to use $progname":"Manual"
+        --button=' Cancel!gtk-cancel!Change nothing':1
+        --button=' Execute!system-run!Make your changes':0
+    )
+    if [ "$scroll" = "yes" ] ; then
+        cmd+=(--scroll
+              --height=700   # 660 is about the default
+             )
+    fi
+
+    local progress_cmd=(
+        eos_yad --progress --enable-log --log-on-top --log-expanded --log-height 150 --auto-close
+        --width=400 --no-buttons
+        --image=user-info
+        --title="AKM progress"
+        --text="Fetching information, please wait..."
+    )
+    local ix=1 count=${#functions[@]} val
+    local cmdfile="$(mktemp $HOME/.config/akm.tmp.XXXXX)"
+    while true ; do
+        for xx in "${functions[@]}" ; do
+            echo "#$xx"
+            val="$(( ix < count ? ix*100/count : 99 ))"
+            ((ix++))
+            echo "$val"
+            if [ -z "$kernelorg" ] ; then
+                kernelorg="$(/usr/bin/curl -s $URL_timeout $URL)"    
+                test -n "$kernelorg" || DIE "Fetching info from $URL failed.\n"
+            fi
+            $xx || DIE "Function '$xx' failed.\n"
+        done
+        echo "#===> Done."
+        # read -p "Press ENTER: " >&2  # testing only
+        echo 100
+        printf "%s\n" "${cmd[@]}" > "$cmdfile"
+        break
+    done | "${progress_cmd[@]}"
+    readarray -t cmd <<< $(cat "$cmdfile")
+    rm -f "$cmdfile"
+    
+    local installed install=() uninstall=() pkg partner result result1="" retval
+    result="$("${cmd[@]}")"
+    retval=$?
+    [ $retval -ne 0 ] && return
+    test -z "$result" && return
+
+    # For some users the yad output contains 2 lines instead of one ... ???
+    if [ "$(echo "$result" | wc -l)" != "1" ] ; then
+        Printf2 "==> Warning: yad output should have been exactly one line, but is:\n'$result'\n"
+        result1="$result"
+        result="$(echo "$result" | tail -n1)"
+        Printf2 "==> Warning: using the last line:\n'$result'\n"
+    fi
+    if [ "$(echo "$result" | wc -l)" != "1" ] ; then
+        DIE "cannot parse yad output:\n'$result1'\n"
+    fi
+
+    result="${result:1}"                               # skip first LBL field !!
+
+    declare -A pkgstatus
+    for ((ix=0; ix < ${#kernels[@]}; ix++)) ; do
+        pkg="${kernels[$ix]}"
+        pkgstatus[$pkg]="$(echo "$result" | cut -d '|' -f $((ix+1)))"   # TRUE or FALSE
+
+        if [ "$connect_header_with_kernel" = "yes" ] ; then
+
+            # Note: a kernel may have TRUE but header FALSE!
+            # When connecting header with kernel this may conflict.
+            # To solve this, assume kernel value is stronger.
+            # Remember that the kernel value exists because it is set
+            # before the header value in the local variable 'kernels' above.
+
+            case "$pkg" in
+                *-headers)
+                    partner="${pkg%-headers}"
+                    pkgstatus[$pkg]="${pkgstatus[$partner]}"  # kernel value overrides the header value!
+                    ;;
+            esac
+        fi
+    done
+
+    for ((ix=0; ix < ${#kernels[@]}; ix++)) ; do
+        pkg="${kernels[$ix]}"
+        if [ "$connect_header_with_kernel" = "yes" ] ; then
+            case "$pkg" in
+                *-headers) partner="${pkg%-headers}" ;;
+                *)         partner="$pkg"-headers    ;;
+            esac
+        fi
+
+        case "${pkgstatus[$pkg]}" in
+            TRUE)
+                [ -z "$(LocalVersion "$pkg")" ] && install+=("$pkg")
+                if [ "$connect_header_with_kernel" = "yes" ] ; then
+                    [ -z "$(LocalVersion "$partner")" ] && install+=("$partner")
+                fi
+                ;;
+            FALSE)
+                [ -n "$(LocalVersion "$pkg")" ] && uninstall+=($(basename "$pkg"))
+                if [ "$connect_header_with_kernel" = "yes" ] ; then
+                    [ -n "$(LocalVersion "$partner")" ] && uninstall+=($(basename "$partner"))
+                fi
+                ;;
+        esac
+    done
+
+    UniqueArr install
+    UniqueArr uninstall
+
+    cmd=()
+    test -n "$uninstall" && cmd+=($pacman -Rsn ${uninstall[*]} ";")
+    test -n "$install"   && cmd+=($pacman -S ${install[*]} ";")
+
+    if [ 0 -eq 1 ] ; then
+        Line2 "uninstall = ${uninstall[*]}"
+        Line2 "install   = ${install[*]}"
+        return
+    fi
+
+    if [ -n "$cmd" ] ; then
+        case "$pacman" in
+            yay | paru | /usr/bin/yay | /usr/bin/paru)
+                RunInTerminal "echo '${cmd[*]}' ; ${cmd[*]}"
+                ;;
+            pacman | /usr/bin/pacman)
+                RunInTerminal "echo '${cmd[*]}' ; $EOS_ROOTER '${cmd[*]}'"
+                ;;
+        esac
+    fi
+}
+
+Main "$@"
