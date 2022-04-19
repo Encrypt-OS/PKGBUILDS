@@ -1,4 +1,0 @@
-module eosquickstart
-typeinfo eos-quickstart.qmltypes
-prefer :/eosquickstart/
-

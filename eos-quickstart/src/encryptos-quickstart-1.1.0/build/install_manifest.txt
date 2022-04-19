@@ -1,2 +1,0 @@
-/usr/share/applications/eos-quickstart.desktop
-/usr/bin/eos-quickstart

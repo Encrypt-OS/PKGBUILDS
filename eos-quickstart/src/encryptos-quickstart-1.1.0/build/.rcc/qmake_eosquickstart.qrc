@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/eosquickstart">
-    <file alias="qmldir">/home/snaildos/Documents/git/PKGBUILDS/eos-quickstart/src/encryptos-quickstart-1.1.0/build/eosquickstart/qmldir</file>
-  </qresource>
-</RCC>
-
