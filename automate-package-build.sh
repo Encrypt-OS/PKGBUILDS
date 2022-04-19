@@ -8,6 +8,6 @@ gpg --recv-keys BB463350D6EF31EF
 gpg --recv-keys AEA41F137D60202D1A2D3EB786CD105462642978
 
 # Build
-for d in ./*/ ; do (cd "$d" && makepkg -si --sign --key 585B7DE5EA37FBD6); done
+for d in ./*/ ; do (cd "$d" && makepkg -si --sign --key AEA41F137D60202D1A2D3EB786CD105462642978); done
 # Cleanup
 for d in ./*/ ; do (cd "$d" && makepkg --clean); done
