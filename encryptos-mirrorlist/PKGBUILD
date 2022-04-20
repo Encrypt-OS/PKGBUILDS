@@ -16,7 +16,7 @@ conflicts_aarch64=(Encrypt-OS-arm-mirrorlist)
 conflicts_armv7h=(Encrypt-OS-arm-mirrorlist)
 
 source=($_url/encryptos-mirrorlist)
-sha512sums=('73a53695285e036be4e48a0d225cc057b480ab75b6f2dcd2eba5b0b4a2856cdc02f5f552185b59b87917a5f42ecc46830f2bce5fd21a1e032ce35730ec46ad30')
+sha512sums=('ba73d37592d2cb56515933d7d11e7e5e8728dd61e633a3e86d84c57a5ecbb6c7dcefa38b1e5d823051aba8346bf961aff8f3ad42b77ee63b2485276cbf6917d6')
 
 package() {
  #install -d "$pkgdir/etc/pacman.d"

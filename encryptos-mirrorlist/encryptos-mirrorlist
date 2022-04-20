@@ -12,5 +12,5 @@
 ###      these mirrors or re-order them manually.
 ######################################################
 
-## GitHub
-Server = https://raw.githubusercontent.com/Encrypt-OS/repo/main/$repo/$arch
+## SnailDOS (Sydney, Australia)
+Server = https://mirror.snaildos.com/encryptos/$arch

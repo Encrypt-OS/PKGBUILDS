@@ -8,21 +8,17 @@ arch=('any')
 # url="https://github.com/Encrypt-OS/PKGBUILDS/raw/master/$pkgname"
 url="https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/$pkgname"
 license=('GPL3')
-
 install=$pkgname.install
 [ -r $install ] || curl -o $install -s --max-time 30 $url/$install
 
 source=(
-  $url/encryptos.gpg
   $url/$install
 )
 
-sha512sums=('53a4fa6595d86df7ccf024df0a79c1969b47758c4170685935484f7594a61a100b7024b8ad8b118254cf71453c2e3097a7da2fde52095aa3759fec16eab9ae80'
-            'f3781cbb4e9e190df38c3fe7fa80ba69bf6f9dbafb158e0426dd4604f2f1ba794450679005a38d0f9f1dad0696e2f22b8b086b2d7d08a0f99bb4fd3b0f7ed5d8')
+sha512sums=('f3781cbb4e9e190df38c3fe7fa80ba69bf6f9dbafb158e0426dd4604f2f1ba794450679005a38d0f9f1dad0696e2f22b8b086b2d7d08a0f99bb4fd3b0f7ed5d8')
 
 package() {
     local destdir=usr/share/pacman/keyrings
 
     install -d $pkgdir/$destdir
-    install -Dm644 encryptos.gpg $pkgdir/$destdir/encryptos.gpg
 }
