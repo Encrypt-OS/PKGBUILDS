@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# Checks that an internet connection exists.
+# Return value is 0 on success, or another number on failure.
+#
+# Example usage:
+#    eos-connection-checker && echo connection is ON
+#    eos-connection-checker || echo connection is OFF
+
+Main() {
+    # These addresses will be used for checking the availability of internet access.
+    # If you have issues with the addresses, please report this at this site:
+    #     https://forum.Encrypt-OS.com
+    #
+    local URLs=(
+        # This should work globally.
+        https://geoip.kde.org/v1/calamares
+
+        # Encrypt-OS mirrors.
+        # Tip: move the mirror that works the best as the first in file /etc/pacman.d/Encrypt-OS-mirrorlist.
+        $(/usr/bin/grep ^Server /etc/pacman.d/Encrypt-OS-mirrorlist | /usr/bin/sed 's|^Server[ ]*=[ ]*\([^$]*\)/\$.*|\1|')
+    )
+    local URL
+    local retval
+
+    for URL in "${URLs[@]}" ; do
+        /usr/bin/curl --silent --fail --connect-timeout 8 "$URL" >/dev/null
+        retval=$?
+        [ $retval -eq 0 ] && break
+    done
+    return $retval
+}
+
+Main "$@"

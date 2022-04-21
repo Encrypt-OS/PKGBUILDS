@@ -1,0 +1,436 @@
+#!/bin/bash
+
+#
+# Simple ranking of mirrors for the Encrypt-OS mirrorlist.
+#
+
+echo2()   { echo "$1" >&2 ; }
+printf2() { printf "$@" >&2 ; }
+
+verbose() {
+    if [ "$verbose" = "yes" ] ; then
+        echo2 "  $1"
+    fi
+}
+
+DeleteTmpFiles() {
+    if [ -n "$delete_at_end" ] ; then
+        echo2 ""
+        verbose "Deleting temporary files: ${delete_at_end[*]}"
+        rm -f "${delete_at_end[@]}"
+    fi
+}
+export -f DeleteTmpFiles
+
+DIE() {
+    echo2 "$progname: error: $1"
+    DeleteTmpFiles
+    exit 1
+}
+
+ShowArray() {
+    local item
+    for item in "$@" ; do
+        echo $item
+    done
+}
+
+SortMirrors() {
+    local latest_ml="$1"
+    local sortopts="$2"
+    local marr mirror m m2
+
+    readarray -t marr <<< $(grep "^Server = " $latest_ml)
+    for mirror in "${marr[@]}" ; do
+        m=$(echo "$mirror" | awk '{print $3}')                    # mirror value (with variables)
+        verbose "$m"
+        m2=$(echo "$m" | sed 's|/$repo/$arch$||')                 # mirror url (without variables)
+        GetUpdateNumberAndTime "$m2/state" "$m"                   # update number from "state" and its fetch time
+    done | LC_ALL=C sort -g $sortopts
+}
+
+RankPerAge() {
+    # latest_ml : in     # servers not commented!
+    # result    : out
+    local repo=Encrypt-OS
+    local arch=$(eos_GetArch)
+    local mirror m m2
+    local marr
+    local sortopts=""
+    local sort_rate="-k3,3 -k2r,2"
+    local sort_age="-k2r,2 -k3,3"
+
+    case "$sort" in
+        rate | fastest | speed)
+            sortopts="$sort_rate" ;;
+        age | latest)
+            sortopts="$sort_age" ;;
+        *)
+            echo2 "====> value '$sort' of option --sort is unsupported, using 'age'."
+            sortopts="$sort_age"
+            ;;
+    esac
+
+    readarray -t result <<< $(SortMirrors "$latest_ml" "$sortopts")
+}
+
+GetUpdateNumberAndTime() {
+    local url="$1"
+    local mirror="$2"
+    local tmpfile="$HOME/.eos-rank-state.123456"
+    local result=0
+    local retcode=0
+    local time
+    local nr
+    local low_limit=999999           # still acceptable value (use a very high initial number!)
+    local too_low_limit=999999       # fails when below this
+
+    if [ -n "$reference_level" ] ; then
+        low_limit=$((reference_level - 2))
+        too_low_limit=$((reference_level - 10))
+    fi
+
+    time=$(curl --fail -Lsm $timeout -w "%{time_total}" "$url" -o"$tmpfile")
+    retcode=$?
+    case "$retcode" in
+        0)
+            nr="$(cat "$tmpfile" | head -n1)"
+            rm -f "$tmpfile"
+
+            local just_testing=no                  # no=production, yes=TESTING
+
+            if [ "$just_testing" = "yes" ] ; then
+                if [ "$mirror" = 'https://ca.gate.Encrypt-OS.com/Encrypt-OS/repo/$repo/$arch' ] ; then
+                    nr=5555
+                fi
+            fi
+
+            if [ -n "$reference_level" ] ; then
+                # ad hoc tests for the update level value in the state file
+                if [ $nr -gt $reference_level ] ; then
+                    echo2 "====> Fail: update level $nr too high (cannot be more than $reference_level): $mirror"
+                    return
+                elif [ $nr -lt $too_low_limit ] ; then
+                    echo2 "====> Fail: $mirror:"
+                    echo2 "      Update level is $nr/$reference_level, problem with the mirror?"
+                    return
+                elif [ $nr -lt $low_limit ] ; then
+                    echo2 "====> Warning: $mirror:"
+                    echo2 "      Update level is $nr/$reference_level, some packages may be outdated."
+                fi
+            fi
+            result="$nr $time"
+            echo "$mirror $result"      # "mirror nr time"
+            ;;
+        *)
+            printf2 "====> Fail: no response: mirror $mirror, url $url,\n"
+            printf2 "====> Error code $retcode: '$(curl-exit-code-to-string $retcode)'\n"
+            rm -f "$tmpfile"
+            return $retcode
+            ;;
+    esac
+}
+
+GetReferenceUpdateLevel() {
+    local refroot="https://mirror.alpix.eu/Encrypt-OS/repo"
+    local result=$(GetUpdateNumberAndTime "$refroot/state" "$refroot"/'$repo/$arch')
+    [ -n "$result" ] || exit 0
+    reference_level=$(echo "$result" | awk '{print $2}')
+}
+
+FetchLatestMirrorlist() {
+    # Grab Encrypt-OS-mirrorlist from the package cache, or fetch it from github/gitlab.
+
+    local pkg=$(ls -1 /var/cache/pacman/pkg/${pkgname}-*.zst 2>/dev/null | tail -n1)
+    if [ -n "$pkg" ] ; then
+        # the package exists in the cache
+        local cachev=$(echo "$pkg" | sed 's|.*list-\(.*\)-any.*|\1|')
+        local installedv=$(pacman -Q $pkgname | awk '{print $2}')
+        if [ "$cachev" = "$installedv" ] ; then
+            echo2 "Extracting $pkg ..."
+            tar --extract -O -f "$pkg" etc/pacman.d/Encrypt-OS-mirrorlist > $latest_ml
+            return
+        fi
+    fi
+    # package not in cache or installed package version is not the same as in cache
+    local code=0
+    local url="$(eos-github2gitlab --keep-master "https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/$pkgname/$pkgname")"
+    echo2 "Fetching $url ..."
+    curl --fail -Lsm $timeout -o $latest_ml $url || code=$?
+    case "$code" in
+        0) ;;
+        *) echo2 "cannot fetch Encrypt-OS mirrorlist info (curl error code $code)."
+           exit 0
+           ;;
+    esac
+}
+
+SimpleRank() {
+    # Rank mirrors from the latest available mirrorlist file.
+    #
+    # The resulting mirrorlist will contain:
+    # - the latest available Encrypt-OS-mirrorlist (mirrors commented out)
+    # - the results of ranking
+    # - the ranked mirrorlist
+
+    local pkgname=Encrypt-OS-mirrorlist
+    local result
+
+    latest_ml=$(mktemp /tmp/tmp.dF3784XXXXX) ; delete_at_end+=("$latest_ml")
+
+    FetchLatestMirrorlist
+
+    if [ -n "$ignored_mirrors" ] ; then
+        cat $latest_ml | grep -Pv "$ignored_mirrors" > $latest_ml.tmp
+        rm -f $latest_ml
+        mv $latest_ml.tmp $latest_ml
+    fi
+
+    rm -f $latest_ml.orig
+    mv $latest_ml $latest_ml.orig
+    delete_at_end+=("$latest_ml.orig")
+    cat $latest_ml.orig | grep "^Server[ ]*=" | sort | uniq > $latest_ml
+
+    # $result will contain an array of lines like: "mirror update-ordinal fetch-time"
+    echo2 "Ranking Encrypt-OS mirrors, please wait ..."
+    RankPerAge
+
+    # show the original list (mirrors commented out)
+    /usr/bin/cat $latest_ml.orig | /usr/bin/sed 's|^Server = |#Server = |'
+
+    # show the results of ranking (in comments)
+    printf "\n# Results of mirror ranking at (UTC) %s:\n" "$(date -u "+%x %X")"
+    printf "# The following fields are shown for each mirror:\n"
+    printf "#   mirror:          The mirror address\n"
+    printf "#   update-level:    Ordinal number of the latest update (larger is newer)\n"
+    printf "#   fetch-time:      Measures the speed of the mirror (smaller is faster)\n"
+    printf "#\n"
+    while true ; do
+        echo "mirror update-level fetch-time"
+        echo "~~~~~~ ~~~~~~~~~~~~ ~~~~~~~~~~"
+        ShowArray "${result[@]}"
+        break
+    done | /usr/bin/column -t | /usr/bin/sed 's|^|# |'
+
+    # This is the actual ranked result.
+
+    echo ""
+    echo "#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    echo "# Encrypt-OS mirrorlist:"
+    echo "#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+
+    # Option --prefer takes precedence over variable ALWAYS_FIRST_EOS_MIRRORS when both are used.
+
+    if [ -n "$preferred_mirrors" ] ; then
+        UserAddedMirrors "$preferred_mirrors"
+    fi
+
+    # Example configuration:
+    #    ALWAYS_FIRST_EOS_MIRRORS='https://mirrors.tuna.tsinghua.edu.cn/Encrypt-OS/repo/$repo/$arch|https://mirror.moson.org/Encrypt-OS/repo/$repo/$arch'
+
+    if [ -n "$ALWAYS_FIRST_EOS_MIRRORS" ] ; then
+        UserAddedMirrors "$ALWAYS_FIRST_EOS_MIRRORS"
+    fi
+
+    ShowArray "${result[@]}" | /usr/bin/awk '{print $1}' | /usr/bin/sed 's|^|Server = |'
+    echo "#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+}
+
+UserAddedMirrors() {
+    local mirrors="$1"    # a list of strings separated by '|' (pipe) chars
+    local mirror m
+
+    echo "# user added mirrors >>>"
+    for m in $(echo "$mirrors" | tr '|' ' ') ; do
+        case "$m" in
+            https://* | http://* | rsync://*)
+                mirror="$m"
+                ;;
+            *)
+                mirror="$(grep "$m" "$latest_ml.orig" | awk '{print $NF}')"
+                ;;
+        esac
+        echo "User added: $mirror" >&2
+        echo "Server = $mirror"
+    done
+    echo "# user added mirrors <<<"
+}
+
+WriteSystemMirrorlist() {
+    local eos="$1"
+    local new="$2"
+    local bak="$eos.$(date +%Y.%m.%d-%H.%M.%S)"
+    local eosranked="$eos$ranked_suffix"
+    local cmd=""
+
+    if [ "$EOS_AUTO_MIRROR_RANKING" = "yes" ] || [ "$hook_rank" = "no" ] ; then
+        printf2 "\nMoving old Encrypt-OS mirrorlist to %s.\n" "$bak"
+        printf2 "Writing new ranked Encrypt-OS mirrorlist to %s.\n" "$eos"
+        $EOS_ROOTER "mv $eos $bak ; mv $new $eos ; chown root:root $eos ; chmod 0644 $eos"
+    else
+        printf2 "\nWriting new ranked Encrypt-OS mirrorlist to %s.\n" "$eosranked"
+        $EOS_ROOTER "mv $new $eosranked ; chown root:root $eosranked ; chmod 0644 $eosranked"
+    fi
+}
+
+Options() {
+    local opts
+    local longopts="verbose,help,_help_,no-save,timeout:,sort:,hook-rank,ignore:,prefer:"
+
+    opts=$(getopt -o=hnt: --longoptions $longopts --name "$progname" -- "$@")
+    case "$?" in
+        0) ;;
+        *) DIE "getopt detected unsupported option, cannot continue." ;;
+    esac
+
+    eval set -- "$opts"
+
+    while true ; do
+        case "$1" in
+            --_help_)
+                cat <<EOF
+Usage: $progname [options]
+
+Options:
+  --sort <value>
+             Primary key for sorting the mirrors.
+             Supported key values:
+                 age     (latest first)
+                 rate    (fastest first)
+             Default: $sort_default.
+
+  --timeout <value>
+  -t <value>
+             Set the timeout value (in seconds) for checking a mirror.
+             Default: $timeout_default.
+
+  --no-save
+  -n
+             Don't save the generated mirrorlist.
+
+  --ignore '<wordlist>'
+             Mirrors to be ignored from the result.
+             This is useful for e.g. leaving out non-functional mirrors.
+             The <wordlist> is a list of words separated by a pipe '|' character.
+             Each word should be a unique part of a mirror address.
+             Note that the list should be enclosed in single or double quotes
+             if it includes more than one word.
+             Example:
+                 eos-rankmirrors --ignore='funami|pizza'
+
+  --prefer '<list-of-mirrors>'
+             List of preferred mirror addresses.
+             Adds given mirror addresses as the first in the Encrypt-OS mirrorlist.
+             The <list-of-mirrors> is a list of mirror addresses separated by
+             a pipe '|' character.
+             Note that the list must be enclosed in single quotes.
+             Example:
+                 eos-rankmirrors --prefer='https://endeavour.remi.lu/repo/\$repo/\$arch'
+
+  --verbose
+             Show more detailed output.
+
+  --help
+  -h
+             This help.
+EOF
+                ;;
+            --help | -h)
+                $FUNCNAME --_help_
+                exit 0
+                ;;
+
+            --sort)
+                sort="$2" ; shift ;;
+            --ignore)
+                ignored_mirrors="$2" ; shift ;;
+            --prefer)
+                preferred_mirrors="$2" ; shift ;;
+            --timeout | -t)
+                timeout="$2" ; shift ;;
+            --verbose)
+                verbose=yes ;;
+            --no-save | -n)
+                save=no
+                ;;
+            --hook-rank)
+                hook_rank=yes
+                
+                ;;
+            --)
+                shift ; break ;;
+        esac
+        shift
+    done
+}
+
+PackageThatOwnsApp() {
+    local app="$1"
+    LANG=C pacman -Qo "$app" | awk '{print $5}'
+}
+
+Main()
+{
+    local progname="$(basename "$0")"
+    local pkgname=Encrypt-OS-mirrorlist
+    local mlfolder=/etc/pacman.d
+    local eos=$mlfolder/$pkgname
+    local new=""
+    local latest_ml=""
+    local delete_at_end=()
+    local arg
+    local sort_default=age                    # age or rate
+    local save=yes
+    local hook_rank=no
+    local ranked_suffix=".pacnew"             # was: ".ranked"  !!!
+    local ignored_mirrors=""
+    local preferred_mirrors=""
+    local reference_level=""
+
+    if [ ! -r "$eos" ] ; then               # this test is not really needed...
+        DIE "no local mirrorlist found, please install package '$pkgname'."
+    fi
+
+    source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || return 1
+    export -f eos_GetArch
+
+    local conf=/etc/eos-rankmirrors.conf
+    source $conf || DIE "Config file $conf does not exist!"
+
+    # option-related variables
+    local verbose=no
+    local sort=$sort_default
+    local timeout_default="$EOS_AUTORANK_TIMEOUT"                  # in seconds
+    [ -n "$timeout_default" ] || timeout_default=30
+    local timeout=$timeout_default
+
+    if [ -x /usr/bin/eos-connection-checker ] ; then
+        eos-connection-checker || DIE "internet connection not available!"
+    else
+        echo2 "WARNING: eos-connection-checker is not available, cannot verify internet connection."
+        echo2 "         Package '$(PackageThatOwnsApp eos-connection-checker)' is not installed?"
+    fi
+
+    GetReferenceUpdateLevel
+
+    Options "$@"
+
+    new=$(/usr/bin/mktemp) ; delete_at_end+=("$new")
+
+    SimpleRank > $new
+    [ "$hook_rank" = "no" ] && cat $new
+
+    if [ -z "$(grep "^Server = " $new)" ] ; then
+        DIE "ranking failed, no mirrors found!"
+    fi
+
+    if [ "$save" = "yes" ] ; then
+        WriteSystemMirrorlist "$eos" "$new"
+    fi
+
+    DeleteTmpFiles
+}
+
+trap "sleep 0.2 ; DeleteTmpFiles" EXIT
+
+Main "$@"
