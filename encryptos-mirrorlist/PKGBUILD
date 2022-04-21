@@ -1,9 +1,9 @@
 # Maintainers: Portergos Linux <portergoslinux@gmail.com>, Encrypt-OS <info@Encrypt-OS.com>
 
-pkgname=Encrypt-OS-mirrorlist
+pkgname=EncryptOS-mirrorlist
 pkgver=4.4.2
 pkgrel=1
-pkgdesc="Encrypt-OS mirrorlist"
+pkgdesc="EncryptOS mirrorlist"
 arch=('any')
 url=https://github.com/Encrypt-OS/PKGBUILDS/tree/master/$pkgname
 _url="https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/$pkgname"

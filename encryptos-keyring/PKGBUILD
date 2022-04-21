@@ -1,9 +1,9 @@
 # Maintainers: Portergos Linux <portergoslinux@gmail.com>, Encrypt-OS <info@Encrypt-OS.com>
 
-pkgname=Encrypt-OS-keyring
+pkgname=EncryptOS-keyring
 pkgver=1
 pkgrel=5
-pkgdesc="Encrypt-OS keyring"
+pkgdesc="EncryptOS keyring"
 arch=('any')
 # url="https://github.com/Encrypt-OS/PKGBUILDS/raw/master/$pkgname"
 url="https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/$pkgname"
