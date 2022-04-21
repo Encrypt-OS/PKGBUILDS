@@ -1,0 +1,21 @@
+# Maintainer: EndeavourOS <info@endeavouros.com>
+pkgname=eos-lightdm-slick-theme
+pkgver=2.0
+pkgrel=1
+pkgdesc='EndeavourOS theme for lightdm-slick-greeter'
+arch=('any')
+url='https://www.endeavouros.com'
+license=('GPL3')
+depends=('lightdm' 'lightdm-slick-greeter')
+source=('slick-greeter.conf' '10-eos-slick.conf' 'eos-lightdm-slick-theme.install')
+install=$pkgname.install
+md5sums=('SKIP' 'SKIP' 'SKIP')
+sha512sums=('SKIP' 'SKIP' 'SKIP')
+
+package() {
+  cd "$srcdir/"
+  mkdir -p "${pkgdir}/etc/lightdm/"
+  cp slick-greeter.conf "${pkgdir}/etc/lightdm/"
+  mkdir -p "${pkgdir}/etc/lightdm/lightdm.conf.d"
+  cp 10-eos-slick.conf  "${pkgdir}/etc/lightdm/lightdm.conf.d"
+}

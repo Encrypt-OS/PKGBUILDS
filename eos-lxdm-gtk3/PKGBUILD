@@ -1,0 +1,74 @@
+# Original Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: AndyRTR <andyrtr@archlinux.org>
+# Contributor: kiefer <jorgelmadrid@gmail.com>
+
+pkgbase=lxdm
+pkgname=eos-lxdm-gtk3
+_eos_theming=endeavouros-lxdm-theme
+pkgver=0.5.3
+pkgrel=4
+pkgdesc='Lightweight X11 Display Manager for EndeavourOS'
+arch=(x86_64 aarch64 armv7h)
+url="https://lxde.org/"
+license=('GPL')
+depends=('gtk3' 'xorg-server')
+makedepends=('intltool' 'iso-codes')
+optdepends=('iso-codes: show language names in language chooser')
+conflicts=('lxdm-gtk3' 'lxdm' 'lxdm-git' 'lxdm-consolekit')
+backup=('etc/lxdm/lxdm.conf' 'etc/pam.d/lxdm' 'etc/lxdm/Xsession'
+        'etc/lxdm/PreLogin' 'etc/lxdm/LoginReady' 'etc/lxdm/PostLogin'
+        'etc/lxdm/PostLogout' 'etc/lxdm/PreReboot' 'etc/lxdm/PreShutdown')
+source=(https://downloads.sourceforge.net/lxde/$pkgbase-$pkgver.tar.xz
+        git+https://github.com/endeavouros-team/$_eos_theming.git#branch=main
+        set-path.patch
+        lxdm.pam
+        Xsession)
+sha256sums=('4891efee81c72a400cc6703e40aa76f3f3853833d048b72ec805da0f93567f2f'
+            'SKIP'
+            '328f766c4d2ee899fc37a26f6e8666d40ebeaa3bd4c7d5a474ebb5415351a440'
+            'e8c4c5fd3b801a390d201166fd1fb9730e78a5c62928768103b870b6bd980ea0'
+            'a02f547e1c36f1c7dd2a1f942b620fe76445d561f7835e7fef434aa4c12c6967')
+
+
+
+
+prepare(){
+  cd $pkgbase-$pkgver
+
+  # Don't overwrite PATH if already defined
+  # https://sourceforge.net/p/lxde/bugs/907/
+  patch -Np0 -i ../set-path.patch
+
+  # Use our custom pam and Xsession files
+  cp ../lxdm.pam pam/lxdm
+  cp ../Xsession data/Xsession
+
+  autoreconf -fi
+}
+
+build() {
+  cd "$srcdir"
+  # GTK+ 3 version
+  [ -d gtk3 ] || cp -r $pkgbase-$pkgver gtk3
+  cd gtk3
+  ./configure --prefix=/usr --sbindir=/usr/bin --libexecdir=/usr/lib/lxdm \
+              --sysconfdir=/etc --localstatedir=/var --enable-gtk3
+  make
+}
+
+package() {
+  cd gtk3
+  make DESTDIR="$pkgdir" install
+  # replace lxdm.conf and theme
+  rm $pkgdir/etc/lxdm/lxdm.conf
+  cp $srcdir/$_eos_theming/lxdm.conf $pkgdir/etc/lxdm/lxdm.conf
+  rm -R $pkgdir/usr/share/lxdm/themes/Industrial
+  rsync -va $srcdir/$_eos_theming/endeavouros       $pkgdir/usr/share/lxdm/themes/
+  chmod 644 "$pkgdir/etc/lxdm/lxdm.conf"
+
+  # Setup system user and group
+  install -dm755 "$pkgdir"/usr/lib/{sysusers,tmpfiles}.d
+  echo 'u lxdm - "Lightweight X11 Display Manager" /var/lib/lxdm' > "$pkgdir/usr/lib/sysusers.d/$pkgbase.conf"
+  echo 'd /var/lib/lxdm 0700 lxdm lxdm - -' > "$pkgdir/usr/lib/tmpfiles.d/$pkgbase.conf"
+}
