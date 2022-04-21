@@ -3,7 +3,7 @@
 pkgname=eos-rankmirrors
 pkgver=2.2.7
 pkgrel=1
-pkgdesc="Encrypt-OS mirror ranking tool"
+pkgdesc="EncryptOS mirror ranking tool"
 arch=('any')
 
 # url="https://github.com/Encrypt-OS/PKGBUILDS/raw/master/$pkgname"
