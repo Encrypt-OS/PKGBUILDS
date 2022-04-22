@@ -1,1 +1,11 @@
-404: Not Found
+post_install() {
+	pacman-key --init
+	gpg --recv-keys AEA41F137D60202D1A2D3EB786CD105462642978
+	pacman-key --lsign-key AEA41F137D60202D1A2D3EB786CD105462642978
+	pacman-key --populate
+}
+
+post_upgrade() {
+        post_install
+}
+# -*- mode: bash;-*-
