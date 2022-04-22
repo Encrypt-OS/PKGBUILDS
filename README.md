@@ -5,7 +5,6 @@
 PKGBUILDS **of interest** to EncryptOS.<br>
 The source for packages we maintain in our repository.
 
---- 
-
-13-03-2022 creating new **release tags scheme** to be used for some packages like calamares and calamares config packages and others with branding or purposes that are changed for ISO release in any other matter:
----
+# Sponsers
+SnailDOS - Staff, Developers and mirror hosting
+BlueFoxHost - Providing a temporary VPS allowing us to build packages required for this OS. (Check them out, cheap prices, good quality and amazing support.)
