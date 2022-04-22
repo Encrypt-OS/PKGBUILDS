@@ -1,7 +1,7 @@
 # Contributor: joekamprad <joekamprad@endeavouros.com>
 
-_pkgname=EncryptOS-xfce4-theming
-pkgname=EncryptOS-skel-default
+_pkgname=encryptos-xfce4-theming
+pkgname=encryptos-skel-default
 pkgver=1.0
 pkgrel=3
 pkgdesc="pre user creation skel setup for GTK and xfce4-terminal under EncryptOS"
