@@ -1,14 +1,9 @@
-# Original Maintainer: Balló György <ballogyor+arch at gmail dot com>
-# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
-# Contributor: AndyRTR <andyrtr@archlinux.org>
-# Contributor: kiefer <jorgelmadrid@gmail.com>
-
 pkgbase=lxdm
 pkgname=eos-lxdm-gtk3
-_eos_theming=endeavouros-lxdm-theme
+_eos_theming=encryptos-lxdm-theme
 pkgver=0.5.3
 pkgrel=4
-pkgdesc='Lightweight X11 Display Manager for EndeavourOS'
+pkgdesc='Lightweight X11 Display Manager for EncryptOS'
 arch=(x86_64 aarch64 armv7h)
 url="https://lxde.org/"
 license=('GPL')

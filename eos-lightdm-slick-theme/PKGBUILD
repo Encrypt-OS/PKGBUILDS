@@ -2,9 +2,9 @@
 pkgname=eos-lightdm-slick-theme
 pkgver=2.0
 pkgrel=1
-pkgdesc='EndeavourOS theme for lightdm-slick-greeter'
+pkgdesc='EncryptOS theme for lightdm-slick-greeter'
 arch=('any')
-url='https://www.endeavouros.com'
+url='https://encrypt-os.com'
 license=('GPL3')
 depends=('lightdm' 'lightdm-slick-greeter')
 source=('slick-greeter.conf' '10-eos-slick.conf' 'eos-lightdm-slick-theme.install')
