@@ -1,7 +1,7 @@
 # Maintainer: Encrypt-OS <info@Encrypt-OS.com>
 
 pkgname=eos-hooks
-pkgver=1.4.20
+pkgver=1.4.21
 pkgrel=1
 pkgdesc='Encrypt-OS pacman hooks'
 arch=('any')
@@ -25,7 +25,7 @@ sha512sums=('dee9fad4a38cb40104497695a030a9aa6a670c5c2ba93835ba5be294a0c6876421d
             '1c7e080e6fa7e6ebdb5d95e694225c30b1d3e7e1471c2ce97fbb8b919c8b2b87b62a01a13965b03c099ce3f365cb377bb52db5be062a9bbb90b30596522b57c6'
             '63084729cf49578817f4f0af8bae43507b9d8e720c0fe7be6eaec6c934bc9a67eaeccb044f2e26caee4540693bbca67e8e3f3ef6a1de836615d416f8ca0b5529'
             '6c50b141de3b08c5c9e77343d51f428f39ddc954a4f1609c829b58dc650577784ecb44e32cf55b369217e18819d912b28f81dea5de572a2e19b531d6abd1eabc'
-            'ed4d47978b3387db969b7b2283d9b3a631a4862ff7ecb6641e533c127ffe130125d11a1e18f744497b536f99b7fccbbb6cfd01eb2f9055b4aea7cf7b4f837c27')
+            '60a94c956f9118439deb69eaf06c6af28bfe1708e1d33796bb6183c44e12bf246845dd39e0723ebe2ae7950185eeb7bc1dfe2b23444b69b620086655babf130e')
 
 package() {
   local hooks=$pkgdir/usr/share/libalpm/hooks
