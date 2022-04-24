@@ -52,7 +52,7 @@ SortMirrors() {
 RankPerAge() {
     # latest_ml : in     # servers not commented!
     # result    : out
-    local repo=Encrypt-OS
+    local repo=EncryptOS
     local arch=$(eos_GetArch)
     local mirror m m2
     local marr
@@ -148,7 +148,7 @@ FetchLatestMirrorlist() {
         local installedv=$(pacman -Q $pkgname | awk '{print $2}')
         if [ "$cachev" = "$installedv" ] ; then
             echo2 "Extracting $pkg ..."
-            tar --extract -O -f "$pkg" etc/pacman.d/Encrypt-OS-mirrorlist > $latest_ml
+            tar --extract -O -f "$pkg" etc/pacman.d/EncryptOS-mirrorlist > $latest_ml
             return
         fi
     fi
@@ -173,7 +173,7 @@ SimpleRank() {
     # - the results of ranking
     # - the ranked mirrorlist
 
-    local pkgname=Encrypt-OS-mirrorlist
+    local pkgname=EncryptOS-mirrorlist
     local result
 
     latest_ml=$(mktemp /tmp/tmp.dF3784XXXXX) ; delete_at_end+=("$latest_ml")
@@ -372,7 +372,7 @@ PackageThatOwnsApp() {
 Main()
 {
     local progname="$(basename "$0")"
-    local pkgname=Encrypt-OS-mirrorlist
+    local pkgname=EncryptOS-mirrorlist
     local mlfolder=/etc/pacman.d
     local eos=$mlfolder/$pkgname
     local new=""
