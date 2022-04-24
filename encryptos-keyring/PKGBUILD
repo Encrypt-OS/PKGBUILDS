@@ -12,13 +12,16 @@ install=$pkgname.install
 [ -r $install ] || curl -o $install -s --max-time 30 $url/$install
 
 source=(
+  $url/encryptos.gpg
   $url/$install
 )
 
-sha512sums=('047d8b51a92b6b8df0db710c8c641b09b25535f2d5f13948ba1a5a2ed3369dbac2f615a6ab83e744558fbb0bc6c46b484cdaba0d0ecc6c07a3c3bfcc4fdfb0df')
+sha512sums=('89690449ee421630fbc689dc06b9ab11473f2672a525a2a5a121253b875269015eccef18e1cbfa031525a170a11d16fa999fd64d76e5b67e3b21b8439764518b'
+            '7403c33828f66d212f73bcf9a7e5e57b4ecd0ae46d8b2560a2a36e42ae22db25703219e394958726fb1d338860317b867946775da83bb73bb0efd8e02da2241f')
 
 package() {
     local destdir=usr/share/pacman/keyrings
 
     install -d $pkgdir/$destdir
+    install -Dm644 encryptos.gpg $pkgdir/$destdir/encryptos.gpg
 }
