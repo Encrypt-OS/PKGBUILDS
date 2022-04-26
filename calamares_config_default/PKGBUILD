@@ -2,7 +2,7 @@
 
 
 pkgname=calamares_config_default
-pkgver=10.1.0
+pkgver=26.04.1.1
 pkgrel=1
 _repo_name=EncryptOS-calamares
 pkgdesc='Encrypt-OS calamares configuration files for Community Editions'
