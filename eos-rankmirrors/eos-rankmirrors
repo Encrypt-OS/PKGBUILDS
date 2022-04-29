@@ -139,7 +139,7 @@ GetReferenceUpdateLevel() {
 }
 
 FetchLatestMirrorlist() {
-    # Grab Encrypt-OS-mirrorlist from the package cache, or fetch it from github/gitlab.
+    # Grab EncryptOS-mirrorlist from the package cache, or fetch it from github/gitlab.
 
     local pkg=$(ls -1 /var/cache/pacman/pkg/${pkgname}-*.zst 2>/dev/null | tail -n1)
     if [ -n "$pkg" ] ; then
@@ -169,7 +169,7 @@ SimpleRank() {
     # Rank mirrors from the latest available mirrorlist file.
     #
     # The resulting mirrorlist will contain:
-    # - the latest available Encrypt-OS-mirrorlist (mirrors commented out)
+    # - the latest available EncryptOS-mirrorlist (mirrors commented out)
     # - the results of ranking
     # - the ranked mirrorlist
 

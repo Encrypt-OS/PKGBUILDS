@@ -17,8 +17,8 @@ Main() {
         https://geoip.kde.org/v1/calamares
 
         # Encrypt-OS mirrors.
-        # Tip: move the mirror that works the best as the first in file /etc/pacman.d/Encrypt-OS-mirrorlist.
-        $(/usr/bin/grep ^Server /etc/pacman.d/Encrypt-OS-mirrorlist | /usr/bin/sed 's|^Server[ ]*=[ ]*\([^$]*\)/\$.*|\1|')
+        # Tip: move the mirror that works the best as the first in file /etc/pacman.d/EncryptOS-mirrorlist.
+        $(/usr/bin/grep ^Server /etc/pacman.d/EncryptOS-mirrorlist | /usr/bin/sed 's|^Server[ ]*=[ ]*\([^$]*\)/\$.*|\1|')
     )
     local URL
     local retval

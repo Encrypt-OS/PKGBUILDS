@@ -36,7 +36,7 @@ local PKGNAMES=(                                    # actually: dir names for pa
     ckbcomp
     aur/downgrade
     Encrypt-OS-keyring
-    Encrypt-OS-mirrorlist
+    EncryptOS-mirrorlist
     # Encrypt-OS-lxde-skel
     Encrypt-OS-skel-default
     Encrypt-OS-skel-i3wm

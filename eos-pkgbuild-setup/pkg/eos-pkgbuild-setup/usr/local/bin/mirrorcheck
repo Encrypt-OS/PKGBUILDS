@@ -220,7 +220,7 @@ Main()
     test -n "${MIRROR_NAMES[0]}" || DIE "MIRROR_NAMES[0] is empty! Check file $conf."
 
     if [ -n "$reponame" ] ; then
-        local list=/etc/pacman.d/Encrypt-OS-mirrorlist
+        local list=/etc/pacman.d/EncryptOS-mirrorlist
         if [ -n "$(grep "^Server = " $list | grep -iw "$reponame")" ] ; then
             OneMirror
         else

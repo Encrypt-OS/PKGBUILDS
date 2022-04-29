@@ -37,7 +37,7 @@ _eos-pkginfo_()
         akm
         arc-gtk-theme-eos
         Encrypt-OS-keyring
-        Encrypt-OS-mirrorlist
+        EncryptOS-mirrorlist
         Encrypt-OS-theming
         Encrypt-OS-xfce4-terminal-colors
         eos-bash-shared
