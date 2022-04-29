@@ -2,12 +2,12 @@
 # using fakeroot version 1.28
 pkgname = welcome
 pkgbase = welcome
-pkgver = 3.17.31-2
+pkgver = 3.17.32-2
 pkgdesc = Welcome greeter for new Encrypt-OS users.
 url = https://github.com/Encrypt-OS/PKGBUILDS/tree/master/welcome
-builddate = 1650814169
-packager = Unknown Packager
-size = 80919
+builddate = 1651247629
+packager = SnailDOS <snaildos@snaildos.com>
+size = 80913
 arch = any
 license = GPL
 depend = systemd

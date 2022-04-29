@@ -2,7 +2,7 @@
 
 pkgname=welcome
 pkgdesc="Welcome greeter for new Encrypt-OS users."
-pkgver=3.17.31
+pkgver=3.17.32
 pkgrel=2
 arch=('any')
 license=('GPL')
@@ -33,7 +33,7 @@ source=(
   $_url/welcome-dnd
   $_url/eos-install-mode-run-calamares
 )
-sha512sums=('1f4460a646f3f0c12fbff0a65a4e8cd2d2de7be5af7e9f5e0e722437d875e5bb0025c3eacc6b559e7799903f99c48fa94e2f7b83a9bca700704642bda08e34ed'
+sha512sums=('3f7ae1923f4f8d5ac657ff9d7abfc0f27570e697395b9dd1b56c74ee97082f66fab45d2ab5eb4ae4d7621c1f66e54afad3826d6400823d0e4a54d977a568b761'
             '8bb1052a8f104e2a0c4be95d6fbf8e38f4bfa6a548ef992bcf9a6be480aa85f0d14cc38fc44c756e5455b6da688ea04ca87f110673517a3117e283eb86e1f63a'
             'a93e14e5c53ecbd64dacd5585e05816acc34870043464dddd94145cb17c42bac67f1f22eb389dbf9a57ef1b104cea84e5a81507db9af915b27966de8d5176633'
             '65dba1a339a5e9b4c92d0614830922ca7b0d419d6e029084a15207a3383cd12c6803035a97d661f799aecc53cb34e0f94a593293f011ebc1b95beefe5ed42dd4'

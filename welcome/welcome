@@ -260,11 +260,11 @@ yad_vanilla_xfce4_theme() {
 }
 export -f yad_vanilla_xfce4_theme
 
-yad_Encrypt-OS_xfce4_theme() {
+yad_EncryptOS_xfce4_theme() {
     local log2='$HOME/.config/EOS-xfce-theme.log'
     local log="$(eval echo $log2)"
     local DE="$(eos_yad_GetDesktopName)"
-    local new_theme_name="Encrypt-OS default"
+    local new_theme_name="EncryptOS default"
     case "$DE" in
         XFCE)
             local conf="$HOME/.config/xfce4"
@@ -287,12 +287,12 @@ yad_Encrypt-OS_xfce4_theme() {
                     pushd $tmpdir >/dev/null
 
                     if [ 1 -eq 1 ] ; then
-                        git clone $(Github2Gitlab https://github.com/Encrypt-OS/Encrypt-OS-xfce4-theming.git) 2>/dev/null || {
+                        git clone $(Github2Gitlab https://github.com/Encrypt-OS/EncryptOS-xfce4-theming.git) 2>/dev/null || {
                             popd >/dev/null
                             rm -rf $tmpdir
                             return 1
                         }
-                        local pkgs2=$(cat Encrypt-OS-xfce4-theming/xfce4-packages-list)
+                        local pkgs2=$(cat EncryptOS-xfce4-theming/xfce4-packages-list)
                         local pkg pkg2 group_members pkgs=""
                         for pkg in $pkgs2 ; do
                             pacman -Qq $pkg >& /dev/null && continue
@@ -310,7 +310,7 @@ yad_Encrypt-OS_xfce4_theme() {
                             pkgs="${pkgs:1}"
                             RunInTerminal "echo 'pacman -S $pkgs' ; $EOS_ROOTER 'pacman -S $pkgs'"
                         fi
-                        dbus-launch dconf load / < Encrypt-OS-xfce4-theming/xed.dconf
+                        dbus-launch dconf load / < EncryptOS-xfce4-theming/xed.dconf
                         mv Encrypt-OS-xfce4-theming/.config/xfce4      "$(dirname "$conf")"
                         mv Encrypt-OS-xfce4-theming/.config/gtk-3.0    "$(dirname "$conf")"
                     else
@@ -331,7 +331,7 @@ yad_Encrypt-OS_xfce4_theme() {
             ;;
     esac
 }
-export -f yad_Encrypt-OS_xfce4_theme
+export -f yad_EncryptOS_xfce4_theme
 
 WelcomeDevelConf() {
     # Supported config file variables, defaults, and supported values:
