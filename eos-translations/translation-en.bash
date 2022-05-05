@@ -62,13 +62,13 @@ _tr_add2 after_install_ustip   "Update System Software"
 _tr_add2 after_install_dsi     "Detect system issues"
 _tr_add2 after_install_dsitip  "Detect any potential issues on system packages or elsewhere"
 
-_tr_add2 after_install_etl     "Encrypt-OS to latest$_question"
-_tr_add2 after_install_etltip  "Show what to do to get your system to the latest Encrypt-OS level"
+_tr_add2 after_install_etl     "EncryptOS to latest$_question"
+_tr_add2 after_install_etltip  "Show what to do to get your system to the latest EncryptOS level"
 
 _tr_add2 after_install_cdm     "Change Display Manager"
 _tr_add2 after_install_cdmtip  "Use a different display manager"
 
-_tr_add2 after_install_ew      "Encrypt-OS default wallpaper"      # was: "Encrypt-OS wallpaper"
+_tr_add2 after_install_ew      "EncryptOS default wallpaper"      # was: "EncryptOS wallpaper"
 _tr_add2 after_install_ewtip   "Reset to the default wallpaper"     # was: "Change desktop wallpaper to EOS default"
 
 
@@ -175,9 +175,9 @@ _tr_add2 tail_butt              "Close this window"
 _tr_add2 tail_buttip            "Close only this window"
 
 
-_tr_add2 ins_text              "Installing Encrypt-OS to disk"
+_tr_add2 ins_text              "Installing EncryptOS to disk"
 _tr_add2 ins_start             "Start the Installer"
-_tr_add2 ins_starttip          "Start the Encrypt-OS installer along with a debug terminal"
+_tr_add2 ins_starttip          "Start the EncryptOS installer along with a debug terminal"
 _tr_add2 ins_up                "Update this app$_exclamation"
 _tr_add2 ins_uptip             "Updates this app and restarts it"
 _tr_add2 ins_keys              "Initialize pacman keys"

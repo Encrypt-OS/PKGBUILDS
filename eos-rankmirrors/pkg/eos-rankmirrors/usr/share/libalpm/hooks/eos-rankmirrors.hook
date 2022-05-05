@@ -2,7 +2,7 @@
 Operation = Install
 Operation = Upgrade
 Type = Package
-Target = EncryptOS-mirrorlist
+Target = encryptos-mirrorlist
 
 [Action]
 Description = Hook to rank EncryptOS mirrors after installing or upgrading the related mirrorlist package

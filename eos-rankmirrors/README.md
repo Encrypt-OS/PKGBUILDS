@@ -59,7 +59,7 @@ For detailed info, see the comments in file `/etc/eos-rankmirrors.conf`.<br>
 
 Variable name | Default value | Description
 :---- | :---- | :----
-EOS_AUTO_MIRROR_RANKING | no | Write the ranking result to file `/etc/EncryptOS-mirrorlist`<br>or `/etc/EncryptOS-mirrorlist.pacnew`.
+EOS_AUTO_MIRROR_RANKING | no | Write the ranking result to file `/etc/encryptos-mirrorlist`<br>or `/etc/encryptos-mirrorlist.pacnew`.
 EOS_AUTORANK_TIMEOUT | 30 | Timeout in seconds for each mirror to respond.
 ALWAYS_FIRST_EOS_MIRRORS | `''` (an empty string) | A list of mirrors to set as first in the ranking result.
 

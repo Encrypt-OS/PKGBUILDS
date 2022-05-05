@@ -139,7 +139,7 @@ GetReferenceUpdateLevel() {
 }
 
 FetchLatestMirrorlist() {
-    # Grab EncryptOS-mirrorlist from the package cache, or fetch it from github/gitlab.
+    # Grab encryptos-mirrorlist from the package cache, or fetch it from github/gitlab.
 
     local pkg=$(ls -1 /var/cache/pacman/pkg/${pkgname}-*.zst 2>/dev/null | tail -n1)
     if [ -n "$pkg" ] ; then
@@ -148,7 +148,7 @@ FetchLatestMirrorlist() {
         local installedv=$(pacman -Q $pkgname | awk '{print $2}')
         if [ "$cachev" = "$installedv" ] ; then
             echo2 "Extracting $pkg ..."
-            tar --extract -O -f "$pkg" etc/pacman.d/EncryptOS-mirrorlist > $latest_ml
+            tar --extract -O -f "$pkg" etc/pacman.d/encryptos-mirrorlist > $latest_ml
             return
         fi
     fi
@@ -169,11 +169,11 @@ SimpleRank() {
     # Rank mirrors from the latest available mirrorlist file.
     #
     # The resulting mirrorlist will contain:
-    # - the latest available EncryptOS-mirrorlist (mirrors commented out)
+    # - the latest available encryptos-mirrorlist (mirrors commented out)
     # - the results of ranking
     # - the ranked mirrorlist
 
-    local pkgname=EncryptOS-mirrorlist
+    local pkgname=encryptos-mirrorlist
     local result
 
     latest_ml=$(mktemp /tmp/tmp.dF3784XXXXX) ; delete_at_end+=("$latest_ml")
@@ -372,7 +372,7 @@ PackageThatOwnsApp() {
 Main()
 {
     local progname="$(basename "$0")"
-    local pkgname=EncryptOS-mirrorlist
+    local pkgname=encryptos-mirrorlist
     local mlfolder=/etc/pacman.d
     local eos=$mlfolder/$pkgname
     local new=""
