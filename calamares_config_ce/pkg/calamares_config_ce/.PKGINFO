@@ -2,11 +2,11 @@
 # using fakeroot version 1.28
 pkgname = calamares_config_ce
 pkgbase = calamares_config_ce
-pkgver = 26.05.1.1-1
+pkgver = 26.06.1.1-1
 pkgdesc = Encrypt-OS calamares configuration files for Community Editions
 url = https://www.Encrypt-OS.com
-builddate = 1651489007
-packager = SnailDOS <snaildos@snaildos.com>
+builddate = 1651750170
+packager = Unknown Packager
 size = 1586567
 arch = any
 license = GPL3

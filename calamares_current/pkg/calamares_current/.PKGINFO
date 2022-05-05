@@ -2,12 +2,12 @@
 # using fakeroot version 1.28
 pkgname = calamares_current
 pkgbase = calamares_current
-pkgver = 26.05.1.1-1
+pkgver = 26.06.1.1-1
 pkgdesc = Calamares installer for Encrypt-OS
 url = https://github.com/Encrypt-OS
-builddate = 1651489090
-packager = SnailDOS <snaildos@snaildos.com>
-size = 108273116
+builddate = 1651749144
+packager = Unknown Packager
+size = 108269644
 arch = any
 license = GPL3
 conflict = calamares_offline
