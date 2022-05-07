@@ -237,8 +237,8 @@
             - arc-gtk-theme-eos
             - eos-lightdm-slick-theme
             - eos-qogir-icons
-            - EncryptOS-skel-xfce4
-            - EncryptOS-xfce4-terminal-colors
+            - encryptos-skel-xfce4
+            - encryptos-xfce4-terminal-colors
       - name: "XFCE4-Desktop"
         description: "XFCE4 needed packages"
         selected: false
@@ -285,7 +285,7 @@
     - arandr
     - arc-gtk-theme-eos
     - archlinux-xdg-menu
-    - EncryptOS-skel-i3wm
+    - encryptos-skel-i3wm
     - eos-lightdm-slick-theme
     - eos-qogir-icons
     - awesome-terminal-fonts
