@@ -30,7 +30,6 @@ Change date | Placeholder name | Reason for the change
 2020-Sep-15 | after_install_ew2 | Slightly different wording.
 2020-Sep-15 | after_install_ewtip2 | Slightly different wording.
 2020-Oct-24 | add_more_apps_done2_text | Different wording.
-2021-Oct-23 | install_community_tip | Use phrase "Community editions" instead of listing them all.
 2021-Dec-14 | after_install_r8168 | Changed the action performed by the button.
 2021-Dec-14 | after_install_r8168_tip | Changed the action performed by the button.
 2021-Dec-21 | settings_dis_contents | Text layout change.

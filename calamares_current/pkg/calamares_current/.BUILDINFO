@@ -79,7 +79,6 @@ installed = ca-certificates-mozilla-3.77-1-x86_64
 installed = ca-certificates-utils-20210603-1-any
 installed = cairo-1.17.6-2-x86_64
 installed = cairomm-1.14.3-2-x86_64
-installed = calamares_config_ce-26.05.1.1-1-any
 installed = calamares_config_default-26.05.1.1-1-any
 installed = calamares_current-26.05.1.1-1-any
 installed = cantarell-fonts-1:0.303.1-1-any

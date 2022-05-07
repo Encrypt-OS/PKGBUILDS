@@ -43,7 +43,6 @@ depend = solid
 depend = qt5-tools
 optdepend = mkinitcpio-openswap
 optdepend = calamares_config_default
-optdepend = calamares_config_ce
 optdepend = ckbcomp
 makedepend = git
 makedepend = cmake

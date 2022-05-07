@@ -140,7 +140,7 @@ InstallWithLogs() {
     fi
 
     case "$mode" in
-        online | community)
+        online)
             CatchChrootedPacmanLog
             ;;
         offline)
@@ -253,7 +253,6 @@ Main() {
         # Testing settings only, not for production!
         Home=$HOME
         #EOS_FILESERVER_SITE=github
-        mode=community
         lang=en
         ShowInstallLog=FALSE
         ShowPacmanLog=FALSE
@@ -280,7 +279,7 @@ Main() {
     fi
 
     case "$mode" in
-        online | offline | community)
+        online | offline)
             sudo cp $cfolder/settings_$mode.conf $cfolder/settings.conf
             PreLog "File settings.conf updated."
             ;;

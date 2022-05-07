@@ -201,7 +201,6 @@ _clean_offline_packages(){
     grsync
     calamares_current
     calamares_config_default
-    calamares_config_ce
     edk2-shell
     boost-libs
     doxygen
