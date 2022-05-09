@@ -3,6 +3,6 @@
 	filemode = true
 	bare = true
 [remote "origin"]
-	url = https://github.com/endeavouros-team/endeavouros-theming.git
+	url = https://github.com/Encrypt-OS/encryptos-theming.git
 	fetch = +refs/*:refs/*
 	mirror = true
