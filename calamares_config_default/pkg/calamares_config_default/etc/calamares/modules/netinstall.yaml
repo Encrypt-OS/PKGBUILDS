@@ -238,7 +238,6 @@
             - eos-lightdm-slick-theme
             - eos-qogir-icons
             - encryptos-skel-xfce4
-            - encryptos-xfce4-terminal-colors
       - name: "XFCE4-Desktop"
         description: "XFCE4 needed packages"
         selected: false
@@ -292,7 +291,6 @@
     - dex
     - dmenu
     - dunst
-    - encryptos-xfce4-terminal-colors
     - file-roller
     - galculator
     - gthumb
