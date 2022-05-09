@@ -76,7 +76,6 @@
         description: "Packages tools"
         selected: true
         packages:
-          - downgrade
           - pacman-contrib
           - pkgfile
           - rebuild-detector

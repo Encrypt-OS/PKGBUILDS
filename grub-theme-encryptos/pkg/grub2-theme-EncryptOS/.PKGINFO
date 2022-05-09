@@ -2,12 +2,12 @@
 # using fakeroot version 1.28
 pkgname = grub2-theme-EncryptOS
 pkgbase = grub2-theme-EncryptOS
-pkgver = 20220408-1
+pkgver = 20220409-1
 pkgdesc = EncryptOS grub2 theme
 url = https://github.com/Encrypt-OS/
-builddate = 1650814282
+builddate = 1652101198
 packager = Unknown Packager
-size = 2674428
+size = 2797220
 arch = any
 license = GPL3
 replaces = vimix-grub

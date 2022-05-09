@@ -2,7 +2,7 @@
 # Original Source: https://github.com/Se7endAY/grub2-theme-vimix
 # Maintainer: Encrypt-OS <info@Encrypt-OS.com>
 pkgname=grub2-theme-EncryptOS
-pkgver=20220408
+pkgver=20220409
 pkgrel=1
 pkgdesc='EncryptOS grub2 theme'
 arch=(any)
