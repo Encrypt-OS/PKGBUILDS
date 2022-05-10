@@ -1,0 +1,2117 @@
+<h1 id="inxi">inxi</h1>
+<p>inxi - Command line system information script for console and IRC</p>
+<h2 id="synopsis">Synopsis</h2>
+<p><strong>inxi</strong></p>
+<p><strong>inxi</strong>
+[<strong>-AbBCdDEfFGhiIjJlLmMnNopPrRsSuUVwyYzZ</strong>]</p>
+<p><strong>inxi</strong> [<strong>-c NUMBER</strong>]
+[<strong>--sensors-exclude SENSORS</strong>] [<strong>--sensors-use
+SENSORS</strong>] [<strong>-t</strong>
+[<strong>c</strong>|<strong>m</strong>|<strong>cm</strong>|<strong>mc</strong>][<strong>NUMBER</strong>]]
+[<strong>-v NUMBER</strong>] [<strong>-W LOCATION</strong>]
+[<strong>--weather-unit</strong>
+{<strong>m</strong>|<strong>i</strong>|<strong>mi</strong>|<strong>im</strong>}]
+[<strong>-y WIDTH</strong>]</p>
+<p><strong>inxi</strong> [<strong>--memory-modules</strong>]
+[<strong>--memory-short</strong>] [<strong>--recommends</strong>]
+[<strong>--sensors-default</strong>] [<strong>--slots</strong>]</p>
+<p><strong>inxi
+[-x</strong>|<strong>-xx</strong>|<strong>-xxx</strong>|<strong>-a</strong>]
+<strong>-OPTION(s)</strong></p>
+<p>All short form options have long form variants - see below for these
+and more advanced options.</p>
+<h2 id="description">Description</h2>
+<p><strong>inxi</strong> is a command line system information script
+built for console and IRC. It is also used a debugging tool for forum
+technical support to quickly ascertain users' system configurations and
+hardware. inxi shows system hardware, CPU, drivers, Xorg, Desktop,
+Kernel, gcc version(s), Processes, RAM usage, and a wide variety of
+other useful information.</p>
+<p><strong>inxi</strong> output varies depending on whether it is being
+used on CLI or IRC, with some default filters and color options applied
+only for IRC use. Script colors can be turned off if desired with
+<strong>-c 0</strong>, or changed using the <strong>-c</strong> color
+options listed in the STANDARD OPTIONS section below.</p>
+<h2 id="privacy-and-security">Privacy and security</h2>
+<p>In order to maintain basic privacy and security, inxi used on IRC
+automatically filters out your network device MAC address, WAN and LAN
+IP, your <strong>/home</strong> username directory in partitions, and a
+few other items.</p>
+<p>Because inxi is often used on forums for support, you can also
+trigger this filtering with the <strong>-z</strong> option
+(<strong>-Fz</strong>, for example). To override the IRC filter, you can
+use the <strong>-Z</strong> option. This can be useful in debugging
+network connection issues online in a private chat, for example.</p>
+<h2 id="using-options">Using options</h2>
+<p>Options can be combined if they do not conflict. You can either group
+the letters together or separate them.</p>
+<p>Letters with numbers can have no gap or a gap at your discretion,
+except when using ** -t**. Note that if you use an option that requires
+an additional argument, that must be last in the short form group of
+options. Otherwise you can use those separately as well.</p>
+<p>For example: <strong>inxi -AG</strong> | <strong>inxi -A -G</strong>
+| <strong>inxi -b</strong> | <strong>inxi -c10</strong> | <strong>inxi
+-FxxzJy90</strong> | <strong>inxi -bay</strong></p>
+<p>Note that all the short form options have long form equivalents,
+which are listed below. However, usually the short form is used in
+examples in order to keep things simple.</p>
+<p>These are available options sections:</p>
+<p>* <strong>STANDARD OPTIONS</strong> Primary data types trigger
+items.</p>
+<p>* <strong>FILTER OPTIONS</strong> Apply a variety of output
+filters.</p>
+<p>* <strong>OUTPUT CONTROL OPTIONS</strong> Change default colors,
+widths, heights, output types, etc.</p>
+<p>* <strong>EXTRA DATA OPTIONS</strong> What <strong>-x</strong>,
+<strong>-xx</strong>, <strong>-xxx</strong>, and <strong>-a</strong> add
+to the output.</p>
+<p>* <strong>ADVANCED OPTIONS</strong> Modify behavior or choice of data
+sources, and other advanced switches.</p>
+<p>* <strong>DEBUGGING OPTIONS</strong> For development use mainly, or
+contributing datasets to the project.</p>
+<h2 id="standard-options">Standard options</h2>
+<p><strong>-A , <strong>--audio</strong></strong><br />
+Show Audio/sound device(s) information, including device driver. Show
+running sound server(s). See <strong>-xxA</strong> to show all sound
+servers detected.</p>
+<p><strong>-b , <strong>--basic</strong></strong><br />
+Show basic output, short form. Same as: <strong>inxi -v 2</strong></p>
+<p><strong>-B , <strong>--battery</strong></strong><br />
+Show system battery (<strong>ID-x</strong>) data, charge, condition,
+plus extra information (if battery present). Uses <strong>/sys</strong>
+or, for BSDs without systctl battery data, use
+<strong>--dmidecode</strong> to force its use.
+<strong>dmidecode</strong> does not have very much information, and none
+about current battery state/charge/voltage. Supports multiple batteries
+when using <strong>/sys</strong> or <strong>sysctl</strong> data.</p>
+<p>Note that for <strong>charge:</strong>, the output shows the current
+charge, as well as its value as a percentage of the available capacity,
+which can be less than the original design capacity. In the following
+example, the actual current available capacity of the battery is
+<strong>22.2 Wh</strong>.</p>
+<p><strong>charge: 20.1 Wh (95.4%)</strong></p>
+<p>The <strong>condition:</strong> item shows the remaining available
+capacity / original design capacity, and then this figure as a
+percentage of original capacity available in the battery.</p>
+<p><strong>condition: 22.2/36.4 Wh (61%)</strong></p>
+<p>With <strong>-x</strong>, or if voltage difference is critical,
+<strong>volts:</strong> item shows the current voltage, and the
+<strong>min:</strong> voltage. Note that if the current is below the
+minimum listed the battery is essentially dead and will not charge. Test
+that to confirm, but that's technically how it's supposed to work.</p>
+<p><strong>volts: 12.0 min: 11.4</strong></p>
+<p>With <strong>-x</strong> shows attached <strong>Device-x</strong>
+information (mouse, keyboard, etc.) if they are battery powered.</p>
+<p><strong>--bluetooth</strong></p>
+<p>See <strong>-E</strong>.</p>
+<p><strong>-c , <strong>--color</strong></strong></p>
+<p>See <strong>OUTPUT CONTROL OPTIONS</strong>.</p>
+<p><strong>-C , <strong>--cpu</strong></strong><br />
+Show full CPU output (if each item available): basic CPU topology,
+model, type, L2 cache, average speed of all cores (if &gt; 1 core,
+otherwise speed of the core), min/max speeds for CPU, and per CPU clock
+speed. More data available with <strong>-x</strong>,
+<strong>-xxx</strong>, and <strong>-a</strong> options.</p>
+<p>Explanation of CPU type (<strong>type: MT MCP</strong>)
+abbreviations:</p>
+<p>* <strong>AMCP</strong> - Asymmetric Multi Core Processor. More than
+1 core per CPU, and more than one core type (single and multithreaded
+cores in the same CPU).</p>
+<p>* <strong>AMP</strong> - Asymmetric Multi Processing (more than 1
+physical CPU, but not identical in terms of core counts or min/max
+speeds).</p>
+<p>* <strong>MT</strong> - Multi/Hyper Threaded CPU (more than 1 thread
+per core, previously <strong>HT</strong>).</p>
+<p>* <strong>MST</strong> - Multi and Single Threaded CPU (a CPU with
+both Single and Multi Threaded cores).</p>
+<p>* <strong>MCM</strong> - Multi Chip Model (more than 1 die per
+CPU).</p>
+<p>* <strong>MCP</strong> - Multi Core Processor (more than 1 core per
+CPU).</p>
+<p>* <strong>SMP</strong> - Symmetric Multi Processing (more than 1
+physical CPU).</p>
+<p>* <strong>UP</strong> - Uni (single core) Processor.</p>
+<p>Note that <strong>min/max:</strong> speeds are not necessarily true
+in cases of overclocked CPUs or CPUs in turbo/boost mode. See
+<strong>-Ca</strong> for alternate <strong>base/boost:</strong> speed
+data, more granular cache data, and more.</p>
+<p>Sample:</p>
+<pre><code>CPU:
+  Info: 2x 8-core model: Intel Xeon E5-2620 v4 bits: 64 type: MT MCP SMP
+    cache: L2: 2x 2 MiB (4 MiB)
+  Speed (MHz): avg: 1601 min/max: 1200/3000 cores: 1: 1280 2: 1595 3: 1416
+    ... 32: 1634</code></pre>
+<p><strong>-d ,
+<strong>--disk-full</strong>,</strong>--optical****<br />
+Show optical drive data as well as <strong>-D</strong> hard drive data.
+With <strong>-x</strong>, adds a feature line to the output. Also shows
+floppy disks if present. Note that there is no current way to get any
+information about the floppy device that we are aware of, so it will
+simply show the floppy ID without any extra data. <strong>-xx</strong>
+adds a few more features.</p>
+<p><strong>-D , <strong>--disk</strong></strong><br />
+Show Hard Disk info. Shows total disk space and used percentage. The
+disk used percentage includes space used by swap partition(s), since
+those are not usable for data storage. Also, unmounted partitions are
+not counted in disk use percentages since inxi has no access to the used
+amount.</p>
+<p>If the system has RAID or other logical storage, and if inxi can
+determine the size of those vs their components, you will see the
+storage total raw and usable sizes, plus the percent used of the usable
+size. The no argument short form of inxi will show only the usable (or
+total if no usable) and used percent. If there is no logical storage
+detected, only <strong>total:</strong> and <strong>used:</strong> will
+show. Sample (with RAID logical size calculated):</p>
+<p>**Local Storage: total: raw: 5.49 TiB usable: 2.80 TiB used: 1.35 TiB
+** (48.3%)</p>
+<p>Without logical storage detected:</p>
+<p><strong>Local Storage: total: 2.89 TiB used: 1.51 TiB
+(52.3%)</strong></p>
+<p>Also shows per disk information: Disk ID, type (if present), vendor
+(if detected), model, and size. See <strong>Extra Data Options</strong>
+(<strong>-x</strong> options) and <strong>Admin Extra Data
+Options</strong> (<strong>--admin</strong> options) for many more
+features.</p>
+<p><strong>-E, <strong>--bluetooth</strong></strong><br />
+Show bluetooth device(s), drivers. Show <strong>Report:</strong> with
+HCI ID, state, address per device (requires <strong>bt-adapter</strong>
+or <strong>hciconfig</strong>), and if available (hciconfig only)
+bluetooth version (<strong>bt-v</strong>). See <strong>Extra Data
+Options</strong> for more.</p>
+<p>If bluetooth shows as <strong>status: down</strong>, shows
+<strong>bt-service: state</strong> and rfkill software and hardware
+blocked states, and rfkill ID.</p>
+<p>Note that <strong>Report-ID:</strong> indicates that the HCI item was
+not able to be linked to a specific device, similar to
+<strong>IF-ID:</strong> in <strong>-n</strong>.</p>
+<p>If your internal bluetooth device does not show, it's possible that
+it has been disabled, if you try enabling it using for example:</p>
+<p><strong>hciconfig hci0 up</strong></p>
+<p>and it returns a blocked by RF-Kill error, you can do one of
+these:</p>
+<p><strong>connmanctl enable bluetooth</strong></p>
+<p>or</p>
+<p><strong>rfkill list bluetooth</strong></p>
+<p><strong>rfkill unblock bluetooth</strong></p>
+<p><strong>--filter, <strong>-z</strong></strong></p>
+<p>See <strong>FILTER OPTIONS</strong>.</p>
+<p><strong>-f , <strong>--flags</strong></strong><br />
+Show all CPU flags used, not just the short list. Not shown with
+<strong>-F</strong> in order to avoid spamming. ARM CPUs: show
+<strong>features</strong> items.</p>
+<p><strong>-F , <strong>--full</strong></strong><br />
+Show Full output for inxi. Includes all Upper Case line letters (except
+<strong>-J</strong> and <strong>-W</strong>) plus
+<strong>--swap</strong>, <strong>-s</strong> and <strong>-n</strong>.
+Does not show extra verbose options such as **-d -f -i -J -l -m -o -p -r
+-t -u ** -x unless you use those arguments in the command, e.g.:
+<strong>inxi -Frmxx</strong></p>
+<p><strong>-G , <strong>--graphics</strong></strong><br />
+Show Graphic device(s) information, including details of device and
+display drivers (<strong>X:</strong> <strong>loaded:</strong>, and, if
+applicable: <strong>unloaded:</strong>, <strong>failed:</strong>, and
+active <strong>gpu:</strong> drivers), display protocol (if available),
+display server (and/or Wayland compositor), vendor and version number,
+e.g.:</p>
+<p><strong>Display: x11 server: Xorg v: 1.15.1</strong></p>
+<p>or</p>
+<p><strong>Display: wayland server: X.org v: 1.20.1 with: Xwayland v:
+20.1</strong></p>
+<p>If protocol is not detected, shows:</p>
+<p><strong>Display: server: Xorg 1.15.1</strong></p>
+<p>Also shows screen resolution(s) (per monitor/X screen). For X.org:
+OpenGL renderer, OpenGL core profile version/OpenGL version; for VESA:
+data (for Xvesa); for Wayland: GBM/EGL data (not implemented).</p>
+<p>Compositor information will show if detected using
+<strong>-xx</strong> option or always if detected and Wayland since the
+compositor is the server with Wayland.</p>
+<p><strong>-Gxx</strong> shows monitor data as well, if detected.</p>
+<p><strong>-h , <strong>--help</strong></strong><br />
+The help menu. Features dynamic sizing to fit into terminal window. Set
+script global <strong>COLS_MAX_CONSOLE</strong> if you want a different
+default value, or use <strong>-y &lt;width&gt;</strong> to temporarily
+override the defaults or actual window width.</p>
+<p><strong>-i , <strong>--ip</strong></strong><br />
+Show WAN IP address and local interfaces (latter requires
+<strong>ifconfig</strong> or <strong>ip</strong> network tool), as well
+as network output from <strong>-n</strong>. Not shown with
+<strong>-F</strong> for user security reasons. You shouldn't paste your
+local/WAN IP. Shows both IPv4 and IPv6 link IP addresses.</p>
+<p><strong>-I , <strong>--info</strong></strong><br />
+Show Information: processes, uptime, memory, IRC client (or shell type
+if run in shell, not IRC), inxi version. See <strong>-Ix</strong>,
+<strong>-Ixx</strong>, and <strong>-Ia</strong> for extra information
+(init type/version, runlevel, packages).</p>
+<p>Note: if <strong>-m</strong> is used or triggered, the memory item
+will show in the main Memory: report of <strong>-m</strong>, not in
+<strong>Info:</strong>.</p>
+<p>Raspberry Pi only: uses <strong>vcgencmd get_mem gpu</strong> to get
+gpu RAM amount, if user is in video group and <strong>vcgencmd</strong>
+is installed. Uses this result to increase the <strong>Memory:</strong>
+amount and <strong>used:</strong> amounts.</p>
+<p><strong>-j, <strong>--swap</strong></strong><br />
+Shows all active swap types (partition, file, zram). When this option is
+used, swap partition(s) will not show on the <strong>-P</strong> line to
+avoid redundancy.</p>
+<p>To show partition labels or UUIDs (when available and relevant), use
+with <strong>-l</strong> or** -u**.</p>
+<p><strong>-J , <strong>--usb</strong></strong><br />
+Show USB data for attached Hubs and Devices. Hubs also show number of
+ports. Be aware that a port is not always external, some may be
+internal, and either used or unused (for example, a motherboard USB
+header connector that is not used).</p>
+<p>Hubs and Devices are listed in order of BusID.</p>
+<p>BusID is generally in this format:
+BusID-port[.port][.port]:DeviceID</p>
+<p>Device ID is a number created by the kernel, and has no necessary
+ordering or sequence connection, but can be used to match this output to
+lsusb values, which generally shows BusID / DeviceID (except for tree
+view, which shows ports).</p>
+<p>Examples: <strong>Device-3: 4-3.2.1:2</strong> or <strong>Hub:
+4-0:1</strong></p>
+<p>The <strong>rev: 2.0</strong> item refers to the USB revision number,
+like <strong>1.0</strong> or <strong>3.1</strong>.</p>
+<p><strong>-l , <strong>--label</strong></strong><br />
+Show partition labels. Use with <strong>-j</strong>,
+<strong>-o</strong>, <strong>-p</strong>, and <strong>-P</strong> to
+show partition labels. Does nothing without one of those options.</p>
+<p>Sample: <strong>-ojpl</strong>.</p>
+<p><strong>-L, <strong>--logical</strong></strong><br />
+Show Logical volume information, for LVM, LUKS, bcache, etc. Shows size,
+free space (for LVM VG). For LVM, shows <strong>Device-[xx]:
+VG:</strong> (Volume Group) size/free, <strong>LV-[xx]</strong> (Logical
+Volume). LV shows type, size, and components. Note that components are
+made up of either containers (aka, logical devices), or physical
+devices. The full report requires doas/sudo/root.</p>
+<p>Logical block devices can be thought of as devices that are made up
+out of either other logical devices, or physical devices. inxi does its
+best to show what each logical device is made out of. RAID devices form
+a subset of all possible Logical devices, but have their own section,
+<strong>-R</strong>.</p>
+<p>If <strong>-R</strong> is used with <strong>-Lxx</strong>,
+<strong>-Lxx</strong> will not show RAID information for LVM RAID
+devices since it's redundant. If <strong>-R</strong> is not used, a
+simple RAID line will appear for LVM RAID in <strong>-Lxx</strong>.</p>
+<p><strong>-Lxx</strong> also shows all components and devices. Note
+that since components can go in many levels, each level per primary
+component is indicated by either another 'c', or ends with a 'p' device,
+the physical device. The number of c's or p's indicates the depth, so
+you can see which component belongs to which.</p>
+<p><strong>-L</strong> shows only the top level components/devices (like
+<strong>-R</strong>). <strong>-La</strong> shows component/device size,
+maj:min ID, mapped name (if applicable), and puts each component/device
+on its own line.</p>
+<p>Sample:</p>
+<pre><code>  Device-10: mybackup type: LUKS dm: dm-28 size: 6.36 GiB Components: 
+    c-1: md1 cc-1: dm-26 ppp-1: sdj2 cc-2: dm-27 ppp-1: sdk2
+  LV-5: lvm_raid1 type: raid1 dm: dm-16 size: 4.88 GiB 
+    RAID: stripes: 2 sync: idle copied: 100% mismatches: 0 
+  Components: c-1: dm-10 pp-1: sdd1 c-2: dm-11 pp-1: sdd1 c-3: dm-13 
+    pp-1: sde1 c-4: dm-15 pp-1: sde1</code></pre>
+<p>It is easier to follow the flow of components and devices using
+<strong>-y1</strong>. In this example, there is one primary component
+(c-1), md1, which is made up of two components (cc-1,2), dm-26 and
+dm-27. These are respectively made from physical devices (p-1) sdj2 and
+sdk2.</p>
+<pre><code>Device-10: mybackup
+  maj-min: 254:28
+  type: LUKS
+  dm: dm-28
+  size: 6.36 GiB
+  Components: 
+    c-1: md1
+    maj-min: 9:1
+    size: 6.37 GiB
+    cc-1: dm-26
+      maj-min: 254:26
+      mapped: vg5-level1a
+      size: 12.28 GiB
+      ppp-1: sdj2
+        maj-min: 8:146
+        size: 12.79 GiB
+    cc-2: dm-27
+      maj-min: 254:27
+      mapped: vg5-level1b
+      size: 6.38 GiB
+      ppp-1: sdk2
+        maj-min: 8:162
+        size: 12.79 GiB</code></pre>
+<p>Other types of logical block handling like LUKS, bcache show as:</p>
+<p><strong>Device-[xx] [name/id] type:
+[LUKS|Crypto|bcache]:</strong></p>
+<p><strong>-m , <strong>--memory</strong></strong><br />
+Memory (RAM) data. Does not display with <strong>-b</strong> or
+<strong>-F</strong> unless you use <strong>-m</strong> explicitly.
+Ordered by system board physical system memory array(s)
+(<strong>Array-[number]</strong>), and individual memory devices
+(<strong>Device-[number]</strong>). Physical memory array data shows
+array capacity, number of devices supported, and Error Correction
+information. Devices shows locator data (highly variable in syntax),
+size, speed, type (eg: <strong>type: DDR3</strong>).</p>
+<p>Note: <strong>-m</strong> uses <strong>dmidecode</strong>, which must
+be run as root (or start <strong>inxi</strong> with
+<strong>doas/sudo</strong>), unless you figure out how to set up
+doas/sudo to permit dmidecode to read <strong>/dev/mem</strong> as user.
+<strong>speed</strong> and <strong>bus-width</strong> will not show if
+<strong>No Module Installed</strong> is found in
+<strong>size</strong>.</p>
+<p>Note: If <strong>-m</strong> is triggered RAM total/used report will
+appear in this section, not in <strong>-I</strong> or
+<strong>-tm</strong> items.</p>
+<p>Because <strong>dmidecode</strong> data is extremely unreliable, inxi
+will try to make best guesses. If you see <strong>(check)</strong> after
+the capacity number, you should check it with the specifications.
+<strong>(est)</strong> is slightly more reliable, but you should still
+check the real specifications before buying RAM. Unfortunately there is
+nothing <strong>inxi</strong> can do to get truly reliable data about
+the system RAM; maybe one day the kernel devs will put this data into
+<strong>/sys</strong>, and make it real data, taken from the actual
+system, not dmi data. For most people, the data will be right, but a
+significant percentage of users will have either a wrong max module
+size, if present, or max capacity.</p>
+<p>Under dmidecode, <strong>Speed:</strong> is the expected speed of the
+memory (what is advertised on the memory spec sheet) and
+<strong>Configured Clock Speed:</strong> is what the actual speed is
+now. To handle this, if speed and configured speed values are different,
+you will see this instead:</p>
+<p><strong>speed: spec: [specified speed] MT/S actual: [actual]
+MT/S</strong></p>
+<p>Also, if DDR, and speed in MHz, will change to: **speed: [speed] MT/S
+** ([speed] MHz)</p>
+<p>If the detected speed is logically absurd, like 1 MT/s or 69910 MT/s,
+adds: <strong>note: check</strong>. Sample:</p>
+<pre><code>Memory:
+  RAM: total: 31.38 GiB used: 20.65 GiB (65.8%) 
+  Array-1: capacity: N/A slots: 4 note: check EC: N/A 
+  Device-1: DIMM_A1 size: 8 GiB speed: 1600 MT/s (800 MHz) 
+  Device-2: DIMM_A2 size: 8 GiB speed: spec: 1600 MT/s (800 MHz) 
+    actual: 61910 MT/s (30955 MHz) note: check 
+  Device-3: DIMM_B1 size: 8 GiB speed: 1600 MT/s (800 MHz) 
+  Device-4: DIMM_B2 size: 8 GiB speed: spec: 1600 MT/s (800 MHz) 
+    actual: 2 MT/s (1 MHz) note: check</code></pre>
+<p>See <strong>--memory-modules</strong> and
+<strong>--memory-short</strong> if you want a shorter report.</p>
+<p><strong>--memory-modules</strong><br />
+Memory (RAM) data. Show only RAM arrays and modules in Memory report.
+Skip empty slots. See <strong>-m</strong>.</p>
+<p><strong>--memory-short</strong><br />
+Memory (RAM) data. Show a one line RAM report in Memory. See
+<strong>-m</strong>.</p>
+<p>Sample: <strong>Report: arrays: 1 slots: 4 modules: 2 type:
+DDR4</strong></p>
+<p><strong>-M , <strong>--machine</strong></strong><br />
+Show machine data. Device, Motherboard, BIOS, and if present, System
+Builder (Like Lenovo). Older systems/kernels without the required
+<strong>/sys</strong> data can use <strong>dmidecode</strong> instead,
+run as root. If using <strong>dmidecode</strong>, may also show
+BIOS/UEFI revision as well as version. <strong>--dmidecode</strong>
+forces use of <strong>dmidecode</strong> data instead of
+<strong>/sys</strong>. Will also attempt to show if the system was
+booted by BIOS, UEFI, or UEFI [Legacy], the latter being legacy BIOS
+boot mode in a system board using UEFI.</p>
+<p>Device information requires either <strong>/sys</strong> or
+<strong>dmidecode</strong>. Note that <strong>other-vm?</strong> is a
+type that means it's usually a VM, but inxi failed to detect which type,
+or positively confirm which VM it is. Primary VM identification is via
+systemd-detect-virt but fallback tests that should also support some
+BSDs are used. Less commonly used or harder to detect VMs may not be
+correctly detected. If you get an incorrect output, post an issue and
+we'll get it fixed if possible.</p>
+<p>Due to unreliable vendor data, device type will show: desktop,
+laptop, notebook, server, blade, plus some obscure stuff that inxi is
+unlikely to ever run on.</p>
+<p><strong>-n , <strong>--network-advanced</strong></strong><br />
+Show Advanced Network device information in addition to that produced by
+<strong>-N</strong>. Shows interface, speed, MAC ID, state, etc.</p>
+<p><strong>-N , <strong>--network</strong></strong><br />
+Show Network device(s) information, including device driver. With
+<strong>-x</strong>, shows Bus ID, Port number.</p>
+<p><strong>-o , <strong>--unmounted</strong></strong><br />
+Show unmounted partition information (includes UUID and LABEL if
+available). Shows file system type if you have <strong>lsblk</strong>
+installed (Linux only). For BSD/GNU Linux: shows file system type if
+<strong>file</strong> is installed, and if you are root or if you have
+added to <strong>/etc/sudoers</strong> (sudo v. 1.7 or newer):</p>
+<p><strong>&lt;username&gt; ALL = NOPASSWD: /usr/bin/file
+(sample)</strong></p>
+<p>doas users: see <strong>man doas.conf</strong> for setup.</p>
+<p>Does not show components (partitions that create the md-raid array)
+of md-raid arrays.</p>
+<p>To show partition labels or UUIDs (when available and relevant), use
+with <strong>-l</strong> or** -u**.</p>
+<p><strong>-p , <strong>--partitions-full</strong></strong><br />
+Show full Partition information (<strong>-P</strong> plus all other
+detected mounted partitions).</p>
+<p>To show partition labels or UUIDs (when available and relevant), use
+with <strong>-l</strong> or** -u**.</p>
+<p><strong>-P , <strong>--partitions</strong></strong><br />
+Show basic Partition information. Shows, if detected: **/ /boot
+/boot/efi /home /opt /tmp /usr /usr/home /var ** /var/tmp /var/log (for
+android, shows <strong>/cache /data /firmware /system</strong>). If
+<strong>--swap</strong> is not used, shows active swap partitions (never
+shows file or zram type swap). Use <strong>-p</strong> to see all
+mounted partitions.</p>
+<p>To show partition labels or UUIDs (when available and relevant), use
+with <strong>-l</strong> or** -u**.</p>
+<p><strong>--processes</strong></p>
+<p>See <strong>-t</strong>.</p>
+<p><strong>-r , <strong>--repos</strong></strong><br />
+Show distro repository data. Currently supported repo types:</p>
+<p><strong>APK</strong> (Alpine Linux + derived versions)</p>
+<p><strong>APT</strong> (Debian, Ubuntu + derived versions, as well as
+RPM based APT distros like PCLinuxOS or Alt-Linux)</p>
+<p><strong>CARDS</strong> (NuTyX + derived versions)</p>
+<p><strong>EOPKG</strong> (Solus)</p>
+<p><strong>NIX</strong> (NixOS + other distros as alternate package
+manager)</p>
+<p><strong>PACMAN</strong> (Arch Linux, KaOS + derived versions)</p>
+<p><strong>PACMAN-G2</strong> (Frugalware + derived versions)</p>
+<p><strong>PISI</strong> (Pardus + derived versions)</p>
+<p><strong>PKG</strong> (OpenBSD, FreeBSD, NetBSD + derived OS
+types)</p>
+<p><strong>PORTAGE</strong> (Gentoo, Sabayon + derived versions)</p>
+<p><strong>PORTS</strong> (OpenBSD, FreeBSD, NetBSD + derived OS
+types)</p>
+<p><strong>SCRATCHPKG</strong> (Venom + derived versions)</p>
+<p><strong>SLACKPKG</strong> (Slackware + derived versions)</p>
+<p><strong>TCE</strong> (TinyCore)</p>
+<p><strong>URPMI</strong> (Mandriva, Mageia + derived versions)</p>
+<p><strong>XBPS</strong> (Void)</p>
+<p><strong>YUM/ZYPP</strong> (Fedora, Red Hat, Suse + derived
+versions)</p>
+<p>More will be added as distro data is collected. If yours is missing
+please show us how to get this information and we'll try to add it.</p>
+<p>See <strong>-rx</strong>, <strong>-rxx</strong>, and
+<strong>-ra</strong> for installed package count information.</p>
+<p><strong>-R , <strong>--raid</strong></strong><br />
+Show RAID data. Shows RAID devices, states, levels, device/array size,
+and components. See extra data with <strong>-x</strong> /
+<strong>-xx</strong>.</p>
+<p>md-raid: If device is resyncing, also shows resync progress line.</p>
+<p>Note: supported types: lvm raid, md-raid, softraid, ZFS, and hardware
+RAID. Other software RAID types may be added, if the software RAID can
+be made to give the required output.</p>
+<p>The component ID numbers work like this: mdraid: the numerator is the
+actual mdraid component number; lvm/softraid/ZFS: the numerator is
+auto-incremented counter only. Eg. <strong>Online: 1: sdb1</strong></p>
+<p>If hardware RAID is detected, shows basic information. Due to
+complexity of adding hardware RAID device disk / RAID reports, those
+will only be added if there is demand, and reasonable reporting
+tools.</p>
+<p><strong>--recommends</strong><br />
+Checks inxi application dependencies and recommends, as well as
+directories, then shows what package(s) you need to install to add
+support for each feature.</p>
+<p><strong>-s , <strong>--sensors</strong></strong><br />
+Show output from sensors if sensors installed/configured:
+Motherboard/CPU/GPU temperatures; detected fan speeds. GPU temperature
+when available. Nvidia shows screen number for multiple screens. IPMI
+sensors are also used (root required) if present. See Advanced options
+<strong>--sensors-use</strong> or <strong>--sensors-exclude</strong> if
+you want to use only a subset of all sensors, or exclude one.</p>
+<p><strong>--slots</strong><br />
+Show PCI slots with type, speed, and status information.</p>
+<p><strong>--swap</strong></p>
+<p>See <strong>-j</strong></p>
+<p><strong>-S , <strong>--system</strong></strong><br />
+Show System information: host name, kernel, desktop environment (if in
+X), distro. With <strong>-xx</strong> show dm - or startx - (only shows
+if present and running if out of X), and if in X, with
+<strong>-xxx</strong> show more desktop info, e.g. taskbar or panel.</p>
+<p><strong>-t , <strong>--processes</strong></strong><br />
+[<strong>c</strong>|<strong>m</strong>|<strong>cm</strong>|<strong>mc
+NUMBER</strong>] Show processes. If no arguments, defaults to
+<strong>cm</strong>. If followed by a number, shows that number of
+processes for each type (default: <strong>5</strong>; if in IRC, max:
+<strong>5</strong>)</p>
+<p>Make sure that there is no space between letters and numbers (e.g.
+write as <strong>-t cm10</strong>).</p>
+<p><strong>-t c</strong><br />
+- CPU only. With <strong>-x</strong>, also shows memory for that process
+on same line.</p>
+<p><strong>-t m</strong><br />
+- memory only. With <strong>-x</strong>, also shows CPU for that process
+on same line. If the <strong>-I</strong> or <strong>-m</strong> lines
+are not triggered, will also show the system RAM used/total
+information.</p>
+<p><strong>-t cm</strong><br />
+- CPU+memory. With <strong>-x</strong>, shows also CPU or memory for
+that process on same line.</p>
+<p><strong>-u , <strong>--uuid</strong></strong><br />
+Show partition UUIDs. Use with <strong>-j</strong>, <strong>-o</strong>,
+<strong>-p</strong>, and <strong>-P</strong> to show partition labels.
+Does nothing without one of those options.</p>
+<p>Sample: <strong>-opju</strong>.</p>
+<p><strong>-U , <strong>--update</strong></strong><br />
+Note - Maintainer may have disabled this function.</p>
+<p>If inxi <strong>-h</strong> has no listing for <strong>-U</strong>
+then it's disabled.</p>
+<p>Auto-update script. Note: if you installed as root, you must be root
+to update, otherwise user is fine. Also installs / updates this man page
+to: <strong>/usr/local/share/man/man1</strong> (if
+<strong>/usr/local/share/man/</strong> exists AND there is no inxi man
+page in <strong>/usr/share/man/man1</strong>, otherwise it goes to
+<strong>/usr/share/man/man1</strong>). This requires that you be root to
+write to that directory. See <strong>--man</strong> or
+<strong>--no-man</strong> to force or disable man install.</p>
+<p><strong>--usb</strong></p>
+<p>See <strong>-J</strong>.</p>
+<p><strong>-V, <strong>--version</strong></strong><br />
+inxi version information. Prints information then exits.</p>
+<p><strong>-v , <strong>--verbosity</strong></strong><br />
+Script verbosity levels. If no verbosity level number is given, 0 is
+assumed. Should not be used with <strong>-b</strong> or
+<strong>-F</strong>.</p>
+<p>Supported levels: <strong>0-8</strong> Examples :** inxi -v 4 ** or
+** inxi -v4**</p>
+<p><strong>-v 0</strong><br />
+- Short output, same as: <strong>inxi</strong></p>
+<p><strong>-v 1</strong><br />
+- Basic verbose, <strong>-S</strong> + basic CPU (cores, type, average
+clock speed, and min/max speeds, if available) + <strong>-G</strong> +
+basic Disk + <strong>-I</strong>.</p>
+<p><strong>-v 2</strong><br />
+- Adds networking device (<strong>-N</strong>), Machine
+(<strong>-M</strong>) data, Battery (<strong>-B</strong>) (if
+available). Same as: <strong>inxi -b</strong></p>
+<p><strong>-v 3</strong><br />
+- Adds advanced CPU (<strong>-C</strong>) and network
+(<strong>-n</strong>) data; triggers <strong>-x</strong> advanced data
+option.</p>
+<p><strong>-v 4</strong><br />
+- Adds partition size/used data (<strong>-P</strong>) for (if present):
+<strong>/ /home /var/ ** /boot. Shows full disk data (</strong>-D**)</p>
+<p><strong>-v 5</strong><br />
+- Adds audio device (<strong>-A</strong>), memory/RAM
+(<strong>-m</strong>), bluetooth data (<strong>-E</strong>) (if
+present), sensors (<strong>-s</strong>), RAID data (if present),
+partition label (<strong>-l</strong>), UUID (<strong>-u</strong>), full
+swap data (<strong>-j</strong>), and short form of optical drives.</p>
+<p><strong>-v 6</strong><br />
+- Adds full mounted partition data (<strong>-p</strong>), unmounted
+partition data (<strong>-o</strong>), optical drive data
+(<strong>-d</strong>), USB (<strong>-J</strong>); triggers
+<strong>-xx</strong> extra data option.</p>
+<p><strong>-v 7</strong><br />
+- Adds network IP data (<strong>-i</strong>), forced bluetooth
+(<strong>-E</strong>), Logical (<strong>-L</strong>), RAID
+(<strong>-R</strong>), full CPU flags/features (<strong>-f</strong>),
+triggers <strong>-xxx</strong></p>
+<p><strong>-v 8</strong><br />
+- All system data available. Adds Repos (<strong>-r</strong>), PCI slots
+(<strong>--slots</strong>), processes (<strong>-tcm</strong>), admin
+(<strong>--admin</strong>). Useful for testing output and to see what
+data you can get from your system.</p>
+<p><strong>-w , <strong>--weather</strong></strong><br />
+Adds weather line. To get weather for an alternate location, use **-W **
+[location]. See also <strong>-x</strong>, <strong>-xx</strong>,
+<strong>-xxx</strong> options. Please note that your distribution's
+maintainer may chose to disable this feature.</p>
+<p>DO NOT USE THIS FEATURE FOR AUTOMATED WEATHER UPDATES! Automated or
+excessive use will lead to your being blocked from any further access.
+This feature is not meant for widget type weather monitoring, or Conky
+type use. It is meant to get weather when you need to see it, for
+example, on a remote server. If you did not type the weather option in
+manually, it's an automated request.</p>
+<p><strong>-W, <strong>--weather-location</strong>
+&lt;location_string&gt;</strong><br />
+Get weather/time for an alternate location. Accepts postal/zip code[,
+country], city,state pair, or latitude,longitude. Note:
+city/country/state names must not contain spaces. Replace spaces with
+'<strong>+</strong>' sign. Don't place spaces around any commas. Postal
+code is not reliable except for North America and maybe the UK. Try
+postal codes with and without country code added. Note that City,State
+applies only to USA, otherwise it's City,Country. If country name
+(english) does not work, try 2 character country code (e.g. Spain: es;
+Great Britain: gb).</p>
+<p>See <em><a
+href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2</a></em>
+for current 2 letter country codes.</p>
+<p>Use only ASCII letters in city/state/country names.</p>
+<p>Examples: <strong>-W 95623,us</strong> OR <strong>-W
+Boston,MA</strong> OR <strong>-W 45.5234,-122.6762</strong> OR
+<strong>-W new+york,ny</strong> OR <strong>-W bodo,norway</strong>.</p>
+<p>DO NOT USE THIS FEATURE FOR AUTOMATED WEATHER UPDATES! Automated or
+excessive use will lead to your being blocked from any further access.
+This feature is not meant for widget type weather monitoring, or Conky
+type use. It is meant to get weather when you need to see it, for
+example, on a remote server. If you did not type the weather option in
+manually, it's an automated request.</p>
+<p><strong>--weather-source, <strong>--ws</strong>
+&lt;unit&gt;</strong><br />
+[<strong>1-9</strong>] Switches weather data source. Possible values are
+<strong>1-9</strong>. <strong>1-4</strong> will generally be active, and
+<strong>5-9</strong> may or may not be active, so check.
+<strong>1</strong> may not support city / country names with spaces
+(even if you use the <strong>+</strong> sign instead of space).
+<strong>2</strong> offers pretty good data, but may not have all small
+city names for <strong>-W</strong>.</p>
+<p>Please note that the data sources are not static per value, and can
+change any time, or be removed, so always test to verify which source is
+being used for each value if that is important to you. Data sources may
+be added or removed on occasions, so try each one and see which you
+prefer. If you get unsupported source message, it means that number has
+not been implemented.</p>
+<p><strong>--weather-unit &lt;unit&gt;</strong><br />
+[<strong>m</strong>|<strong>i</strong>|<strong>mi</strong>|<strong>im</strong>]
+Sets weather units to metric (<strong>m</strong>), imperial
+(<strong>i</strong>), metric (imperial) (<strong>mi</strong>, default),
+imperial (metric) (<strong>im</strong>). If metric or imperial not
+found,sets to default value, or <strong>N/A</strong>.</p>
+<h2 id="filter-options">Filter options</h2>
+<p>The following options allow for applying various types of filtering
+to the output.</p>
+<p><strong>--filter , <strong>--filter-override</strong></strong></p>
+<p>See <strong>-z</strong>, <strong>-Z</strong>.</p>
+<p><strong>--filter-label, <strong>--filter-uuid</strong>,
+<strong>--filter-vulnerabilities</strong></strong></p>
+<p>See <strong>--zl</strong>, <strong>--zu</strong>,
+<strong>--zv</strong>.</p>
+<p><strong>--host</strong><br />
+Turns on hostname in System line. Overrides inxi config file value (if
+set):</p>
+<p><strong>SHOW_HOST='false'</strong> - Same as:
+<strong>SHOW_HOST='true'</strong></p>
+<p>This is an absolute override, the host will always show no matter
+what other switches you use.</p>
+<p><strong>--no-host</strong><br />
+Turns off hostname in System line. This is default when using
+<strong>-z</strong>, for anonymizing inxi output for posting on forums
+or IRC. Overrides configuration value (if set):</p>
+<p><strong>SHOW_HOST='true'</strong> - Same as:
+<strong>SHOW_HOST='false'</strong></p>
+<p>This is an absolute override, the host will not show no matter what
+other switches you use.</p>
+<p><strong>-z, <strong>--filter</strong></strong><br />
+Adds security filters for IP addresses, serial numbers, MAC, location
+(<strong>-w</strong>), and user home directory name. Removes Host:. On
+by default for IRC clients.</p>
+<p><strong>--zl, <strong>--filter-label</strong></strong><br />
+Filter partition label names from <strong>-j</strong>,
+<strong>-o</strong>, <strong>-p</strong>, <strong>-P</strong>, and
+<strong>-Sa</strong> (root=LABEL=...). Generally only useful in very
+specialized cases.</p>
+<p><strong>--zu, <strong>--filter-uuid</strong></strong><br />
+Filter partition UUIDs from <strong>-j</strong>, <strong>-o</strong>,
+<strong>-p</strong>, <strong>-P</strong>, and <strong>-Sa</strong>
+(root=UUID=...). Generally only useful in very specialized cases.</p>
+<p><strong>--zv, <strong>--filter-v</strong>,
+<strong>--filter-vulnerabilities</strong></strong><br />
+Filter Vulnerabilities report from <strong>-Ca</strong>. Generally only
+useful in very specialized cases.</p>
+<p><strong>-Z , <strong>--filter-override</strong> ,
+<strong>--no-filter</strong></strong><br />
+Absolute override for output filters. Useful for debugging networking
+issues in IRC for example.</p>
+<h2 id="output-control-options">Output control options</h2>
+<p>The following options allow for modifying the output in various
+ways.</p>
+<p><strong>-c , <strong>--color</strong>
+[<strong>0</strong>-<strong>42</strong>]</strong><br />
+Set color scheme. If no scheme number is supplied, 0 is assumed.</p>
+<p><strong>-c [<strong>94</strong>-<strong>99</strong>]</strong><br />
+These color selectors run a color selector option prior to inxi starting
+which lets you set the config file value for the selection.</p>
+<p>NOTE: All configuration file set color values are removed when output
+is piped or redirected. You must use the explicit runtime <strong>-c
+&lt;color number&gt;</strong> option if you want color codes to be
+present in the piped/redirected output.</p>
+<p>Color selectors for each type display (NOTE: IRC and global only show
+safe color set):</p>
+<p><strong>-c 94</strong><br />
+- Console, out of X.</p>
+<p><strong>-c 95</strong><br />
+- Terminal, running in X - like xTerm.</p>
+<p><strong>-c 96</strong><br />
+- GUI IRC, running in X - like XChat, Quassel, Konversation etc.</p>
+<p><strong>-c 97</strong><br />
+- Console IRC running in X - like irssi in xTerm.</p>
+<p><strong>-c 98</strong><br />
+- Console IRC not in X.</p>
+<p><strong>-c 99</strong><br />
+- Global - Overrides/removes all settings.</p>
+<p>Setting a specific color type removes the global color selection.</p>
+<p><strong>--indent [11-xx]</strong><br />
+Change primary wide indent width. Generally useless. Only applied if
+output width is greater than max wrap width (see
+<strong>--max-wrap</strong>). Use configuration item
+<strong>INDENT</strong> to make permanent.</p>
+<p><strong>--indents [0-10]</strong><br />
+Change primary wrap mode, second, and <strong>-y1</strong> level
+indents. First indent level only applied if output width is less than
+max wrap width (see <strong>--max-wrap</strong>). 0 disables all wrapped
+indents and all second level indents. Use configuration item
+<strong>INDENTS</strong> to make permanent.</p>
+<p><strong>--limit [-1 - x]</strong><br />
+Raise or lower max output limit of IP addresses for <strong>-i</strong>.
+<strong>-1</strong> removes limit.</p>
+<p><strong>--max-wrap, <strong>--wrap-max</strong>
+[integer]</strong><br />
+Overrides default or configuration set line starter wrap width value.
+Wrap max is the maximum width that inxi will wrap line starters (e.g.
+<strong>Info:</strong>) to their own lines, with data lines indented
+default 2 columns (use <strong>--indents</strong> to change).</p>
+<p>If terminal/console width or <strong>--width</strong> is less than
+wrap width, wrapping of line starter occurs. If <strong>80</strong> or
+less, no wrapping will occur. Overrides internal default value (110) and
+user configuration value <strong>MAX_WRAP</strong>.</p>
+<p><strong>--output [json|screen|xml]</strong><br />
+Change data output type. Requires --output-file if not
+<strong>screen</strong>.</p>
+<p><strong>--output-file [full path to output file|print]</strong><br />
+The given directory path must exist. The directory path given must
+exist, The <strong>print</strong> options prints to stdout. Required for
+non-screen <strong>--output</strong> formats (json|xml).</p>
+<p><strong>--partition-sort
+[dev-base|fs|id|label|percent-used|size|uuid|used]</strong><br />
+Change default sort order of partition output. Corresponds to
+<strong>PARTITION_SORT</strong> configuration item. These are the
+available sort options:</p>
+<p><strong>dev-base</strong> - <strong>/dev</strong> partition
+identifier, like <strong>/dev/sda1</strong>. Note that it's an
+alphabetic sort, so <strong>sda12</strong> is before
+<strong>sda2</strong>.</p>
+<p><strong>fs</strong> - Partition filesystem. Note that sorts will be
+somewhat random if all filesystems are the same.</p>
+<p><strong>id</strong> - Mount point of partition (default).</p>
+<p><strong>label</strong> - Label of partition. If partitions have no
+labels, sort will be random.</p>
+<p><strong>percent-used</strong> - Percentage of partition size
+used.</p>
+<p><strong>size</strong> - KiB size of partition.</p>
+<p><strong>uuid</strong> - UUID of the partition.</p>
+<p><strong>used</strong> - KiB used of partition.</p>
+<p><strong>--wrap-max [integer]</strong></p>
+<p>See <strong>--max-wrap</strong>.</p>
+<p><strong>-y, <strong>--width</strong> [integer]</strong><br />
+This is an absolute width override which sets the output line width max.
+Overrides <strong>COLS_MAX_IRC</strong>,
+<strong>COLS_MAX_NO_DISPLAY</strong>, <strong>COLS_MAX_CONSOLE</strong>
+configuration items, or the actual widths of the terminal.</p>
+<p>* <strong>-y</strong> - sets default width of 80 columns.<br />
+* <strong>-y [80-xxx]</strong> - sets width to given number. Must be 80
+or more.<br />
+* <strong>-y 1</strong> - switches to a single indented key/value pair
+per line, and removes all long line wrapping (similar to
+<strong>dmidecode</strong> output). Not recommended for use with
+<strong>-Y</strong>;<br />
+* <strong>-y -1</strong> - removes width limits (if assigned by
+configuration items).</p>
+<p>Examples:<br />
+<strong>inxi -Fxx -y 130</strong><br />
+<strong>inxi -Fxxy</strong><br />
+<strong>inxi -bay1</strong></p>
+<p><strong>-Y, <strong>--height</strong>, <strong>--less</strong>
+[-3-[integer]</strong><br />
+Control output height. Useful when in console, and scrollback not
+available. Breaks output flow based on values provided.</p>
+<p>* <strong>-Y 0</strong> or <strong>-Y</strong> - Set default max
+height to terminal height.<br />
+* <strong>-Y [1-xxx]</strong> - set max output block height height in
+lines.<br />
+* <strong>-Y -1</strong> - Print out one primary data item block (like
+<strong>CPU:</strong>, <strong>System:</strong>) at a time. Useful for
+very long outputs like <strong>-Fa</strong>, <strong>-v8</strong>, etc.
+Not available for <strong>-h</strong>.<br />
+* <strong>-Y -2</strong> - Do not disable output colors when redirected
+or piped to another program. Useful if piping output to <strong>less
+-R</strong> for example. This does not limit the height otherwise since
+the expectation it is being piped to another program like
+<strong>less</strong> which will handle that.<br />
+* <strong>-Y -3</strong> - Restore default unlimited output lines if
+<strong>LINES_MAX</strong> configuration item set.</p>
+<p>Recommended to use the following for very clean up and down
+scrollable output out of display, while retaining the color schemes,
+which are normally removed with piping or redirect:</p>
+<p><strong>pinxi -v8Y -2 | less -R</strong></p>
+<p>Note: since it's not possible for inxi to know how many actual
+terminal lines are being used by terminal wrapped output, with
+<strong>-y 1</strong> , it may be better in general to use a fixed
+height like:</p>
+<p><strong>-y 1 -Y 20</strong> instead of: <strong>-y 1 -Y</strong></p>
+<h2 id="extra-data-options">Extra data options</h2>
+<p>These options can be triggered by one or more <strong>-x</strong>.
+Alternatively, the <strong>-v</strong> options trigger them in the
+following way: <strong>-v 3</strong> adds <strong>-x</strong>;
+<strong>-v 6</strong> adds <strong>-xx</strong>; <strong>-v 7</strong>
+adds <strong>-xxx</strong></p>
+<p>These extra data triggers can be useful for getting more in-depth
+data on various options. They can be added to any long form option list,
+e.g.: <strong>-bxx</strong> or <strong>-Sxxx</strong></p>
+<p>There are 3 extra data levels:<br />
+<strong>-x</strong>, <strong>-xx</strong>, <strong>-xxx</strong><br />
+OR<br />
+<strong>--extra 1</strong>, <strong>--extra 2</strong>, <strong>--extra
+3</strong></p>
+<p>The following details show which lines / items display extra
+information for each extra data level.</p>
+<p><strong>-x -A</strong><br />
+- Adds (if available and/or relevant) <strong>vendor:</strong> item,
+which shows specific vendor [product] information.</p>
+<p>- Adds version/port(s)/driver version (if available) for each
+device.</p>
+<p>- Adds PCI/USB ID of each device.</p>
+<p>- Adds non-running sound servers, if detected.</p>
+<p><strong>-x -B</strong><br />
+- Adds vendor/model, battery status (if battery present).</p>
+<p>- Adds attached battery powered peripherals
+(<strong>Device-[number]:</strong>) if detected (keyboard, mouse,
+etc.).</p>
+<p>- Adds battery <strong>volts:</strong>, <strong>min:</strong>
+voltages. Note that if difference is critical, that is current voltage
+is too close to minimum voltage, shows without <strong>-x</strong>.</p>
+<p><strong>-x -C</strong><br />
+- Adds bogomips to CPU speed report (if available).</p>
+<p>- Adds <strong>L1:</strong> and <strong>L3:</strong> cache types if
+either are present/available. For BSD or legacy Linux, uses dmidecode +
+doas/sudo/root. Force use of dmidecode cache values by adding
+<strong>--dmidecode</strong>. This will override /sys based cache data,
+which tends to be better, so in general don't do that.</p>
+<p>- Adds <strong>boost: [enabled|disabled]</strong> if detected, aka
+<strong>turbo</strong>. Not all CPUs have this feature.</p>
+<p>- Adds CPU Flags (short list). Use <strong>-f</strong> to see full
+flag/feature list.</p>
+<p>- Adds CPU microarchitecture + revision (e.g. Sandy Bridge, K8,
+ARMv8, P6, etc.). Only shows data if detected. Newer microarchitectures
+will have to be added as they appear, and require the CPU family ID,
+model ID, and stepping.</p>
+<p>- Adds, if smt (Simultaneous MultiThreading) is available but
+disabled, after <strong>type:</strong> data <strong>smt:
+disabled</strong>. <strong>type: MT</strong> means it's enabled. See
+<strong>-Cxxx</strong>.</p>
+<p>Examples:<br />
+<strong>arch: Sandy Bridge rev: 2</strong><br />
+<strong>arch: K8 rev.F+ rev: 2</strong></p>
+<p>If unable to non-ambiguosly determine architecture, will show
+something like: <strong>arch: Amber Lake note: check rev: 9</strong></p>
+<p>- Adds CPU highest speed after <strong>avg: [speed] high:
+[speed]</strong> if greater than 1 core and cores have different speeds.
+Linux only.</p>
+<p><strong>-x -d</strong><br />
+- Adds more items to <strong>Features</strong> line of optical drive;
+dds rev version to optical drive.</p>
+<p><strong>-x -D</strong><br />
+- Adds HDD temperature with disk data.</p>
+<p>Method 1: Systems running Linux kernels ~5.6 and newer should have
+<strong>drivetemp</strong> module data available. If so, drive temps
+will come from /sys data for each drive, and will not require root or
+hddtemp. This method is MUCH faster than using hddtemp. Note that NVMe
+drives do not require <strong>drivetemp</strong>.</p>
+<p>If your <strong>drivetemp</strong> module is not enabled, enable
+it:</p>
+<p><strong>modprobe drivetemp</strong></p>
+<p>Once enabled, add <strong>drivetemp</strong> to
+<strong>/etc/modules</strong> or
+<strong>/etc/modules-load.d/***.conf</strong> so it starts
+automatically.</p>
+<p>If you see drive temps running as regular user and you did not
+configure system to use doas/sudo hddtemp, then your system supports
+this feature. If no /sys data is found, inxi will try to use hddtemp
+methods instead for that drive. Hint: if temp is /sys sourced, the temp
+will be to 1 decimal, like 34.8, if hddtemp sourced, they will be
+integers.</p>
+<p>Method 2: if you have hddtemp installed, if you are root or if you
+have added to <strong>/etc/sudoers</strong> (sudo v. 1.7 or newer):</p>
+<p><strong>&lt;username&gt; ALL = NOPASSWD: /usr/sbin/hddtemp
+(sample)</strong></p>
+<p>doas users: see <strong>man doas.conf</strong> for setup.</p>
+<p>You can force use of <strong>hddtemp</strong> for all drives using
+<strong>--hddtemp</strong>.</p>
+<p>- If free LVM volume group size detected (root required), show
+<strong>lvm-free:</strong> on Local Storage line. This is how much
+unused space the VGs contain, that is, space not assigned to LVs.</p>
+<p><strong>-x -E (</strong>--bluetooth**)**<br />
+- Adds (if available and/or relevant) <strong>vendor:</strong> item,
+which shows specific vendor [product] information.</p>
+<p>- Adds PCI/USB Bus ID of each device.</p>
+<p>- Adds driver version (if available) for each device.</p>
+<p>- Adds (if available, and <strong>hciconfig</strong> only) LMP (HCI
+if no LMP data, and HCI if HCI/LMP versions are different) version (if
+available) for each HCI ID.</p>
+<p><strong>-x -G</strong><br />
+- Adds PCI/USB ID of each device.</p>
+<p>- Adds (if available and/or relevant) <strong>vendor:</strong> item,
+which shows specific vendor [product] information.</p>
+<p>- <strong>X.org:</strong> Adds direct rendering status.</p>
+<p>- <strong>X.org:</strong> Adds (for single GPU, nvidia driver) screen
+number that GPU is running on.</p>
+<p><strong>-x -i</strong><br />
+- Adds IP v6 additional scope data, like Global, Site, Temporary for
+each interface.</p>
+<p>Note that there is no way we are aware of to filter out the
+deprecated IP v6 scope site/global temporary addresses from the output
+of <strong>ifconfig</strong>. The <strong>ip</strong> tool shows that
+clearly.</p>
+<p><strong>ip-v6-temporary</strong> - (<strong>ip</strong> tool only),
+scope global temporary. Scope global temporary deprecated is not
+shown</p>
+<p><strong>ip-v6-global</strong> - scope global
+(<strong>ifconfig</strong> will show this for all types, global, global
+temporary, and global temporary deprecated, <strong>ip</strong> shows it
+only for global)</p>
+<p><strong>ip-v6-link</strong> - scope link
+(<strong>ip</strong>/<strong>ifconfig</strong>) - default for
+<strong>-i</strong>.</p>
+<p><strong>ip-v6-site</strong> - scope site
+(<strong>ip</strong>/<strong>ifconfig</strong>). This has been
+deprecated in IPv6, but still exists. <strong>ifconfig</strong> may show
+multiple site values, as with global temporary, and global temporary
+deprecated.</p>
+<p><strong>ip-v6-unknown</strong> - unknown scope</p>
+<p><strong>-x -I</strong><br />
+- Adds current init system (and init rc in some cases, like OpenRC).
+With <strong>-xx</strong>, shows init/rc version number, if
+available.</p>
+<p>- Adds default system gcc. With <strong>-xx</strong>, also show other
+installed gcc versions.</p>
+<p>- Adds current runlevel (not available with all init systems).</p>
+<p>- Adds total packages discovered in system. See <strong>-xx</strong>
+and <strong>-a</strong> for per package manager types output. Moves to
+<strong>Repos</strong> if <strong>-rx</strong>.</p>
+<p>If your package manager is not supported, please file an issue and
+we'll add it. That requires the full output of the query or method to
+discover all installed packages on your system, as well of course as the
+command or method used to discover those.</p>
+<p>- If in shell (i.e. not in IRC client), adds shell version number, if
+available.</p>
+<p><strong>-x -j, <strong>-x</strong> --swap</strong><br />
+Add <strong>mapper:</strong>. See <strong>-x -o</strong>.</p>
+<p><strong>-x -J (</strong>--usb**)**<br />
+- For Devices, adds driver(s).</p>
+<p><strong>-x -L, <strong>-x</strong> --logical</strong><br />
+- Adds <strong>dm: dm-x</strong> to VG &gt; LV and other Device types.
+This can help tracking down which device belongs to what.</p>
+<p><strong>-x -m, <strong>--memory-modules</strong></strong><br />
+- If present, adds maximum memory module/device size in the Array line.
+Only some systems will have this data available. Shows estimate if it
+can generate one.</p>
+<p>- Adds device type in the Device line.</p>
+<p><strong>-x -N</strong><br />
+- Adds (if available and/or relevant) <strong>vendor:</strong> item,
+which shows specific vendor [product] information.</p>
+<p>- Adds version/port(s)/driver version (if available) for each
+device;</p>
+<p>- Adds PCI/USB ID of each device.</p>
+<p><strong>-x -o, <strong>-x</strong> -p, <strong>-x</strong>
+-P</strong><br />
+- Adds <strong>mapper:</strong> (the <strong>/dev/mapper/</strong>
+partition ID) if mapped partition.</p>
+<p>Example: <strong>ID-4: /home ... dev: /dev/dm-6 mapped:
+ar0-home</strong></p>
+<p><strong>-x -r</strong><br />
+- Adds Package info. See <strong>-Ix</strong></p>
+<p><strong>-x -R</strong><br />
+- md-raid: Adds second RAID Info line with extra data: blocks, chunk
+size, bitmap (if present). Resync line, shows blocks synced/total
+blocks.</p>
+<p>- Hardware RAID: Adds driver version, Bus ID.</p>
+<p><strong>-x -s</strong><br />
+- Adds basic voltages: 12v, 5v, 3.3v, vbat (<strong>ipmi</strong>,
+<strong>lm-sensors</strong> if present).</p>
+<p><strong>-x -S</strong><br />
+- Adds Kernel gcc version.</p>
+<p>- Adds to <strong>Distro:</strong> <strong>base:</strong> if
+detected. System base will only be seen on a subset of distributions.
+The distro must be both derived from a parent distro (e.g. Mint from
+Ubuntu), and explicitly added to the supported distributions for this
+feature. Due to the complexity of distribution identification, these
+will only be added as relatively solid methods are found for each
+distribution system base detection.</p>
+<p><strong>-x -t (</strong>--processes**)**<br />
+- Adds memory use output to CPU (<strong>-xt c</strong>), and CPU use to
+memory (<strong>-xt m</strong>).</p>
+<p><strong>-x -w , <strong>-W</strong></strong><br />
+- Adds humidity and barometric pressure.</p>
+<p>- Adds wind speed and direction.</p>
+<p><strong>-xx -A</strong><br />
+- Adds vendor:product ID for each device.</p>
+<p>- Adds PCIe speed and lanes item (Linux only, if detected).</p>
+<p><strong>-xx -B</strong><br />
+- Adds serial number.</p>
+<p><strong>-xx -D</strong><br />
+- Adds disk serial number.</p>
+<p>- Adds disk speed (if available). This is the theoretical top speed
+of the device as reported. This speed may be restricted by system board
+limits, eg. a SATA 3 drive on a SATA 2 board may report SATA 2 speeds,
+but this is not completely consistent, sometimes a SATA 3 device on a
+SATA 2 board reports its design speed.</p>
+<p>NVMe drives: adds lanes, and (per direction) speed is calculated with
+lane speed * lanes * PCIe overhead. PCIe 1 and 2 have data rates of GT/s
+* .8 = Gb/s (10 bits required to transfer 8 bits of data). PCIe 3 and
+greater transfer data at a rate of GT/s * 128/130 * lanes = Gb/s (130
+bits required to transfer 128 bits of data).</p>
+<p>For a PCIe 3 NVMe drive, with speed of <strong>8 GT/s</strong> and
+<strong>4</strong> lanes (<strong>8GT/s * 128/130 * 4 = 31.6
+Gb/s</strong>):</p>
+<p><strong>speed: 31.6 Gb/s lanes: 4</strong></p>
+<p>- Adds disk duid, if available. Some BSDs have it.</p>
+<p><strong>-xx -E (</strong>--bluetooth**)**<br />
+- Adds vendor:product ID of each device.</p>
+<p>- Adds (**hciconfig **only) LMP subversion (and/or HCI revision if
+applicable) for each device.</p>
+<p>- Adds PCIe speed and lanes item (Linux only, and if PCIe bluetooth,
+which is rare).</p>
+<p><strong>-xx -G</strong><br />
+Triggers much more complete Screen/Monitor output.</p>
+<p><strong>X.org:</strong> requires <strong>xdpyinfo</strong> or
+<strong>xrandr</strong>, and the advanced per monitor feature requires
+<strong>xrandr</strong>.</p>
+<p><strong>Wayland:</strong> requires any tool capable of showing
+monitor and resolution information. <strong>Sway</strong> has
+<strong>swaymsg</strong>, <strong>weston-info</strong> or
+<strong>wayland-info</strong> can show Wayland information on any
+Wayland compositor, and <strong>wlr-randr</strong> can show Wayland
+information for any <strong>wlroots</strong> based compositor.</p>
+<p>Further note that all references to <strong>Displays</strong>,
+<strong>Screens</strong>, and <strong>Monitors</strong> are referring to
+the <strong>X</strong> or <strong>Wayland</strong> technical terms, not
+normal consumer usage.</p>
+<p><strong>X.org:</strong> 1 <strong>Display</strong> runs 1 or more
+<strong>Screens</strong>, and 1 <strong>Screen</strong> runs 1 or more
+<strong>Monitors</strong>.</p>
+<p><strong>Wayland:</strong> The <strong>Display</strong> is the primary
+container, and it can contain 1 or more <strong>Monitors</strong>.</p>
+<p>- Adds vendor:product ID of each device.</p>
+<p>- Adds PCIe speed and lanes item (Linux only, and if PCIe device and
+detected).</p>
+<p>- Adds output port IDs, active, off (connected but disabled, like a
+closed laptop lid) and empty. Example:</p>
+<p><strong>ports: active: DVI-I-1,VGA-1 empty: HDMI-A-1</strong></p>
+<p>- Adds <strong>Display</strong> ID. X.org: the Display running the
+Screen that runs the Monitors; Wayland: the Display that runs the
+monitors.</p>
+<p>- Adds compositor, if found (always shows for Wayland).</p>
+<p>- <strong>Wayland:</strong> Adds to <strong>Display</strong>
+<strong>d-rect:</strong> if &gt; 1 monitors in Display. This is the size
+of the rectangle Wayland creates to situate the monitors in.</p>
+<p>- <strong>X.org:</strong> If available, shows
+<strong>alternate:</strong> Xorg drivers. This means a driver on the
+default list of drivers Xorg automatically checks for the device, but
+which is not installed. For example, if you have
+<strong>nouveau</strong> driver, <strong>nvidia</strong> would show as
+alternate if it was not installed. Note that <strong>alternate:</strong>
+does NOT mean you should have it, it's just one of the drivers Xorg
+checks to see if is present and loaded when checking the device. This
+can let you know there are other driver options. Note that if you have
+explicitly set the driver in <strong>xorg.conf</strong>, Xorg will not
+create this automatic check driver list.</p>
+<p>- <strong>Xorg:</strong> Adds total number of
+<strong>Screens</strong> listed for the current
+<strong>Display</strong>.</p>
+<p>- <strong>Xorg:</strong> Adds default <strong>Screen</strong> ID if
+Screen (not monitor!) total is greater than 1.</p>
+<p>- <strong>X.org:</strong> Adds <strong>Screen</strong> line, which
+includes the ID (<strong>Screen: 0</strong>) then <strong>s-res</strong>
+(Screen resolution), <strong>s-dpi</strong>. Remember, this is an Xorg
+<strong>Screen</strong>, NOT a monitor screen, and the information
+listed is about the Xorg Screen! It may at times be the same as a single
+monitor system, but usually it's different in some ways. Note that the
+physical monitor dpi and the Xorg dpi are not necessarily the same
+thing, and can vary widely.</p>
+<p>- Adds <strong>Monitor</strong> lines. Monitors are a subset of a
+<strong>Screen</strong> (X.org) or <strong>Display</strong> (Wayland),
+each of which can have one or more monitors. Normally a dual monitor
+setup is 2 monitors run by one Xorg Screen/Wayland Display.</p>
+<p>- <strong>pos: [primary,]{position string|row-col}</strong> (X.org:
+requires <strong>xrandr</strong>; Wayland: requires
+<strong>swaymsg</strong> [sway], <strong>wlr-randr</strong> [wlroots
+based compositors], <strong>weston-info</strong> /
+<strong>wayland-info</strong> [all]). Uses either explicit
+<strong>primary</strong> value or +0+0 position if no primary monitor
+value set. <strong>pos:</strong> does not show for single monitor
+setups, or if no position data was found.</p>
+<p>Position is text (left, center, center-l, center-r, right, top,
+top-left, top-center, top-right, middle, middle-c, middle-r, bottom,
+bottom-l, bottom-c, bottom-r) if monitors fit within the following
+grids: 1x2, 1x3, 1x4, 2x1, 2x2, 2x3, 3x1, 3x2, 3x3. If layout not
+supported in text, uses [row-nu]-[column-nu] instead to indicate the
+monitor's position in its grid.</p>
+<p>The position is based on the upper left corner of each monitor
+relative to the grid of monitors that the <strong>Xorg</strong>
+<strong>Screen</strong> is composed of.</p>
+<p>- <strong>diag:</strong> monitor screen diagonal in mm (inches). Note
+that this is the real monitor size, not the Xorg full Screen diagonal
+size, which can be quite different.</p>
+<p>- For free drivers, adds OpenGL compatibility version number if
+available. For nonfree drivers, the core version and compatibility
+versions are usually the same. Example:</p>
+<p><strong>v: 3.3 Mesa 11.2.0 compat-v: 3.0</strong></p>
+<p><strong>-xx -I</strong><br />
+- Adds init type version number (and rc if present).</p>
+<p>- Adds other detected installed gcc versions (if present).</p>
+<p>- Adds system default runlevel, if detected. Supports
+Systemd/Upstart/SysVinit type defaults.</p>
+<p>- Shows <strong>Packages:</strong> counts by discovered package
+manager types. In cases where only 1 type had results, does not show
+total after <strong>Packages:</strong>. Does not show installed package
+managers wtih 0 packages. See <strong>-a</strong> for full output. Moves
+to <strong>Repos</strong> if <strong>-rxx</strong>.</p>
+<p>- Adds parent program (or pty/tty) that started shell, if not IRC
+client.</p>
+<p><strong>-xx -j (</strong>--swap**), <strong>-xx</strong> -p,
+<strong>-xx</strong> -P**<br />
+- Adds swap priority to each swap partition (for <strong>-P</strong>)
+used, and for all swap types (for <strong>-j</strong>).</p>
+<p><strong>-xx -J (</strong>--usb**)**<br />
+- Adds vendor:chip id.</p>
+<p><strong>-xx -L, <strong>-xx</strong> --logical</strong><br />
+- Adds internal LVM Logical volumes, like raid image and meta data
+volumes.</p>
+<p>- Adds full list of Components, sub-components, and their physical
+devices.</p>
+<p>- For LVM RAID, adds a RAID report line (if not <strong>-R</strong>).
+Read up on LVM documentation to better understand their use of the term
+'stripes'.</p>
+<p><strong>-xx -m, <strong>--memory-modules</strong></strong><br />
+- Adds memory device Manufacturer.</p>
+<p>- Adds memory device Part Number (<strong>part-no:</strong>). Useful
+for ordering new or replacement memory sticks etc. Part numbers are
+unique, particularly if you use the word <strong>memory</strong> in the
+search as well. With <strong>-xxx</strong>, also shows serial
+number.</p>
+<p>- Adds single/double bank memory, if data is found. Note, this may
+not be 100% right all of the time since it depends on the order that
+data is found in <strong>dmidecode</strong> output for <strong>type
+6</strong> and <strong>type 17</strong>.</p>
+<p><strong>-xx -M</strong><br />
+- Adds chassis information, if data is available. Also shows BIOS ROM
+size if using <strong>dmidecode</strong>.</p>
+<p><strong>-xx -N</strong><br />
+- Adds vendor:product ID for each device.</p>
+<p>- Adds PCIe speed and lanes item (Linux only, and if PCIe device and
+detected).</p>
+<p><strong>-xx -r</strong><br />
+- Adds Packages info. See <strong>-Ixx</strong></p>
+<p><strong>-xx -R</strong><br />
+- md-raid: Adds superblock (if present) and algorithm. If resync, shows
+progress bar.</p>
+<p>- Hardware RAID: Adds Chip vendor:product ID.</p>
+<p><strong>-xx -s</strong><br />
+- Adds DIMM/SOC voltages, if present (<strong>ipmi</strong> only).</p>
+<p><strong>-xx -S</strong><br />
+- Adds display manager (<strong>dm</strong>) type, if present. If none,
+shows N/A. Supports most known display managers, including gdm, gdm3,
+idm, kdm, lightdm, lxdm, mdm, nodm, sddm, slim, tint, wdm, and xdm.</p>
+<p>- Adds, if run in X, window manager type (<strong>wm</strong>), if
+available. Not all window managers are supported. Some desktops support
+using more than one window manager, so this can be useful to see what
+window manager is actually running. If none found, shows nothing. Uses a
+less accurate fallback tool <strong>wmctrl</strong> if
+<strong>ps</strong> tests fail to find data.</p>
+<p>- Adds desktop toolkit (<strong>tk</strong>), if available
+(Xfce/KDE/Trinity).</p>
+<p><strong>-xx --slots</strong><br />
+- Adds slot length.</p>
+<p><strong>-xx -w , <strong>-W</strong></strong><br />
+- Adds wind chill, heat index, and dew point, if available.</p>
+<p>- Adds cloud cover, rain, snow, or precipitation (amount in previous
+hour to observation time), if available.</p>
+<p><strong>-xxx -A</strong><br />
+- Adds, if present, serial number.</p>
+<p>- Adds, if present, PCI/USB class ID.</p>
+<p><strong>-xxx -B</strong><br />
+- Adds battery chemistry (e.g. <strong>Li-ion</strong>), cycles (NOTE:
+there appears to be a problem with the Linux kernel obtaining the cycle
+count, so this almost always shows <strong>0</strong>. There's nothing
+that can be done about this glitch, the data is simply not available as
+of 2018-04-03), location (only available from <strong>dmidecode</strong>
+derived output).</p>
+<p>- Adds attached device <strong>rechargeable: [yes|no]</strong>
+information.</p>
+<p><strong>-xxx -C</strong><br />
+- Adds CPU voltage and external clock speed (this is the motherboard
+speed). Requires doas/sudo/root and <strong>dmidecode</strong>.</p>
+<p>- Adds, if smt (Simultaneous MultiThreading) data is available, after
+<strong>type:</strong> data <strong>smt: [status]</strong>.<br />
+<strong>smt: [status]</strong><br />
+<strong>MT</strong> in <strong>type:</strong> will show if smt is
+enabled in general. 3 values are possible:
+[<strong>enabled|disabled|&lt;unsupported&gt;</strong>].
+<strong>&lt;unsupported&gt;</strong> means the CPU does not support
+SMT.</p>
+<p><strong>-xxx -D</strong><br />
+- Adds disk firmware revision number (if available).</p>
+<p>- Adds disk partition scheme (in most cases), e.g. <strong>scheme:
+GPT</strong>. Currently not able to detect all schemes, but handles the
+most common, e.g. <strong>GPT</strong> or <strong>MBR</strong>.</p>
+<p>- Adds disk type (<strong>HDD</strong>/<strong>SSD</strong>),
+rotation speed (in some but not all cases), e.g. <strong>type: HDD rpm:
+7200</strong>, or <strong>type: SSD</strong> if positive SSD
+identification was made. If no HDD, rotation, or positive SSD ID found,
+shows <strong>type: N/A</strong>. Not all HDD spinning disks report
+their speed, so even if they are spinning, no rpm data will show.</p>
+<p><strong>-xxx -E (</strong>--bluetooth**)**<br />
+- Adds, if present, PCI/USB class ID.</p>
+<p>- Adds (**hciconfig **only) HCI version, revision.</p>
+<p><strong>-xxx -G</strong><br />
+- Adds, if present, Device PCI/USB class ID.</p>
+<p>- Adds to Device <strong>serial:</strong> number (if found).</p>
+<p>- <strong>Xorg:</strong> Adds to <strong>Screen:</strong>
+<strong>s-size:</strong> and <strong>s-diag:</strong>. (Screen size data
+requires <strong>xdpyinfo</strong>). This is the X.org Screen
+dimensions, NOT the Monitor size!</p>
+<p>- Adds to Monitors (if detected) frequency
+(<strong>hz:</strong>).</p>
+<p>- Adds to Monitors (if detected) size (<strong>size: 277x156mm
+(10.9x6.1")</strong>). Note that this is the real physical monitor size,
+not the Xorg Screen/Wayland Display size, which can be quite different
+(1 Xorg Screen / Wayland Display can for instance contain two or more
+monitors).</p>
+<p>- Adds to Monitors <strong>modes: min: max:</strong> (if detected).
+These are the smallest and largest monitor modes found, using an inexact
+method, so might not always be right.</p>
+<p>- Adds to Monitors <strong>serial:</strong> number (if detected).</p>
+<p>- <strong>Wayland:</strong> Adds to Monitors <strong>scale:</strong>
+(if detected).</p>
+<p><strong>-xxx -I</strong><br />
+- For <strong>Uptime:</strong> adds <strong>wakeups:</strong> to show
+how many times the machine has been woken from suspend state during
+current uptime period (if available, Linux only). 0 value means the
+machine has not been suspended.</p>
+<p>- For <strong>Shell:</strong> adds <strong>(su|sudo|login)</strong>
+to shell name if present.</p>
+<p>- For <strong>Shell:</strong> adds <strong>default:</strong> shell if
+different from running shell, and default shell <strong>v:</strong>, if
+available.</p>
+<p>- For <strong>running-in:</strong> adds <strong>(SSH)</strong> to
+parent, if present. SSH detection uses the <strong>whoami</strong>
+test.</p>
+<p><strong>-xxx -J (</strong>--usb**)**<br />
+- Adds, if present, serial number for non hub devices.</p>
+<p>- Adds <strong>interfaces:</strong> for non hub devices.</p>
+<p>- Adds, if available, USB speed in <strong>Mbits/s</strong> or
+<strong>Gbits/s</strong>.</p>
+<p>- Adds, if present, USB class ID.</p>
+<p>- Adds, if non 0, max power in mA.</p>
+<p><strong>-xxx -m, <strong>--memory-modules</strong></strong><br />
+- Adds memory bus width: primary bus width, and if present, total width.
+e.g. <strong>bus width: 64 bit (total: 72 bits)</strong>. Note that
+total / data widths are mixed up sometimes in dmidecode output, so inxi
+will take the larger value as the total if present. If no total width
+data is found, then inxi will not show that item.</p>
+<p>- Adds device Type Detail, e.g. <strong>detail: DDR3
+(Synchronous)</strong>.</p>
+<p>- Adds, if present, memory module voltage. Only some systems will
+have this data available.</p>
+<p>- Adds device serial number.</p>
+<p><strong>-xxx -N</strong><br />
+- Adds, if present, serial number.</p>
+<p>- Adds, if present, PCI/USB class ID.</p>
+<p><strong>-xxx -R</strong><br />
+- md-raid: Adds system mdraid support types (kernel support, read ahead,
+RAID events)</p>
+<p>- zfs-raid: Adds portion allocated (used) by RAID array/device.</p>
+<p>- Hardware RAID: Adds rev, ports, and (if available and/or relevant)
+<strong>vendor:</strong> item, which shows specific vendor [product]
+information.</p>
+<p><strong>-xxx -S</strong><br />
+- Adds, if in X, or with <strong>--display</strong>, bar/dock/panel/tray
+items (<strong>info</strong>). If none found, shows nothing. Supports
+desktop items like gnome-panel, lxpanel, xfce4-panel, lxqt-panel, tint2,
+cairo-dock, trayer, and many others.</p>
+<p>- Adds (if present), window manager (<strong>wm</strong>) version
+number.</p>
+<p>- Adds (if present), display manager (<strong>dm</strong>) version
+number.</p>
+<p>- Adds (if available, and in display), virtual terminal
+(<strong>vt</strong>) number. These are the same as
+<strong>ctrl+alt+F[x]</strong> numbers usually. Some systems have this,
+some don't, it varies.</p>
+<p><strong>-xxx -w , <strong>-W</strong></strong><br />
+- Adds location (city state country), observation altitude (if
+available), weather observation time (if available), sunset/sunrise (if
+available).</p>
+<h2 id="admin-extra-data-options">Admin extra data options</h2>
+<p>These options are triggered with <strong>--admin</strong> or
+<strong>-a</strong>. Admin options are advanced output options, and are
+more technical, and mostly of interest to system administrators or other
+machine admins.</p>
+<p>The <strong>--admin</strong> option sets <strong>-xxx</strong>, and
+only has to be used once. It will trigger the following features:</p>
+<p><strong>-a -A</strong><br />
+- Adds, if present, possible <strong>alternate:</strong> kernel modules
+capable of driving each <strong>Device-x</strong> (not including the
+current <strong>driver:</strong>). If no non-driver modules found, shows
+nothing. NOTE: just because it lists a module does NOT mean it is
+available in the system, it's just something the kernel knows could
+possibly be used instead.</p>
+<p>- Adds PCIe generation, and, if different than running PCIe
+generation, speed or lanes, <strong>link-max: gen: speed:
+lanes:</strong> (only items different from primary shown).</p>
+<p><strong>-a -C</strong><br />
+- Adds CPU family, model-id, and stepping (replaces <strong>rev</strong>
+of <strong>-Cx</strong>). Format is <strong>hexadecimal
+(decimal)</strong> if greater than 9, otherwise
+<strong>hexadecimal</strong>.</p>
+<p>- Adds CPU microcode. Format is <strong>hexadecimal</strong>.</p>
+<p>- Adds socket type (for motherboard CPU socket, if available). If
+results doubtful will list two socket types and <strong>note:
+check</strong>. Requires doas/sudo/root and <strong>dmidecode</strong>.
+The item in parentheses may simply be a different syntax for the same
+socket, but in general, check this before trusting it.</p>
+<p>Sample: <strong>socket: 775 (478) note: check</strong><br />
+Sample: <strong>socket: AM4</strong></p>
+<p>- Adds DMI CPU base and boost/turbo speeds. Requires doas/sudo/root
+and <strong>dmidecode</strong>. In some cases, like with overclocking or
+'turbo' or 'boost' modes, voltage and external clock speeds may be
+increased, or short term limits raised on max CPU speeds. These are
+often not reflected in /sys based CPU <strong>min/max:</strong> speed
+results, but often are using this source.</p>
+<p>Samples:<br />
+CPU not overclocked, with boost, like Ryzen:</p>
+<pre><code>Speed (MHz): 
+  avg: 2861 
+  high: 3250 
+  min/max: 1550/3400 
+  boost: enabled
+  base/boost: 3400/3900 </code></pre>
+<p>Overclocked 2900 MHz CPU, with no boost available:</p>
+<pre><code>Speed (MHz): 
+  avg: 2345 
+  high: 2900 
+  min/max: 800/2900
+  base/boost: 3350/3000</code></pre>
+<p>Overclocked 3000 MHz CPU, with boosted max speed:</p>
+<pre><code>Speed (MHz): 
+  avg: 3260
+  high: 4190
+  min/max: 1200/3001
+  base/boost: 3000/4000</code></pre>
+<p>Note that these numbers can be confusing, but basically, the
+<strong>base</strong> number is the actual normal top speed the CPU runs
+at without boost mode, and the <strong>boost</strong> number is the max
+speed the CPU reports itself able to run at. The actual max speed may be
+higher than either value, or lower. The <strong>boost</strong> number
+appears to be hard-coded into the CPU DMI data, and does not seem to
+reflect actual max speeds that overclocking or other combinations of
+speed boosters can enable, as you can see from the example where the CPU
+is running at a speed faster than the min/max or base/boost values.</p>
+<p>Note that the normal <strong>min/max:</strong> speeds do NOT show
+actual overclocked OR boost/turbo mode speeds, and appear to be
+hard-coded values, not dynamic real values. The
+<strong>base/boost:</strong> values are sometimes real, and sometimes
+not. <strong>base</strong> appears in general to be real.</p>
+<p>- Adds frequency <strong>scaling: governor:.. driver:..</strong> if
+found/available. Also adds scaling min/max speeds if different from
+standard CPU min/max spees (not common).</p>
+<p>- Adds description of cache topology per cpu. Linux only.</p>
+<p>- Creates new <strong>Topology:</strong> line after the
+<strong>Info:</strong> line. Moves cache data to this line from
+<strong>Info:</strong> line.</p>
+<p>Topology line contains, if available and/or relevant: physical CPU
+count (<strong>cpus:</strong>); per physical cpu core count (cores:);
+threads per core, if &gt; 1 (<strong>tpc:</strong>); how many
+<strong>threads:</strong> (if more threads than cores);
+<strong>dies:</strong> (rarely detected, but if so, if &gt; 1); smt
+status (if no smt status found, shows <strong>N/A</strong>).</p>
+<p>If complex CPU type, like Alder lake, cores; will have a more
+granular breakdown of how many mt (multi-threaded) and how many st
+(single-threaded) cores there in the physical cpu (
+<strong>mt-cores:</strong>, <strong>st-cores:</strong>); For complex CPU
+types like ARM SoC devices with 2 CPU types, with different core counts
+and/or <strong>min/max:</strong>) frequencies, <strong>variant:</strong>
+per type found, with relevant differences shown, like <strong>cores:,
+min/max:</strong>, etc.</p>
+<pre><code>CPU:
+  Info:
+    model: AMD EPYC 7281
+    bits: 64
+    type: MT MCP MCM SMP
+    arch: Zen
+    family:0x17 (23)
+    model-id:1
+    stepping: 2
+    microcode: 0x8001250
+  Topology:
+    cpus: 2
+      cores: 16
+        tpc: 2
+      threads: 32
+      dies: 4
+   cache:
+     L1: 2x 1.5 MiB (3 MiB)
+       desc: d-16x32 KiB; i-16x64 KiB
+     L2: 2x 8 MiB (16 MiB)
+       desc: 16x512 KiB
+     L3: 2x 32 MiB (64 MiB)
+       desc: 8x4 MiB
+  Speed (MHz):
+    avg: 1195
+    high: 1197
+    min/max: 1200/2100
+    boost: enabled
+    scaling:
+      driver: acpi-cpufreq
+      governor: ondemand
+    cores:
+      1: 1195
+      2: 1196
+      ....
+    bogomips: 267823</code></pre>
+<p>- Adds CPU Vulnerabilities (bugs) as known by your current kernel.
+Lists by <strong>Type: ... (status|mitigation): ....</strong> for
+systems that support this feature (Linux kernel 4.14 or newer, or
+patched older kernels).</p>
+<p><strong>-a -d,</strong>-a** -D**<br />
+- Adds logical and physical block size in bytes.</p>
+<p>Using <strong>smartctl</strong> (requires doas/sudo/root
+privileges).</p>
+<p>- Adds device model family, like <strong>Caviar Black</strong>, if
+available.</p>
+<p>- Adds SATA type (eg 1.0, 2.6, 3.0) if a SATA device.</p>
+<p>- Adds device kernel major:minor number (Linux only).</p>
+<p>- Adds SMART report line: status, enabled/disabled, health, powered
+on, cycles, and some error cases if out of range values. Note that for
+Pre-fail items, it will show the VALUE and THRESHOLD numbers. It will
+also fall back for unknown attributes that are or have been failing and
+print out the Attribute name, value, threshold, and failing message.
+This way even for unhandled Attribute names, you should get a solid
+report for full failure cases. Other cases may show if inxi believes
+that the item may be approaching failure. This is a guess so make sure
+to check the drive and smartctl full output to verify before taking any
+further action.</p>
+<p>- Adds, for USB or other external drives, actual model name/serial if
+available, and different from enclosure model/serial, and corrects block
+sizes if necessary. Adds in drive temperature for some drives as well,
+and other useful data.</p>
+<p><strong>-a -E (</strong>--bluetooth**)**<br />
+- Adds (<strong>hciconfig</strong> only) extra line to
+<strong>Report:</strong>, <strong>Info:</strong>. Includes, if
+available, ACL MTU, SCO MTU, Link policy, Link mode, and Service
+Classes.</p>
+<p>- Adds PCIe generation, and, if different than running PCIe
+generation, speed or lanes, <strong>link-max: gen: speed:
+lanes:</strong> (only items different from primary shown. Bluetooth PCIe
+rare).</p>
+<p><strong>-a -G</strong><br />
+- Adds, if present, possible <strong>alternate:</strong> kernel modules
+capable of driving each <strong>Device-x</strong> (not including the
+current <strong>loaded:</strong>). If no non-driver modules found, shows
+nothing. NOTE: just because it lists a module does NOT mean it is
+available in the system, it's just something the kernel knows could
+possibly be used instead.</p>
+<p>- Adds PCIe generation, and, if different than running PCIe
+generation, speed or lanes, <strong>link-max: gen: speed:
+lanes:</strong> (only items different from primary shown).</p>
+<p>- Adds to Monitors <strong>built:</strong>, <strong>gamma:</strong>,
+<strong>ratio:</strong> (if found).</p>
+<p>X.org sample (with both <strong>xdpyinfo</strong> and
+<strong>xrandr</strong> data available):</p>
+<pre><code>inxi -aGz
+Graphics:
+  Device-1: AMD Cedar [Radeon HD 5000/6000/7350/8350 Series] vendor: XFX Pine
+    driver: radeon v: kernel pcie: gen: 1 speed: 2.5 GT/s lanes: 16 link-max:
+    gen: 2 speed: 5 GT/s ports: active: DVI-I-1,VGA-1 empty: HDMI-A-1
+    bus-ID: 0a:00.0 chip-ID: 1002:68f9 class-ID: 0300
+  Display: x11 server: X.Org v: 1.20.13 compositor: xfwm v: 4.16.1 driver: X:
+    loaded: modesetting gpu: radeon display-ID: :0.0 screens: 1
+  Screen-1: 0 s-res: 2560x1024 s-dpi: 96 s-size: 677x270mm (26.7x10.6&quot;)
+    s-diag: 729mm (28.7&quot;)
+  Monitor-1: DVI-I-1 pos: primary,left model: SyncMaster serial: &lt;filter&gt;
+    built: 2004 res: 1280x1024 hz: 60 dpi: 96 gamma: 1.2
+    size: 338x270mm (13.3x10.6&quot;) diag: 433mm (17&quot;) ratio: 5:4 modes:
+    max: 1280x1024 min: 720x400
+  Monitor-2: VGA-1 pos: right model: DELL 1908FP serial: &lt;filter&gt;
+    built: 2008 res: 1280x1024 hz: 60 dpi: 86 gamma: 1.4
+    size: 376x301mm (14.8x11.9&quot;) diag: 482mm (19&quot;) ratio: 5:4 modes:
+    max: 1280x1024 min: 720x400
+ ....</code></pre>
+<p>Wayland sample, with Sway/swaymsg:</p>
+<pre><code>inxi Gz
+Graphics:  
+  Device-1: Advanced Micro Devices [AMD/ATI] Cedar [Radeon HD 
+    5000/6000/7350/8350 Series] vendor: XFX Pine
+    driver: radeon v: kernel pcie: gen: 2 speed: 5 GT/s lanes: 16 ports: 
+    active: DVI-I-1,VGA-1 empty: HDMI-A-1 bus-ID: 0a:00.0 chip-ID: 1002:68f9 
+    class-ID: 0300
+  Display: wayland server: Xwayland v: 21.1.4 compositor: sway v: 1.6.1 
+    driver: gpu: radeon d-rect: 2560x1024
+  Monitor-1: DVI-I-1 pos: right model: SyncMaster serial: &lt;filter&gt; 
+    built: 2004 res: 1280x1024 hz: 60 dpi: 96 gamma: 1.2 
+    size: 340x270mm (13.4x10.6&quot;) diag: 434mm (17.1&quot;) ratio: 5:4 modes: 
+    max: 1280x1024 min: 720x400
+  Monitor-2: VGA-1 pos: primary,left model: DELL 1908FP serial: &lt;filter&gt; 
+    res: 1280x1024 hz: 60 gamma: 1.4 dpi: 86 gamma: 1.4 
+    size: 380x300mm (15.0x11.8&quot;) diag: 484mm (19.1&quot;) ratio: 5:4 modes: 
+    max: 1280x1024 min: 720x400
+  Message: Wayland GBM/EGL data currently not available.</code></pre>
+<p><strong>-a -I</strong><br />
+- Adds Packages, totals, per package manager totals, and number of lib
+packages detected per package manager. Also adds detected package
+managers with 0 packages listed. Moves to <strong>Repos</strong> if
+<strong>-ra</strong>.</p>
+<!-- -->
+
+<pre><code>inxi -aI
+Info:
+  ....
+  Init: systemd v: 245 runlevel: 5 Compilers: gcc: 9.3.0 alt: 5/6/7/8/9 
+  Packages: apt: 3681 lib: 2096 rpm: 0 Shell: ksh v: A_2020.0.0 default: Bash 
+  v: 5.0.16 running-in: kate inxi: 3.1.04</code></pre>
+<p>- Adds service control tool, tested for in the following order:
+**systemctl ** rc-service rcctl service sv /etc/rc.d /etc/init.d. Can be
+useful to know which you need when using an unfamiliar machine.</p>
+<p><strong>-a -j, <strong>-a</strong> -P [swap], <strong>-a</strong> -P
+[swap]</strong><br />
+- Adds swappiness and vfs cache pressure, and a message to indicate if
+the value is the default value or not (Linux only, and only if
+available). If not the default value, shows default value as well,
+e.g.</p>
+<p>For <strong>-P</strong> per swap physical partition:</p>
+<p><strong>swappiness: 60 (default) cache-pressure: 90 (default
+100)</strong></p>
+<p>For <strong>-j</strong> row 1 output:</p>
+<p><strong>Kernel: swappiness: 60 (default) cache-pressure: 90 (default
+100)</strong></p>
+<p>- Adds device kernel major:minor number (Linux only).</p>
+<p><strong>-a -L</strong><br />
+- Expands Component report, shows size / maj-min of components and
+devices, and mapped name for logical components. Puts each
+component/device on its own line.</p>
+<p>- Adds maj-min to LV and other devices.</p>
+<p><strong>-a -n, <strong>-a</strong> -N, <strong>-a</strong>
+-i</strong><br />
+- Adds, if present, possible <strong>alternate:</strong> kernel modules
+capable of driving each <strong>Device-x</strong> (not including the
+current <strong>driver:</strong>). If no non-driver modules found, shows
+nothing. NOTE: just because it lists a module does NOT mean it is
+available in the system, it's just something the kernel knows could
+possibly be used instead.</p>
+<p>- Adds PCIe generation, and, if different than running PCIe
+generation, speed or lanes, <strong>link-max: gen: speed:
+lanes:</strong> (only items different from primary shown).</p>
+<p><strong>-a -o</strong><br />
+- Adds device kernel major:minor number (Linux only).</p>
+<p><strong>-a -p,</strong>-a** -P**<br />
+- Adds raw partition size, including file system overhead, partition
+table, e.g.</p>
+<p><strong>raw-size: 60.00 GiB</strong>.</p>
+<p>- Adds percent of raw size available to <strong>size:</strong> item,
+e.g.</p>
+<p><strong>size: 58.81 GiB (98.01%)</strong>.</p>
+<p>Note that <strong>used: 16.44 GiB (34.3%)</strong> percent refers to
+the available size, not the raw size.</p>
+<p>- Adds partition filesystem block size if found (requires root and
+blockdev).</p>
+<p>- Adds device kernel major:minor number (Linux only).</p>
+<p><strong>-a -r</strong><br />
+- Adds Packages. See <strong>-Ia</strong></p>
+<p><strong>-a -R</strong><br />
+- Adds device kernel major:minor number (mdraid, Linux only).</p>
+<p>- Adds, if available, component size, major:minor number (Linux
+only). Turns Component report to 1 component per line.</p>
+<p><strong>-a -S</strong><br />
+- Adds kernel boot parameters to <strong>Kernel</strong> section (if
+detected). Support varies by OS type.</p>
+<h2 id="advanced-options">Advanced options</h2>
+<p><strong>--alt 40</strong><br />
+Bypass <strong>Perl</strong> as a downloader option. Priority is: Perl
+(HTTP::Tiny), Curl, Wget, Fetch, (OpenBSD only) ftp.</p>
+<p><strong>--alt 41</strong><br />
+Bypass <strong>Curl</strong> as a downloader option. Priority is: Perl
+(HTTP::Tiny), Curl, Wget, Fetch, (OpenBSD only) ftp.</p>
+<p><strong>--alt 42</strong><br />
+Bypass <strong>Fetch</strong> as a downloader option. Priority is: Perl
+(HTTP::Tiny), Curl, Wget, Fetch, (OpenBSD only) ftp.</p>
+<p><strong>--alt 43</strong><br />
+Bypass <strong>Wget</strong> as a downloader option. Priority is: Perl
+(HTTP::Tiny), Curl, Wget, Fetch, OpenBSD only: ftp</p>
+<p><strong>--alt 44</strong><br />
+Bypass <strong>Curl</strong>, <strong>Fetch</strong>, and
+<strong>Wget</strong> as downloader options. This basically forces the
+downloader selection to use <strong>Perl 5.x</strong>
+<strong>HTTP::Tiny</strong>, which is generally slower than
+<strong>Curl</strong> or <strong>Wget</strong> but it may help bypass
+issues with downloading.</p>
+<p><strong>--bt-tool [bt-adapter|hciconfig|rfkill]</strong><br />
+Force the use of the given tool for bluetooth report
+(<strong>-E</strong>). <strong>rfkill</strong> does not support mac
+address data.</p>
+<p><strong>--dig</strong><br />
+Temporary override of <strong>NO_DIG</strong> configuration item. Only
+use to test w/wo dig. Restores default behavior for WAN IP, which is use
+dig if present.</p>
+<p><strong>--display [:&lt;integer&gt;]</strong><br />
+Will try to get display data out of X (does not usually work as root
+user). Default gets display info from display <strong>:0</strong>. If
+you use the format <strong>--display :1</strong> then it would get it
+from display <strong>1</strong> instead, or any display you specify.</p>
+<p>Note that in some cases, <strong>--display</strong> will cause inxi
+to hang endlessly when running the option in console with Intel
+graphics. The situation regarding other free drivers such as nouveau/ATI
+is currently unknown. It may be that this is a bug with the Intel
+graphics driver - more information is required.</p>
+<p>You can test this easily by running the following command out of
+X/display server: <strong>glxinfo -display :0</strong></p>
+<p>If it hangs, <strong>--display</strong> will not work.</p>
+<p><strong>--dmidecode</strong><br />
+Shortcut. See <strong>--force dmidecode</strong>.</p>
+<p><strong>--downloader [curl|fetch|perl|wget]</strong><br />
+Force inxi to use Curl, Fetch, Perl, or Wget for downloads.</p>
+<p><strong>--force
+[colors|dmidecode|hddtemp|lsusb|pkg|usb-sys|wayland|vmstat|wmctrl]</strong><br />
+Various force options to allow users to override defaults. Values be
+given as a comma separated list:</p>
+<p><strong>inxi -MJ --force dmidecode,lsusb</strong></p>
+<p>- <strong>colors</strong> - Same as <strong>-Y -2</strong> . Do not
+remove colors from piped or redirected output.</p>
+<p>- <strong>dmidecode</strong> - Force use of
+<strong>dmidecode</strong>. This will override <strong>/sys</strong>
+data in some lines, e.g. <strong>-M</strong> or <strong>-B</strong>.</p>
+<p>- <strong>hddtemp</strong> - Force use of hddtemp instead of /sys
+temp data for disks.</p>
+<p>- <strong>lsusb</strong> - Forces the USB data generator to use
+<strong>lsusb</strong> as data source (default). Overrides
+<strong>USB_SYS</strong> in user configuration file(s).</p>
+<p>- <strong>pkg</strong> - Force override of disabled package counts.
+Known package managers with non-resolvable issues:</p>
+<p>rpm: Due to up to 30 seconds delays executing</p>
+<pre><code>rpm -qa --nodigest --nosignature</code></pre>
+<p>on older hardware (and over 1 second on new hardware with some rpm
+versions) package counts are disabled by default because of the
+unacceptable slowdowns to execute a simple package list command.</p>
+<p>- <strong>usb-sys</strong> - Forces the USB data generator to use
+<strong>/sys</strong> as data source instead of <strong>lsusb</strong>
+(Linux only).</p>
+<p>- <strong>vmstat</strong> - Forces use of vmstat for memory data.</p>
+<p>- <strong>wayland</strong> - Forces use of Wayland, disables x tools
+glxinfo, xrandr, xdpyinfo.</p>
+<p>- <strong>wmctrl</strong> - Force <strong>System</strong> item
+<strong>wm</strong> to use <strong>wmctrl</strong> as data source,
+override default <strong>ps</strong> source.</p>
+<p><strong>--hddtemp</strong><br />
+Shortcut. See <strong>--force hddtemp</strong>.</p>
+<p><strong>--html-wan</strong><br />
+Temporary override of <strong>NO_HTML_WAN</strong> configuration item.
+Only use to test w/wo HTML downloaders for WAN IP. Restores default
+behavior for WAN IP, which is use HTML downloader if present and if dig
+failed.</p>
+<p><strong>--man</strong><br />
+Updates / installs man page with <strong>-U</strong> if
+<strong>pinxi</strong> or using <strong>-U 3</strong> dev branch. (Only
+active if <strong>-U</strong> is is not disabled by maintainers).</p>
+<p><strong>--no-dig</strong><br />
+Overrides default use of <strong>dig</strong> to get WAN IP address.
+Allows use of normal downloader tool to get IP addresses. Only use if
+dig is failing, since dig is much faster and more reliable in general
+than other methods.</p>
+<p><strong>--no-doas</strong><br />
+Skips the use of doas to run certain internal features (like
+<strong>hddtemp</strong>, <strong>file</strong>) with doas. Not related
+to running inxi itself with doas/sudo or super user. Some systems will
+register errors which will then trigger admin emails in such cases, so
+if you want to disable regular user use of doas (which requires
+configuration to setup anyway for these options) just use this option,
+or <strong>NO_DOAS</strong> configuration item. See
+<strong>--no-sudo</strong> if you need to disable both types.</p>
+<p><strong>--no-html-wan</strong><br />
+Overrides use of HTML downloaders to get WAN IP address. Use either only
+dig, or do not get wan IP. Only use if dig is failing, and the HTML
+downloaders are taking too long, or are hanging or failing.</p>
+<p>Make permanent with <strong>NO_HTML_WAN='true'</strong></p>
+<p><strong>--no-man</strong><br />
+Disables man page install with <strong>-U</strong> for master and active
+development branches. (Only active if <strong>-U</strong> is is not
+disabled by maintainers).</p>
+<p><strong>--no-sensor-force</strong><br />
+Overrides user set <strong>SENSOR_FORCE</strong> configuration value.
+Restores default behavior.</p>
+<p><strong>--no-ssl</strong><br />
+Skip SSL certificate checks for all downloader actions
+(<strong>-U</strong>, <strong>-w</strong>, <strong>-W</strong>,
+<strong>-i</strong>). Use if your system does not have current SSL
+certificate lists, or if you have problems making a connection for any
+reason. Works with <strong>Wget</strong>, <strong>Curl</strong>,
+<strong>Perl HTTP::Tiny</strong> and <strong>Fetch</strong>.</p>
+<p><strong>--no-sudo</strong><br />
+Skips the use of sudo to run certain internal features (like
+<strong>hddtemp</strong>, <strong>file</strong>) with sudo. Not related
+to running inxi itself with sudo or superuser. Some systems will
+register errors which will then trigger admin emails in such cases, so
+if you want to disable regular user use of sudo (which requires
+configuration to setup anyway for these options) just use this option,
+or <strong>NO_SUDO</strong> configuration item.</p>
+<p><strong>--pkg</strong><br />
+Shortcut. See <strong>--force pkg</strong>.</p>
+<p><strong>--pm-type [package manager name]</strong><br />
+For distro package maintainers only, and only for non apt, rpm, or
+pacman based systems. To be used to test replacement package lists for
+recommends for that package manager.</p>
+<p><strong>--sensors-default</strong><br />
+Overrides configuration values <strong>SENSORS_USE</strong> or
+<strong>SENSORS_EXCLUDE</strong> on a one time basis.</p>
+<p><strong>--sensors-exclude</strong><br />
+Similar to <strong>--sensors-use</strong> except removes listed sensors
+from sensor data. Make permanent with <strong>SENSORS_EXCLUDE</strong>
+configuration item. Note that gpu, network, disk, and other specific
+device monitor chips are excluded by default.</p>
+<p>Example: <strong>inxi -sxx --sensors-exclude
+k10temp-pci-00c3</strong></p>
+<p><strong>--sensors-use</strong><br />
+Use only the (comma separated) sensor arrays for <strong>-s</strong>
+output. Make permanent with <strong>SENSORS_USE</strong> configuration
+item. Sensor array ID value must be the exact value shown in lm-sensors
+sensors output (Linux/lm-sensors only). If you only want to exclude one
+(or more) sensors from the output, use
+<strong>--sensors-exclude</strong>.</p>
+<p>Can be useful if the default sensor data used by inxi is not from the
+right sensor array. Note that all other sensor data will be removed,
+which may lead to undesired consequences. Please be aware that this can
+lead to many undesirable side-effects, since default behavior is to use
+all the sensors arrays and select which values to use from them
+following a set sequence of rules. So if you force one to be used, you
+may lose data that was used from another one.</p>
+<p>Most likely best use is when one (or two) of the sensor arrays has
+all the sensor data you want, and you just want to make sure inxi
+doesn't use data from another array that has inaccurate or misleading
+data.</p>
+<p>Note that gpu, network, disk, and other specific device monitor chips
+are excluded by default, and should not be added since they do not
+provide cpu, board, system, etc, sensor data.</p>
+<p>Example: <strong>inxi -sxx --sensors-use
+nct6791-isa-0290,k10temp-pci-00c3</strong></p>
+<p><strong>--sleep [0-x.x]</strong><br />
+Usually in decimals. Change CPU sleep time for <strong>-C</strong>
+(current: ** .35**). Sleep is used to let the system catch up and show a
+more accurate CPU use. Example:</p>
+<p><strong>inxi -Cxxx --sleep 0.15</strong></p>
+<p>Overrides default internal value and user configuration value:</p>
+<p><strong>CPU_SLEEP=0.25</strong></p>
+<p><strong>--tty</strong><br />
+Forces internal IRC flag to off. Used in unhandled cases where the
+program running inxi may not be seen as a shell/pty/tty, but it is not
+an IRC client. Put <strong>--tty</strong> first in option list to avoid
+unexpected errors. If you want a specific output width, use the
+<strong>--width</strong> option. If you want normal color codes in the
+output, use the <strong>-c [color ID]</strong> flag.</p>
+<p>The sign you need to use this is extra numbers before the key/value
+pairs of the output of your program. These are IRC, not TTY, color
+codes. Please post a github issue if you find you need to use
+<strong>--tty</strong> (including the full <strong>-Ixxx</strong> line)
+so we can figure out how to add your program to the list of whitelisted
+programs.</p>
+<p>You can see what inxi believed started it in the
+<strong>-Ixxx</strong> line, <strong>Shell:</strong> or
+<strong>Client:</strong> item. Please let us know what that result was
+so we can add it to the parent start program whitelist.</p>
+<p>In some cases, you may want to also use
+<strong>--no-filter</strong>/<strong>-Z</strong> option if you want to
+see filtered values. Filtering is turned on by default if
+<strong>inxi</strong> believes it is running in an IRC client.</p>
+<p><strong>--usb-sys</strong><br />
+Shortcut. See <strong>--force usb-sys</strong></p>
+<p><strong>--usb-tool</strong><br />
+Shortcut. See <strong>--force lsusb</strong></p>
+<p><strong>--wan-ip-url [URL]</strong><br />
+Force <strong>-i</strong> to use supplied URL as WAN IP source.
+Overrides dig or default IP source urls. URL must start with http[s] or
+ftp.</p>
+<p>The IP address from the URL must be the last item on the last
+(non-empty) line of the page content source code.</p>
+<p>Same as configuration value (example):</p>
+<p><strong>WAN_IP_URL='<a
+href="https://mysite.com/ip.php&#39;">https://mysite.com/ip.php'</a></strong></p>
+<p><strong>--wayland, <strong>--wl</strong></strong><br />
+Shortcut. See <strong>--force wayland</strong>.</p>
+<p><strong>--wm</strong><br />
+Shortcut. See <strong>--force wmctl</strong>.</p>
+<h2 id="debugging-options">Debugging options</h2>
+<p><strong>--dbg 1</strong><br />
+- Debug downloader failures. Turns off silent/quiet mode for curl, wget,
+and fetch. Shows more downloader action information. Shows some more
+information for Perl downloader.</p>
+<p><strong>--dbg [2-xx]</strong><br />
+- See github <strong>inxi-perl/docs/inxi-values.txt</strong> for
+specific specialized debugging options.</p>
+<p><strong>--debug [1-3]</strong><br />
+- On screen debugger output.</p>
+<p><strong>--debug 10</strong><br />
+- Basic logging. Check <strong>$XDG_DATA_HOME/inxi/inxi.log</strong> or
+<strong>$HOME/.local/share/inxi/inxi.log</strong> or
+<strong>$HOME/.inxi/inxi.log</strong>.</p>
+<p><strong>--debug 11</strong><br />
+- Full file/system info logging.</p>
+<p><strong>--debug 20</strong><br />
+Creates a tar.gz file of system data and collects the inxi output in a
+file.</p>
+<p>* tree traversal data file(s) read from <strong>/proc</strong> and
+<strong>/sys</strong>, and other system data.</p>
+<p>* xorg conf and log data, xrandr, xprop, xdpyinfo, glxinfo etc.</p>
+<p>* data from dev, disks, partitions, etc.</p>
+<p><strong>--debug 21</strong><br />
+Automatically uploads debugger data tar.gz file to
+<em>ftp.smxi.org</em>, then removes the debug data directory, but leaves
+the debug tar.gz file. See <strong>--ftp</strong> for uploading to
+alternate locations.</p>
+<p><strong>--debug 22</strong><br />
+Automatically uploads debugger data tar.gz file to
+<em>ftp.smxi.org</em>, then removes the debug data directory and the
+tar.gz file. See <strong>--ftp</strong> for uploading to alternate
+locations.</p>
+<p><strong>--ftp [ftp.yoursite.com/incoming]</strong><br />
+For alternate ftp upload locations: Example:</p>
+<p><strong>inxi --ftp
+<em><strong>ftp.yourserver.com/incoming</strong></em> --debug
+21</strong></p>
+<h2 id="debugging-options-to-debug-debugger-failures">Debugging options
+to debug debugger failures</h2>
+<p>Only use the following in conjunction with <strong>--debug
+2[012]</strong>, and only use if you experienced a failure or hang, or
+were instructed to do so.</p>
+<p><strong>--debug-proc</strong><br />
+Force debugger to parse <strong>/proc</strong> directory data when run
+as root. Normally this is disabled due to unpredictable data in /proc
+tree.</p>
+<p><strong>--debug-proc-print</strong><br />
+Use this to locate file that /proc debugger hangs on.</p>
+<p><strong>--debug-no-exit</strong><br />
+Skip exit on error when running debugger.</p>
+<p><strong>--debug-no-proc</strong><br />
+Skip /proc debugging in case of a hang.</p>
+<p><strong>--debug-no-sys</strong><br />
+Skip /sys debugging in case of a hang.</p>
+<p><strong>--debug-sys</strong><br />
+Force PowerPC debugger parsing of /sys as doas/sudo/root.</p>
+<p><strong>--debug-sys-print</strong><br />
+Use this to locate file that /sys debugger hangs on.</p>
+<h2 id="supported-irc-clients">Supported irc clients</h2>
+<p>BitchX, Gaim/Pidgin, ircII, Irssi, Konversation, Kopete, KSirc,
+KVIrc, Weechat, and Xchat. Plus any others that are capable of
+displaying either built-in or external script output.</p>
+<h2 id="running-in-irc-client">Running in irc client</h2>
+<p>To trigger inxi output in your IRC client, pick the appropriate
+method from the list below:</p>
+<p><strong>Hexchat, XChat, Irssi</strong><br />
+(and many other IRC clients) <strong>/exec -o inxi
+[<strong>options</strong>]</strong> If you don't include the
+<strong>-o</strong>, only you will see the output on your local IRC
+client.</p>
+<p><strong>Konversation</strong><br />
+<strong>/cmd inxi</strong> [<strong>options</strong>]</p>
+<p>To run inxi in Konversation as a native script if your distribution
+or inxi package hasn't already done this for you, create this symbolic
+link:</p>
+<p>KDE 4: <strong>ln -s /usr/local/bin/inxi
+/usr/share/kde4/apps/konversation/scripts/inxi</strong></p>
+<p>KDE 5: <strong>ln -s /usr/local/bin/inxi
+/usr/share/konversation/scripts/inxi</strong></p>
+<p>If inxi is somewhere else, change the path
+<strong>/usr/local/bin</strong> to wherever it is located.</p>
+<p>If you are using KDE/QT 5, then you may also need to add the
+following to get the Konversation /inxi command to work:</p>
+<p><strong>ln -s /usr/share/konversation /usr/share/apps/</strong></p>
+<p>Then you can start inxi directly, like this:</p>
+<p><strong>/inxi</strong> [<strong>options</strong>]</p>
+<p><strong>WeeChat</strong><br />
+<strong>NEW: /exec -o inxi</strong> [<strong>options</strong>]</p>
+<p><strong>OLD: /shell -o inxi</strong> [<strong>options</strong>]</p>
+<p>Newer (2014 and later) WeeChats work pretty much the same now as
+other console IRC clients, with **/exec -o inxi
+**[<strong>options</strong>]. Newer WeeChats have dropped the
+<strong>-curses</strong> part of their program name, i.e.:
+<strong>weechat</strong> instead of <strong>weechat-curses</strong>.</p>
+<h2 id="configuration-file">Configuration file</h2>
+<p>inxi will read its configuration/initialization files in the
+following order:</p>
+<p><strong>/etc/inxi.conf</strong> contains the default configurations.
+These can be overridden by creating a
+<strong>/etc/inxi.d/inxi.conf</strong> file (global override, which will
+prevent distro packages from changing or overwriting your edits. This
+method is recommended if you are using a distro packaged inxi and want
+to override some configuration items from the package's default
+<strong>/etc/inxi.conf</strong> file but don't want to lose your changes
+on a package update.</p>
+<p>You can old override, per user, with a user configuration file found
+in one of the following locations (inxi will store its config file using
+the following precedence:</p>
+<p>if <strong>$XDG_CONFIG_HOME</strong> is not empty, it will go there,
+else if <strong>$HOME/.conf/inxi.conf</strong> exists, it will go there,
+and as a last default, the legacy location is used), i.e.:</p>
+<p><strong>$XDG_CONFIG_HOME/inxi.conf</strong> &gt;
+<strong>$HOME/.conf/inxi.conf</strong> &gt;
+<strong>$HOME/.inxi/inxi.conf</strong></p>
+<h2 id="configuration-options">Configuration options</h2>
+<p>See the documentation page for more complete information on how to
+set these up, and for a complete list of options:</p>
+<p><em><a
+href="https://smxi.org/docs/inxi-configuration.htm">https://smxi.org/docs/inxi-configuration.htm</a></em></p>
+<p><strong>Basic Options</strong><br />
+Here's a brief overview of the basic options you are likely to want to
+use:</p>
+<p><strong>COLS_MAX_CONSOLE</strong> The max display column width on
+terminal. If terminal/console width or <strong>--width</strong> is less
+than wrap width, wrapping of line starter occurs</p>
+<p><strong>COLS_MAX_IRC</strong> The max display column width on IRC
+clients.</p>
+<p><strong>COLS_MAX_NO_DISPLAY</strong> The max display column width in
+out of X / Wayland / desktop / window manager.</p>
+<p><strong>CPU_SLEEP</strong> Decimal value <strong>0</strong> or more.
+Default is usually around <strong>0.35</strong> seconds. Time that inxi
+will 'sleep' before getting CPU speed data, so that it reflects actual
+system state.</p>
+<p><strong>DOWNLOADER</strong> Sets default inxi downloader: curl,
+fetch, ftp, perl, wget. See <strong>--recommends</strong> output for
+more information on downloaders and Perl downloaders.</p>
+<p><strong>FILTER_STRING</strong> Default
+<strong>&lt;filter&gt;</strong>. Any string you prefer to see instead
+for filtered values.</p>
+<p><strong>INDENT</strong> Change primary indent width of wide mode
+output. See <strong>--indent</strong>.</p>
+<p><strong>INDENTS</strong> Change primary indents of narrow wrapped
+mode output, and second level indents. See
+<strong>--indents</strong>.</p>
+<p><strong>LIMIT</strong> Overrides default of <strong>10</strong> IP
+addresses per IF. This is only of interest to sys admins running servers
+with many IP addresses.</p>
+<p><strong>LINES_MAX</strong> Values: [-2-xxx]. See <strong>-Y</strong>
+for explanation and values. Use <strong>-Y -3</strong> to restore
+default unlimited output lines. Avoid using this in general unless the
+machine is a headless system and you want the output to be always
+controlled.</p>
+<p><strong>MAX_WRAP</strong> (or <strong>WRAP_MAX</strong>) The maximum
+width where the line starter wraps to its own line. If terminal/console
+width or <strong>--width</strong> is less than wrap width, wrapping of
+line starter occurs. Overrides default. See <strong>--max-wrap</strong>.
+If <strong>80</strong> or less, wrap will never happen.</p>
+<p><strong>NO_DIG</strong> Set to <strong>1</strong> or
+<strong>true</strong> to disable WAN IP use of <strong>dig</strong> and
+force use of alternate downloaders.</p>
+<p><strong>NO_DOAS</strong> Set to <strong>1</strong> or
+<strong>true</strong> to disable internal use of
+<strong>doas</strong>.</p>
+<p><strong>NO_HTML_WAN</strong> Set to <strong>1</strong> or
+<strong>true</strong> to disable WAN IP use of <strong>HTML
+Downloaders</strong> and force use of dig only, or nothing if dig
+disabled as well. Same as <strong>--no-html-wan</strong>. Only use if
+dig is failing, and HTML downloaders are hanging.</p>
+<p><strong>NO_SUDO</strong> Set to <strong>1</strong> or
+<strong>true</strong> to disable internal use of
+<strong>sudo</strong>.</p>
+<p><strong>PARTITION_SORT</strong> Overrides default partition output
+sort. See <strong>--partition-sort</strong> for options.</p>
+<p><strong>PS_COUNT</strong> The default number of items showing per
+<strong>-t</strong> type, <strong>m</strong> or <strong>c</strong>.
+Default is 5.</p>
+<p><strong>SENSORS_CPU_NO</strong> In cases of ambiguous temp1/temp2
+(inxi can't figure out which is the CPU), forces sensors to use either
+value 1 or 2 as CPU temperature. See the above configuration page on
+smxi.org for full info.</p>
+<p><strong>SENSORS_EXCLUDE</strong> Exclude supplied sensor array[s]
+from sensor output. Override with <strong>--sensors-default</strong>.
+See <strong>--sensors-exclude</strong>.</p>
+<p><strong>SENSORS_USE</strong> Use only supplied sensor array[s].
+Override with <strong>--sensors-default</strong>. See
+<strong>--sensors-use</strong>.</p>
+<p><strong>SEP2_CONSOLE</strong> Replaces default key / value separator
+of '<strong>:</strong>'.</p>
+<p><strong>USB_SYS</strong> Forces all USB data to use
+<strong>/sys</strong> instead of <strong>lsusb</strong>.</p>
+<p><strong>WAN_IP_URL</strong> Forces <strong>-i</strong> to use
+supplied URL, and to not use dig (dig is generally much faster). URL
+must begin with http or ftp. Note that if you use this, the downloader
+set tests will run each time you start inxi whether a downloader feature
+is going to be used or not.</p>
+<p>The IP address from the URL must be the last item on the last
+(non-empty) line of the URL's page content source code.</p>
+<p>Same as <strong>--wan-ip-url [URL]</strong></p>
+<p><strong>WEATHER_SOURCE</strong> Values: [<strong>0-9</strong>]. Same
+as <strong>--weather-source</strong>. Values 4-9 are not currently
+supported, but this can change at any time.</p>
+<p><strong>WEATHER_UNIT</strong> Values:
+[<strong>m</strong>|<strong>i</strong>|<strong>mi</strong>|<strong>im</strong>].
+Same as <strong>--weather-unit</strong>.</p>
+<p><strong>Color Options</strong><br />
+It's best to use the <strong>-c [94-99]</strong> color selector tool to
+set the following values because it will correctly update the
+configuration file and remove any invalid or conflicting items, but if
+you prefer to create your own configuration files, here are the options.
+All take the integer value from the options available in <strong>-c
+94-99</strong>.</p>
+<p>NOTE: All default and configuration file set color values are removed
+when output is piped or redirected. You must use the explicit <strong>-c
+&lt;color number&gt;</strong> option if you want colors to be present in
+the piped/redirected output (creating a PDF for example).</p>
+<p><strong>CONSOLE_COLOR_SCHEME</strong> The color scheme for console
+output (not in X/Wayland).</p>
+<p><strong>GLOBAL_COLOR_SCHEME</strong> Overrides all other color
+schemes.</p>
+<p><strong>IRC_COLOR_SCHEME</strong> Desktop X/Wayland IRC CLI color
+scheme.</p>
+<p><strong>IRC_CONS_COLOR_SCHEME</strong> Out of X/Wayland, IRC CLI
+color scheme.</p>
+<p><strong>IRC_X_TERM_COLOR_SCHEME</strong> In X/Wayland IRC client
+terminal color scheme.</p>
+<p><strong>VIRT_TERM_COLOR_SCHEME</strong> Color scheme for virtual
+terminal output (in X/Wayland).</p>
+<h2 id="bugs">Bugs</h2>
+<p>Please report bugs using the following resources.</p>
+<p>You may be asked to run the inxi debugger tool (see <strong>--debug
+21/22</strong>), which will upload a data dump of system files for use
+in debugging inxi. These data dumps are very important since they
+provide us with all the real system data inxi uses to parse out its
+report.</p>
+<p><strong>Issue Report</strong><br />
+File an issue report: <em><a
+href="https://github.com/smxi/inxi/issues">https://github.com/smxi/inxi/issues</a></em></p>
+<p><strong>Forums</strong><br />
+Post on inxi forums: <em><a
+href="https://techpatterns.com/forums/forum-33.html">https://techpatterns.com/forums/forum-33.html</a></em></p>
+<p><strong>IRC irc.oftc.net#smxi</strong><br />
+You can also visit <em>irc.oftc.net</em> channel:* #smxi* to post
+issues.</p>
+<h2 id="homepage">Homepage</h2>
+<p><em><a
+href="https://github.com/smxi/inxi">https://github.com/smxi/inxi</a></em></p>
+<p><em><a
+href="https://smxi.org/docs/inxi.htm">https://smxi.org/docs/inxi.htm</a></em></p>
+<h2 id="author-and-contributors-to-code">Author and contributors to
+code</h2>
+<p><strong>inxi</strong> is a fork of <strong>locsmif</strong>'s very
+clever <strong>infobash</strong> script.</p>
+<p>Original infobash author and copyright holder: Copyright (C)
+2005-2007 Michiel de Boer aka locsmif</p>
+<p>inxi version: Copyright (C) 2008-2021 Harald Hope</p>
+<p>This man page was originally created by Gordon Spencer (aka aus9) and
+is maintained by Harald Hope (aka h2 or TechAdmin).</p>
+<p>Initial CPU logic, konversation version logic, occasional maintenance
+fixes, and the initial xiin.py tool for /sys parsing (obsolete, but
+still very much appreciated for all the valuable debugger data it helped
+generate): Scott Rogers</p>
+<p>Further fixes (listed as known):</p>
+<p>Horst Tritremmel &lt;hjt at sidux.com&gt;</p>
+<p>Steven Barrett (aka: damentz) - USB audio patch; swap percent used
+patch.</p>
+<p>Jarett.Stevens - <strong>dmidecode -M</strong> patch for older
+systems with no <strong>/sys</strong>.</p>
+<h2 id="special-thanks-to-the-following">Special thanks to the
+following</h2>
+<p>The nice people at irc.oftc.net channels #linux-smokers-club and
+#smxi, who all really have to be considered to be co-developers because
+of their non-stop enthusiasm and willingness to provide real-time
+testing and debugging of inxi development over the years.</p>
+<p>LinuxQuestions.org Slackware forum members, for major help with
+development and debugging new or refactored features, particularly the
+redone CPU logic of 2021-12.</p>
+<p>Siduction forum members, who have helped get some features working by
+providing a large number of datasets that have revealed possible
+variations, particularly for the RAM <strong>-m</strong> option.</p>
+<p>AntiX users and admins, who have helped greatly with testing and
+debugging, particularly for the 3.0.0 release.</p>
+<p>ArcherSeven (Max), Brett Bohnenkamper (aka KittyKatt), and Iotaka,
+who always manage to find the weirdest or most extreme hardware and
+setups that help make inxi much more robust.</p>
+<p>For the vastly underrated skill of output error/glitch catching, Pete
+Haddow. His patience and focus in going through inxi repeatedly to find
+errors and inconsistencies is much appreciated.</p>
+<p>For a huge boost to BSD support, Stan Vandiver, who did a lot of
+testing and setup many remote access systems for testing and
+development.</p>
+<p>All the inxi package maintainers, distro support people, forum
+moderators, and in particular, sys admins with their particular issues,
+which almost always help make inxi better, and any others who contribute
+ideas, suggestions, and patches.</p>
+<p>Without a wide range of diverse Linux kernel-based Free Desktop
+systems to test on, we could never have gotten inxi to be as reliable
+and solid as it's turning out to be.</p>
+<p>And of course, a big thanks to locsmif, who figured out a lot of the
+core ideas, logic, and tricks originally used in inxi Gawk/Bash.</p>

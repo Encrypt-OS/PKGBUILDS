@@ -29,7 +29,7 @@ _yad-eos_prepare() {
 
     source+=($url/yad-github-issue-107.patch)
 sha256sums=('65dbfa72a229f6cbd131470caf4f70fec98fe935a1436acb58c841fa2a8bddde'
-            '9af007ad9472afc9fa24e753b30ce7b91cf2e73a37a0074a64ae01979010b30f')
+            '455eb9f2deef5e1e545494bd5212555fe0555a727d4e15fc28ed389c7f39ef43')
 
     # Take care of conflicting packages:
     conflicts=($orig_name ${orig_name}-git)

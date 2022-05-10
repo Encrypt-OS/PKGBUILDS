@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Encrypt-OS Update Notifier
+Comment=Update Notifier and Updater for Encrypt-OS
+Comment[fi]=Päivitysten näyttäjä
+Exec=eos-update-notifier -init
+Icon=Encrypt-OS-icon
+# StartupNotify=false
+# Terminal=False
+Hidden=false
+X-GNOME-Autostart-enabled=true
+X-KDE-autostart-after=panel
+Categories=System
