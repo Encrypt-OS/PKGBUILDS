@@ -1,4 +1,4 @@
-/usr/share/encryptos/usr/share/encryptos/usr/share/encryptos#!/bin/bash
+#!/bin/bash
 
 # New script for using calamares.
 #
@@ -226,7 +226,6 @@ Main() {
     export -f eos_yad
 
     local lang="$1"
-    local mode="$2"                             # 'community' or '' (empty)
     local ShowInstallLog="TRUE"                 # TRUE --> show install log terminal window
     local ShowPacmanLog="FALSE"                 # TRUE --> show pacman  log terminal window
     local progname="$(basename "$0")"           # for help and messages

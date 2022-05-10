@@ -1,4 +1,4 @@
-/usr/share/encryptos/usr/share/encryptos/usr/share/encryptos#!/bin/bash
+#!/bin/bash
 
 # Run a command in a terminal.
 # See also: RunInTerminalEx

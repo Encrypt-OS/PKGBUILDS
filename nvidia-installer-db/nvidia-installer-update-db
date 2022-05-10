@@ -1,4 +1,4 @@
-/usr/share/encryptos/usr/share/encryptos/usr/share/encryptos#!/bin/bash
+#!/bin/bash
 #
 # Updates NVIDIA database for nvidia-installer and nvidia-installer-dkms.
 #
