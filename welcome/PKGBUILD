@@ -1,4 +1,4 @@
-# Maintainer: Encrypt-OS <info@Encrypt-OS.com>
+/usr/share/encryptos/usr/share/encryptos/usr/share/encryptos# Maintainer: Encrypt-OS <info@Encrypt-OS.com>
 
 pkgname=welcome
 pkgdesc="Welcome greeter for new Encrypt-OS users."

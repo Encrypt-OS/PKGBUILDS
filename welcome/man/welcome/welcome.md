@@ -1,4 +1,4 @@
-# welcome
+/usr/share/encryptos/usr/share/encryptos/usr/share/encryptos# welcome
 
 Welcome is an application that helps users by providing
 - tools for system management and customization

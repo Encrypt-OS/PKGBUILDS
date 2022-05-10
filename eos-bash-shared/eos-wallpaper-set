@@ -4,10 +4,10 @@
 # where
 #    filename      Picture file name (optional).
 #
-# Without filename, assumes all wallpapers are at /usr/share/Encrypt-OS/backgrounds.
+# Without filename, assumes all wallpapers are at /usr/share/encryptos/backgrounds.
 
 #################################################################################
-EOS_SCRIPTS_YAD=/usr/share/Encrypt-OS/scripts/eos-script-lib-yad
+EOS_SCRIPTS_YAD=/usr/share/EncryptOS/scripts/eos-script-lib-yad
 source $EOS_SCRIPTS_YAD || {
     echo "ERROR: cannot read $EOS_SCRIPTS_YAD" >&2
     exit 1
@@ -127,7 +127,7 @@ WallpaperSetCommon() {
             ;;
         KDE)
             AssertPicture Encrypt-OS_plasma.png no
-            python3 /usr/share/Encrypt-OS/scripts/ksetwallpaper.py "$pic"
+            python3 /usr/share/encryptos/scripts/ksetwallpaper.py "$pic"
             # see also:
             # https://www.kubuntuforums.net/showthread.php/66762-Right-click-wallpaper-changer?p=387392&viewfull=1#post387392
             ;;
@@ -306,7 +306,7 @@ Main()
 {
     local progname="$(basename "$0")"
     local DE="$(eos_GetDeOrWm)"
-    local picfolder=/usr/share/Encrypt-OS/backgrounds
+    local picfolder=/usr/share/encryptos/backgrounds
     local pic=""
 
     Parameters "$@"

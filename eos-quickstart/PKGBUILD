@@ -8,7 +8,7 @@ depends=('qt6-base' 'qt6-declarative' 'polkit')
 optdepends=('konsole' 'gnome-terminal' 'xfce4-terminal' 'xterm' 'alacritty' 'lxterminal')
 makedepends=('git' 'cmake' 'qt6-tools')
 backup=(etc/eos-quickstart.conf)
-source=(https://github.com/endeavouros-team/eos-quickstart/archive/refs/tags/${pkgver}.tar.gz)
+source=(https://github.com/Enc/eos-quickstart/archive/refs/tags/${pkgver}.tar.gz)
 sha256sums=('683111921e96ef143d8e05e43ba2dde0f7103603a624711e657c9162c43ce812')
 
 build() {
