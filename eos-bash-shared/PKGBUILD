@@ -5,17 +5,17 @@
 
 pkgname=eos-bash-shared
 pkgdesc="Bash code shared by certain Encrypt-OS apps."
-pkgver=1.10.41
-pkgrel=1
+pkgver=1.15
+pkgrel=3
 arch=('any')
 license=('GPL')
 depends=(
   bash
-  yad-eos
+  yad-eos               # a patched yad
   eos-translations
   python-dbus           # for ksetwallpaper.py
   xorg-xrandr           # for eos-wallpaper-set
-  EncryptOS-theming   # for eos-wallpaper-set
+  endeavouros-theming   # for eos-wallpaper-set
   xdg-utils             # for eos-pkginfo
 )
 optdepends=(
