@@ -15,7 +15,7 @@ depends=(
   eos-translations
   python-dbus           # for ksetwallpaper.py
   xorg-xrandr           # for eos-wallpaper-set
-  encryptos-theming   # for eos-wallpaper-set
+  EncryptOS-theming   # for eos-wallpaper-set
   xdg-utils             # for eos-pkginfo
 )
 optdepends=(

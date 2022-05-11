@@ -19,7 +19,7 @@ source=(https://downloads.sourceforge.net/lxde/$pkgbase-$pkgver.tar.xz
         set-path.patch
         lxdm.pam
         Xsession)
-sha256sums=('4891efee81c72a400cc6703e40aa76f3f3853833d048b72ec805da0f93567f2f'
+sha256sums=('f6b23ca5250f22d260c29a7da5a7c26012998bd383245d3d186be8b70a30c185'
             'SKIP'
             '3a3d74890159ea956dbbd4b6dc3d225ae3765d9ad9d29880c6e9d0ac684468c2'
             '4f2bdbe5ee183d694184c6be2be0914d1040fe71ebe15d83c2e8dbd95aaf9e4c'
