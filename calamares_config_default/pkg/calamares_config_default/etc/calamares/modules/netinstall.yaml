@@ -162,6 +162,7 @@
         description: "EncryptOS tools and applications"
         selected: true
         packages:
+          - EncryptOS-keyring
           - EncryptOS-theming
           - eos-apps-info
           - eos-hooks

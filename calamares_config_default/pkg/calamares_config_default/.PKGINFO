@@ -2,11 +2,11 @@
 # using fakeroot version 1.28
 pkgname = calamares_config_default
 pkgbase = calamares_config_default
-pkgver = 26.11.1.1-1
+pkgver = 26.12.1.1-1
 pkgdesc = Encrypt-OS calamares configuration files for Community Editions
 url = https://www.Encrypt-OS.com
-builddate = 1652190145
+builddate = 1652275179
 packager = Unknown Packager
-size = 3681862
+size = 3681892
 arch = any
 license = GPL3
