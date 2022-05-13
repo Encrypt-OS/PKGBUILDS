@@ -18,8 +18,8 @@ navigation: widget
 strings:
     productName:         EncryptOS
     shortProductName:    EncryptOS
-    version:             2022.05.11
-    shortVersion:        2022.05.11
+    version:             2022.05.13
+    shortVersion:        2022.05.13
     versionedName:       EncryptOS
     shortVersionedName:  EncryptOS
     bootloaderEntryName: EncryptOS

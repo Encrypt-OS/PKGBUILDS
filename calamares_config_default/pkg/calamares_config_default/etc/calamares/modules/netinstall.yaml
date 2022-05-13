@@ -212,6 +212,7 @@
   expanded: false
   critical: true
   packages:
+    - archlinux-keyring
     - linux-lts
     - linux-lts-headers
 - name: "Zen Kernel"
