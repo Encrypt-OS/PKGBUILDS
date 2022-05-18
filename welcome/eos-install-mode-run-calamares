@@ -102,7 +102,7 @@ AskMode() {
         --text="$txt"
         --buttons-layout=spread
         --button="Online!!Vanilla theming, internet required":12
-        --button="Offline!!Xfce, Encrypt-OS theming, internet not required":14
+        --button="Offline!!Xfce, EncryptOS theming, internet not required":14
     )
     if [ 0 -eq 1 ] ; then
     cmd+=(
@@ -152,7 +152,7 @@ InstallWithLogs() {
 
 run_hotfix_start() {
     local file=hotfix-start.bash
-    local url=$(eos-github2gitlab https://raw.githubusercontent.com/Encrypt-OS/ISO-hotfixes/main/$file)
+    local url=$(eos-github2gitlab https://raw.githubusercontent.com/EncryptOS/ISO-hotfixes/main/$file)
 
     if Wget2Curl --timeout=30 -q -O "$workdir/$file" "$url" ; then
         sudo bash "$workdir/$file"
@@ -163,7 +163,7 @@ run_hotfix_start() {
 }
 
 BootloaderId() {
-    local blid="Encrypt-OS-$(shuf -i 1000-9999 -n1)"
+    local blid="EncryptOS-$(shuf -i 1000-9999 -n1)"
     PreLog "New bootloader id: '$blid'"
     sudo sed -i $cfolder/modules/bootloader.conf -e "s|^efiBootloaderId:.*|efiBootloaderId: \"$blid\"|"
 }
@@ -221,8 +221,8 @@ CheckUserPkglist() {
 
 ###  Everything starts in the Main function. ###
 Main() {
-    source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || exit 1
-    source /usr/share/Encrypt-OS/scripts/translations.bash || exit 1
+    source /usr/share/EncryptOS/scripts/eos-script-lib-yad || exit 1
+    source /usr/share/EncryptOS/scripts/translations.bash || exit 1
     export -f eos_yad
 
     local lang="$1"
@@ -235,7 +235,7 @@ Main() {
     local all_sudo_commands=":"                 # all root commands will be collected to this variable!
     local workdir=""
     local prelogfile=""
-    local ISO_version=$(cat /usr/lib/Encrypt-OS-release | cut -d'=' -f2)
+    local ISO_version=$(cat /usr/lib/EncryptOS-release | cut -d'=' -f2)
     local calamares_version="$(pacman -Q calamares_current 2>/dev/null | awk '{print $NF}')"
 
     [ -n "$calamares_version" ] || GUIDIE "error: calamares is not installed!"

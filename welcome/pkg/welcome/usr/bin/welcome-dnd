@@ -11,7 +11,7 @@ DndDIE() {
     exit 1
 }
 
-source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || DndDIE "source failed."
+source /usr/share/EncryptOS/scripts/eos-script-lib-yad || DndDIE "source failed."
 
 export -f eos_yad
 

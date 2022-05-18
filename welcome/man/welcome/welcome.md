@@ -61,7 +61,7 @@ The X should consist of two (or more) letters (like 'en' for English or 'pt_BR' 
 
 See the supported languages (the X) e.g. by terminal command
 ```
-ls -1 /usr/share/Encrypt-OS/scripts/translation-*.bash | \
+ls -1 /usr/share/EncryptOS/scripts/translation-*.bash | \
    sed 's|.*/translation-\([a-zA-Z_]*\)\.bash|\1|'
 ```
 If option `--lang` is not given, the language value is extracted from
@@ -73,13 +73,13 @@ If the extracted value is not supported by Welcome, English will be used.
 ### Software news
 
 Welcome app window includes a button **Software News** on the lower left corner.<br>
-It contains useful and important news for the user about the Encrypt-OS software, e.g. manual interventions or important code changes.
+It contains useful and important news for the user about the EncryptOS software, e.g. manual interventions or important code changes.
 
 Make sure you click that button regularly!
 
 ### Add favorite packages at install time
 
-To customize the *online* mode install phase, you can directly modify file `$HOME/user_pkglist.txt` and add package names to that file. Note that only Arch and Encrypt-OS packages are supported, but not AUR packages.
+To customize the *online* mode install phase, you can directly modify file `$HOME/user_pkglist.txt` and add package names to that file. Note that only Arch and EncryptOS packages are supported, but not AUR packages.
 
 ### Add commands at install time (*Advanced*)
 
@@ -143,4 +143,4 @@ eos-welcome &
 ```
 ## See also
 
-https://discovery.Encrypt-OS.com/Encrypt-OS-tools/welcome
+https://discovery.EncryptOS.com/EncryptOS-tools/welcome

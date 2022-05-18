@@ -1,8 +1,8 @@
-# Maintainer: EndeavourOS-Team <info@endeavouros.com>
+# Maintainer: EncryptOS <snaildos@snaildos.com>
 
 pkgname=eos-downgrade
-pkgdesc="Downwgrade EndeavourOS packages (currently alpha quality)."
-pkgver=0.2
+pkgdesc="Downwgrade EncryptOS packages (currently alpha quality)."
+pkgver=0.3
 pkgrel=1
 arch=('any')
 license=('GPL')
@@ -13,14 +13,14 @@ depends=(
 optdepends=(
     'downgrade: for downgrading Arch packages'
 )
-url=https://github.com/endeavouros-team/PKGBUILDS/tree/master/$pkgname
-_url="https://raw.githubusercontent.com/endeavouros-team/PKGBUILDS/master/$pkgname"
+url=https://github.com/Encrypt-OS/PKGBUILDS/tree/main/$pkgname
+_url="https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/main/$pkgname"
 
 source=(
     $_url/$pkgname
 )
 
-sha512sums=('cc65f01a968b84b0feab8e3413ff8bb7e376721b0c573b730acc6a99a0a7c2d74b6ccf28606c6fff27d20a8487fed7a970dfef2858d54260ab7b1e3507801040')
+sha512sums=('98438060f6e4a1495348accdc5e17136795b163f125cc2fa64ad4bb371878d6cf7f9cec39dc7313e5bd2db0b42ca1d10cd35623de9ed723a8e9050899d194938')
 
 package() {
   install -Dm755 $pkgname                $pkgdir/usr/bin/$pkgname

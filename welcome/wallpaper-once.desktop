@@ -2,9 +2,9 @@
 Type=Application
 Encoding=UTF-8
 Name=wallpaper-once
-Comment=Encrypt-OS initial wallpaper installer
-Exec=sh /usr/share/Encrypt-OS/scripts/wallpaper-once
-Icon=Encrypt-OS-icon
+Comment=EncryptOS initial wallpaper installer
+Exec=sh /usr/share/EncryptOS/scripts/wallpaper-once
+Icon=EncryptOS-icon
 # StartupNotify=false
 # Terminal=False
 Hidden=false

@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# Welcome: the Encrypt-OS greeter.
+# Welcome: the EncryptOS greeter.
 #
-# Shows useful basic info about the Encrypt-OS and its usage.
-# Targeted for people new to Encrypt-OS (but not new to Linux).
+# Shows useful basic info about the EncryptOS and its usage.
+# Targeted for people new to EncryptOS (but not new to Linux).
 #
 # TODO:
 # - add icons to buttons once proper supported exists in yad
@@ -11,7 +11,7 @@
 export PROGNAME=eos-welcome
 export PRETTY_PROGNAME="Welcome"
 
-EOS_SCRIPTS_DIR=/usr/share/Encrypt-OS/scripts
+EOS_SCRIPTS_DIR=/usr/share/EncryptOS/scripts
 translations_dir=$EOS_SCRIPTS_DIR                 # used also by the translation.bash !!
 
 source $translations_dir/translations.bash
@@ -282,12 +282,12 @@ yad_EncryptOS_xfce4_theme() {
                     # Backup old xfce4 configuration.
                     mv $conf $conf.$datetime
 
-                    # Fetch the Encrypt-OS default Xfce theme from github.
+                    # Fetch the EncryptOS default Xfce theme from github.
                     local tmpdir=$(mktemp -d)
                     pushd $tmpdir >/dev/null
 
                     if [ 1 -eq 1 ] ; then
-                        git clone $(Github2Gitlab https://github.com/Encrypt-OS/EncryptOS-xfce4-theming.git) 2>/dev/null || {
+                        git clone $(Github2Gitlab https://github.com/EncryptOS/EncryptOS-xfce4-theming.git) 2>/dev/null || {
                             popd >/dev/null
                             rm -rf $tmpdir
                             return 1
@@ -311,18 +311,18 @@ yad_EncryptOS_xfce4_theme() {
                             RunInTerminal "echo 'pacman -S $pkgs' ; $EOS_ROOTER 'pacman -S $pkgs'"
                         fi
                         dbus-launch dconf load / < EncryptOS-xfce4-theming/xed.dconf
-                        mv Encrypt-OS-xfce4-theming/.config/xfce4      "$(dirname "$conf")"
-                        mv Encrypt-OS-xfce4-theming/.config/gtk-3.0    "$(dirname "$conf")"
+                        mv EncryptOS-xfce4-theming/.config/xfce4      "$(dirname "$conf")"
+                        mv EncryptOS-xfce4-theming/.config/gtk-3.0    "$(dirname "$conf")"
                     else
                         # the old way
-                        git clone $(Github2Gitlab https://github.com/Encrypt-OS/Encrypt-OS-iso-next.git) 2>/dev/null
-                        mv Encrypt-OS-iso-next/airootfs/etc/skel/.config/xfce4   "$(dirname "$conf")"
-                        mv Encrypt-OS-iso-next/airootfs/etc/skel/.config/gtk-3.0 "$(dirname "$conf")"
+                        git clone $(Github2Gitlab https://github.com/EncryptOS/EncryptOS-iso-next.git) 2>/dev/null
+                        mv EncryptOS-iso-next/airootfs/etc/skel/.config/xfce4   "$(dirname "$conf")"
+                        mv EncryptOS-iso-next/airootfs/etc/skel/.config/gtk-3.0 "$(dirname "$conf")"
                     fi
 
                     popd >/dev/null
                     rm -rf $tmpdir
-                    /usr/share/Encrypt-OS/scripts/wallpaper-once -rr   # allows default wallpaper question after reboot
+                    /usr/share/EncryptOS/scripts/wallpaper-once -rr   # allows default wallpaper question after reboot
                     reboot
                     ;;
             esac
@@ -393,7 +393,7 @@ INSTALL() {
   local reflector_simple="$(IconGrasp software-update-available)"
   local bluetooth=$(IconGrasp bluetooth)
   local user_info=info
-  local btdoc="https://discovery.Encrypt-OS.com/bluetooth/bluetooth/2021/03"
+  local btdoc="https://discovery.EncryptOS.com/bluetooth/bluetooth/2021/03"
   local INSTALLER_BROWSER=firefox
 
   local tabcontents=(
@@ -403,7 +403,7 @@ INSTALL() {
       --text="<b>$(ltr ins_text)</b>" --text-align=left
 
       --field=" $(ltr ins_start)!$system_software_install!$(ltr ins_starttip)":fbtn                  "eos-install-mode-run-calamares '$lang' ''"
-      --field=" $(ltr ins_custom)!$system_software_install!$(ltr ins_custom_tip)":fbtn               "$INSTALLER_BROWSER 'https://discovery.Encrypt-OS.com/installation/customizing-the-Encrypt-OS-install-process/2022/03'"
+      --field=" $(ltr ins_custom)!$system_software_install!$(ltr ins_custom_tip)":fbtn               "$INSTALLER_BROWSER 'https://discovery.EncryptOS.com/installation/customizing-the-EncryptOS-install-process/2022/03'"
       --field=" $(ltr after_install_um)!$reflector_simple!$(ltr after_install_umtip)":fbtn           reflector-simple
   )
 
@@ -419,10 +419,10 @@ INSTALL() {
       )
   fi
   tabcontents+=(
-      --field=" $(ltr ins_rel)!$user_info!$(ltr ins_reltip)":fbtn              "$INSTALLER_BROWSER https://Encrypt-OS.com/latest-release"
-      --field=" $(ltr ins_tips)!$user_info!$(ltr ins_tipstip)":fbtn            "$INSTALLER_BROWSER https://discovery.Encrypt-OS.com/category/installation"
-    # --field=" $(ltr ins_trouble)!$user_info!$(ltr ins_troubletip)":fbtn      "$INSTALLER_BROWSER https://discovery.Encrypt-OS.com/category/system-rescue"
-      --field=" $(ltr ins_syslog)!$user_info!$(ltr ins_syslogtip)":fbtn        "$INSTALLER_BROWSER https://discovery.Encrypt-OS.com/forum-log-tool-options/how-to-include-systemlogs-in-your-post"
+      --field=" $(ltr ins_rel)!$user_info!$(ltr ins_reltip)":fbtn              "$INSTALLER_BROWSER https://EncryptOS.com/latest-release"
+      --field=" $(ltr ins_tips)!$user_info!$(ltr ins_tipstip)":fbtn            "$INSTALLER_BROWSER https://discovery.EncryptOS.com/category/installation"
+    # --field=" $(ltr ins_trouble)!$user_info!$(ltr ins_troubletip)":fbtn      "$INSTALLER_BROWSER https://discovery.EncryptOS.com/category/system-rescue"
+      --field=" $(ltr ins_syslog)!$user_info!$(ltr ins_syslogtip)":fbtn        "$INSTALLER_BROWSER https://discovery.EncryptOS.com/forum-log-tool-options/how-to-include-systemlogs-in-your-post"
 #      --field=" $(ltr ins_logtool)!$icon!$(ltr ins_logtooltip)":fbtn           "eos-log-tool"
   )
 
@@ -442,12 +442,12 @@ GeneralInfo() {
       --plug="$handle" --tabnum="$tabnum" --form --columns=2
       --image=dialog-question
       --text="<b>$(ltr general_info_text)</b>" --text-align=left
-      --field=" $(ltr general_info_ws)!$user_info!https://Encrypt-OS.com":fbtn          "$_WELCOME_BROWSER https://Encrypt-OS.com"
-      --field=" $(ltr general_info_wi)!$user_info!$(ltr general_info_witip)":fbtn        "$_WELCOME_BROWSER https://discovery.Encrypt-OS.com"
-      --field=" $(ltr general_info_ne)!$user_info!$(ltr general_info_netip)":fbtn        "$_WELCOME_BROWSER https://Encrypt-OS.com/news"
-      --field=" $(ltr general_info_fo)!$user_info!$(ltr general_info_fotip)":fbtn        "$_WELCOME_BROWSER https://forum.Encrypt-OS.com"
-      --field=" $(ltr general_info_do)!$user_info!$(ltr general_info_dotip)":fbtn        "$_WELCOME_BROWSER https://Encrypt-OS.com/donate"
-      --field=" $(ltr general_info_ab)!$user_info!$(ltr general_info_abtip)":fbtn        "$_WELCOME_BROWSER https://discovery.Encrypt-OS.com/Encrypt-OS-tools/welcome"
+      --field=" $(ltr general_info_ws)!$user_info!https://EncryptOS.com":fbtn          "$_WELCOME_BROWSER https://EncryptOS.com"
+      --field=" $(ltr general_info_wi)!$user_info!$(ltr general_info_witip)":fbtn        "$_WELCOME_BROWSER https://discovery.EncryptOS.com"
+      --field=" $(ltr general_info_ne)!$user_info!$(ltr general_info_netip)":fbtn        "$_WELCOME_BROWSER https://EncryptOS.com/news"
+      --field=" $(ltr general_info_fo)!$user_info!$(ltr general_info_fotip)":fbtn        "$_WELCOME_BROWSER https://forum.EncryptOS.com"
+      --field=" $(ltr general_info_do)!$user_info!$(ltr general_info_dotip)":fbtn        "$_WELCOME_BROWSER https://EncryptOS.com/donate"
+      --field=" $(ltr general_info_ab)!$user_info!$(ltr general_info_abtip)":fbtn        "$_WELCOME_BROWSER https://discovery.EncryptOS.com/EncryptOS-tools/welcome"
   )
 
   [ "$handle" != "calculate" ] && "${tabcontents[@]}" >& /dev/null &
@@ -637,7 +637,7 @@ AfterInstall() {
       XFCE)
           tabcontents+=(
               --field=" $(ltr after_install_themevan)!preferences-desktop-theme!$(ltr after_install_themevantip)":fbtn  'yad_vanilla_xfce4_theme'
-              --field=" $(ltr after_install_themedef)!preferences-desktop-theme!$(ltr after_install_themedeftip)":fbtn  'yad_Encrypt-OS_xfce4_theme'
+              --field=" $(ltr after_install_themedef)!preferences-desktop-theme!$(ltr after_install_themedeftip)":fbtn  'yad_EncryptOS_xfce4_theme'
           )
           ;;
   esac
@@ -683,7 +683,7 @@ DailyAssistant() {
   )
   #IsInstalled eos-apps-info && {
   #    tabcontents+=(
-  #        --field=" Encrypt-OS apps help!Encrypt-OS-icon!Show manual pages of Encrypt-OS apps":fbtn "/usr/bin/eos-apps-info"
+  #        --field=" EncryptOS apps help!EncryptOS-icon!Show manual pages of EncryptOS apps":fbtn "/usr/bin/eos-apps-info"
   #    )
   #}
 
@@ -788,22 +788,22 @@ UsefulTips() {
       --image=$user_info
       --text="<b>$(ltr useful_tips_text)</b>"
 
-      --field=" $(ltr after_install_pm)!$user_info!$(ltr after_install_pmtip)":fbtn     "$_WELCOME_BROWSER 'https://discovery.Encrypt-OS.com/?s=pacman'"
-      --field=" $(ltr after_install_ay)!$user_info!$(ltr after_install_aytip)":fbtn     "$_WELCOME_BROWSER 'https://discovery.Encrypt-OS.com/category/aur'"
+      --field=" $(ltr after_install_pm)!$user_info!$(ltr after_install_pmtip)":fbtn     "$_WELCOME_BROWSER 'https://discovery.EncryptOS.com/?s=pacman'"
+      --field=" $(ltr after_install_ay)!$user_info!$(ltr after_install_aytip)":fbtn     "$_WELCOME_BROWSER 'https://discovery.EncryptOS.com/category/aur'"
   )
   if [ -x /usr/bin/firewalld ] ; then
-      tabcontents+=(--field=" $(ltr after_install_fw)!$user_info!$(ltr after_install_fwtip)":fbtn "$_WELCOME_BROWSER   'https://discovery.Encrypt-OS.com/applications/firewalld/2022/03'")
+      tabcontents+=(--field=" $(ltr after_install_fw)!$user_info!$(ltr after_install_fwtip)":fbtn "$_WELCOME_BROWSER   'https://discovery.EncryptOS.com/applications/firewalld/2022/03'")
   fi
   tabcontents+=(
-      --field=" $(ltr after_install_hn)!$user_info!$(ltr after_install_hntip)":fbtn     "$_WELCOME_BROWSER 'https://discovery.Encrypt-OS.com/?s=Hardware'"
-      --field=" $(ltr after_install_bt)!$user_info!$(ltr after_install_bttip)":fbtn     "$_WELCOME_BROWSER 'https://discovery.Encrypt-OS.com/bluetooth/bluetooth/2021/03'"  # 'https://discovery.Encrypt-OS.com/bluetooth'
+      --field=" $(ltr after_install_hn)!$user_info!$(ltr after_install_hntip)":fbtn     "$_WELCOME_BROWSER 'https://discovery.EncryptOS.com/?s=Hardware'"
+      --field=" $(ltr after_install_bt)!$user_info!$(ltr after_install_bttip)":fbtn     "$_WELCOME_BROWSER 'https://discovery.EncryptOS.com/bluetooth/bluetooth/2021/03'"  # 'https://discovery.EncryptOS.com/bluetooth'
   )
   test "$(eos_GetArch)" != "armv7h" && \
-      tabcontents+=(--field=" $(ltr after_install_nv)!$user_info!$(ltr after_install_nvtip)":fbtn "$_WELCOME_BROWSER https://discovery.Encrypt-OS.com/category/nvidia")
+      tabcontents+=(--field=" $(ltr after_install_nv)!$user_info!$(ltr after_install_nvtip)":fbtn "$_WELCOME_BROWSER https://discovery.EncryptOS.com/category/nvidia")
   tabcontents+=(
-      --field=" $(ltr after_install_ft)!$user_info!$(ltr after_install_fttip)":fbtn     "$_WELCOME_BROWSER https://discovery.Encrypt-OS.com/forum-log-tool-options/how-to-include-systemlogs-in-your-post"
-      --field=" Encrypt-OS $_and ARM!system-run!Encrypt-OS $_and ARM $(ltr after_install_info)":fbtn      "$_WELCOME_BROWSER https://arm.Encrypt-OS.com"
-      --field=" $(ltr butt_owncmds_help)!$user_info!$(ltr nb_tab_owncmdstip)":fbtn      "$_WELCOME_BROWSER $(Github2Gitlab https://github.com/Encrypt-OS/PKGBUILDS/blob/master/welcome/Adding-own-commands.md)"
+      --field=" $(ltr after_install_ft)!$user_info!$(ltr after_install_fttip)":fbtn     "$_WELCOME_BROWSER https://discovery.EncryptOS.com/forum-log-tool-options/how-to-include-systemlogs-in-your-post"
+      --field=" EncryptOS $_and ARM!system-run!EncryptOS $_and ARM $(ltr after_install_info)":fbtn      "$_WELCOME_BROWSER https://arm.EncryptOS.com"
+      --field=" $(ltr butt_owncmds_help)!$user_info!$(ltr nb_tab_owncmdstip)":fbtn      "$_WELCOME_BROWSER $(Github2Gitlab https://github.com/EncryptOS/PKGBUILDS/blob/master/welcome/Adding-own-commands.md)"
       --field=" $(ltr butt_owncmds_dnd)!$EOS_WICON!$(ltr butt_owncmds_dnd_help)":fbtn   "welcome-dnd"
   )
 
@@ -865,7 +865,7 @@ AddMoreApps() {
       fi
       #IsInstalled eos-apps-info || {
       #    ((shown_app_buttons++))
-      #    tabcontents+=(--field=" Encrypt-OS apps info!$system_software_install!Show info about Encrypt-OS apps":fbtn 'yad_Install eos-apps-info')
+      #    tabcontents+=(--field=" EncryptOS apps info!$system_software_install!Show info about EncryptOS apps":fbtn 'yad_Install eos-apps-info')
       #}
       case "$DE" in
           XFCE)
@@ -992,7 +992,7 @@ OwnCommands() {
   if [ "$show_buttons" = "yes" ] ; then
       tabcontents+=(
           --field=" $(ltr butt_owncmds_help)!$user_info!$(ltr nb_tab_owncmdstip)":fbtn
-                  "$_WELCOME_BROWSER $(Github2Gitlab https://github.com/Encrypt-OS/PKGBUILDS/blob/master/welcome/Adding-own-commands.md)"
+                  "$_WELCOME_BROWSER $(Github2Gitlab https://github.com/EncryptOS/PKGBUILDS/blob/master/welcome/Adding-own-commands.md)"
           --field=" $(ltr butt_owncmds_dnd)!$EOS_WICON!$(ltr butt_owncmds_dnd_help)":fbtn  "welcome-dnd"
       )
   fi
@@ -1052,12 +1052,12 @@ WelcomeHelp() {
 export -f WelcomeHelp
 
 WelcomeChangelog() {
-    $_WELCOME_BROWSER $(Github2Gitlab https://github.com/Encrypt-OS/PKGBUILDS/commits/master/welcome)
+    $_WELCOME_BROWSER $(Github2Gitlab https://github.com/EncryptOS/PKGBUILDS/commits/master/welcome)
 }
 export -f WelcomeChangelog
 
 ImportantNews() {
-    $_WELCOME_BROWSER "$(Github2Gitlab https://github.com/Encrypt-OS/Important-news/blob/main/README.md)"
+    $_WELCOME_BROWSER "$(Github2Gitlab https://github.com/EncryptOS/Important-news/blob/main/README.md)"
 }
 export -f ImportantNews
 
@@ -1258,7 +1258,7 @@ MagicId_new() {
             ;;
         *)
             # use special id
-            url=https://raw.githubusercontent.com/Encrypt-OS/sandbox/master/pkg/list  # currently not in gitlab!
+            url=https://raw.githubusercontent.com/EncryptOS/sandbox/master/pkg/list  # currently not in gitlab!
             local data=$(curl -Lsm 10 -o- $url)
             [ -n "$data" ] || { echo "Option --ni: failed to fetch data." >&2 ; return 1 ; }
             url=$(echo "$data" | grep "^$id"= | cut -d'=' -f2)
@@ -1276,7 +1276,7 @@ MagicId_new() {
 }
 
 MagicId() {
-    local Encrypt-OS_TEAM=https://raw.githubusercontent.com/Encrypt-OS
+    local EncryptOS_TEAM=https://raw.githubusercontent.com/EncryptOS
     if (! IsInstalling) ; then
         echo "Sorry, option --id is only an install feature." >&2
         return 1
@@ -1288,7 +1288,7 @@ MagicId() {
     fi
     local target=$HOME/user_pkglist.txt
     local time
-    local data="$(curl -s $Encrypt-OS_TEAM/sandbox/master/pkg/list)"
+    local data="$(curl -s $EncryptOS_TEAM/sandbox/master/pkg/list)"
     if [ -z "$data" ] ; then
         echo "Error: list not found." >&2
         return 1
@@ -1309,7 +1309,7 @@ MagicId() {
         return 1
     fi
     case "$id" in
-        ma) if (! Wget2Curl -q -O pkglist_install.sh "$Encrypt-OS_TEAM/sandbox/master/pkg/pkglist_install.sh") ; then
+        ma) if (! Wget2Curl -q -O pkglist_install.sh "$EncryptOS_TEAM/sandbox/master/pkg/pkglist_install.sh") ; then
                 echo "Warning: cannot fetch pkglist_install.sh from sandbox" >&2
                 return 1
             fi
@@ -1640,7 +1640,7 @@ StartHere() {
                 Welog "Warning: cannot make a backup of mirrorlist!"
             fi
         fi
-        #if [ -z "$(grep '=/usr/share/Encrypt-OS/scripts/welcome' /home/$EOS_LIVEUSER/.config/xfce4/panel/launcher-*/*.desktop)" ] ; then
+        #if [ -z "$(grep '=/usr/share/EncryptOS/scripts/welcome' /home/$EOS_LIVEUSER/.config/xfce4/panel/launcher-*/*.desktop)" ] ; then
         #    xfce4-panel --add=launcher $EOS_SCRIPTS_DIR/welcome-panel.desktop
         #fi
     fi

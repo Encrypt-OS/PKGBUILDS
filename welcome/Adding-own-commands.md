@@ -75,8 +75,8 @@ This is no more needed, but you may see old definitions using it, and it can be 
 An example field about the parameters (using the obsolete _align() marking) in the command string:
 ```
     # _align() is no more required
-    --field="_align(Encrypt-OS forum)!web-browser!Discussions at the Encrypt-OS forum":fbtn
-            "xdg-open https://forum.Encrypt-OS.com"
+    --field="_align(EncryptOS forum)!web-browser!Discussions at the EncryptOS forum":fbtn
+            "xdg-open https://forum.EncryptOS.com"
 ```
 
 Other supported (but optional) variables are
@@ -187,7 +187,7 @@ And if you didn't have a configuration file, it will be automatically created wh
 The new command will also appear on the Welcome app shortly (this feature was added to Welcome version 3.2.6-1)!
 
 Feel free to copy these examples and modify them to match your needs.<br>
-If you have any questions about the syntax, please go to https://forum.Encrypt-OS.com.
+If you have any questions about the syntax, please go to https://forum.EncryptOS.com.
 
 <br>
 
