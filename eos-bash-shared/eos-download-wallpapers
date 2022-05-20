@@ -2,7 +2,7 @@
 
 # Copy additional wallpapers from Github's EOS site.
 
-source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || exit 1
+source /usr/share/encryptos/scripts/eos-script-lib-yad || exit 1
 
 DIE()   { echo "$progname: error: $1" >&2 ; exit 1 ; }
 WARN()  { echo "$progname: warning: $1" >&2 ; }
@@ -115,7 +115,7 @@ FetchWallpapers() {
         eos_wallpapers_classic
         eos_wallpapers_community
     )
-    local targetroot=/usr/share/Encrypt-OS/backgrounds
+    local targetroot=/usr/share/encryptos/backgrounds
 
     local subdir
     local cmd      # real commands here

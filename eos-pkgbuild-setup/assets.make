@@ -686,7 +686,7 @@ MirrorCheck() {
     if [ ! -r Encrypt-OS.db ] ; then
         return
     fi
-    local checker="/usr/share/Encrypt-OS/scripts/mirrorcheck"
+    local checker="/usr/share/encryptos/scripts/mirrorcheck"
     local mirror_check="Alpix mirror check"
     local timeout
     local opt="--no-filelist"
@@ -1422,7 +1422,7 @@ Main() {
 
     echo2 "PACKAGER: $PACKAGER"
 
-    local verfile=/usr/share/Encrypt-OS/scripts/eos-pkgbuild-setup.version
+    local verfile=/usr/share/encryptos/scripts/eos-pkgbuild-setup.version
     if [ -r $verfile ] ; then
         echo2 "VERSION: $(grep ^VERSION= $verfile | cut -d '=' -f 2)"
     fi

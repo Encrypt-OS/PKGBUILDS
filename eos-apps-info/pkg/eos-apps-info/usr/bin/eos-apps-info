@@ -27,7 +27,7 @@ CheckDatabaseUpdate() {
 
 Main()
 {
-    source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || return 1
+    source /usr/share/encryptos/scripts/eos-script-lib-yad || return 1
 
     # yad command exit codes (don't use even numbers)
     local exit_quit=11

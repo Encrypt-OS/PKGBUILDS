@@ -6,7 +6,7 @@ ERROR() { echo "$progname: error: $1" >&2 ; }
 DIE()   { ERROR "$1" ; exit 1 ; }
 
 GetLibCode() {
-    local libcode=/usr/share/Encrypt-OS/scripts/eos-script-lib-yad
+    local libcode=/usr/share/encryptos/scripts/eos-script-lib-yad
     source $libcode || DIE "loading $libcode failed."
     export -f eos_yad
 }

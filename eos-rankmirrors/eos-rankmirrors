@@ -391,7 +391,7 @@ Main()
         DIE "no local mirrorlist found, please install package '$pkgname'."
     fi
 
-    source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || return 1
+    source /usr/share/encryptos/scripts/eos-script-lib-yad || return 1
     export -f eos_GetArch
 
     local conf=/etc/eos-rankmirrors.conf

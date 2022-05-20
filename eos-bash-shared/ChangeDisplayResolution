@@ -2,8 +2,8 @@
 
 # Usage: ChangeDisplayResolution [resolution]
 
-source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || {
-    echo "Error: ${BASH_SOURCE[1]}, line $LINENO: cannot find /usr/share/Encrypt-OS/scripts/eos-script-lib-yad" >&2
+source /usr/share/encryptos/scripts/eos-script-lib-yad || {
+    echo "Error: ${BASH_SOURCE[1]}, line $LINENO: cannot find /usr/share/encryptos/scripts/eos-script-lib-yad" >&2
     exit 1
 }
 export -f eos_yad

@@ -7,7 +7,7 @@
 # https://download.nvidia.com/XFree86/Linux-x86_64/435.21/README/index.html
 
 
-source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || {
+source /usr/share/encryptos/scripts/eos-script-lib-yad || {
     echo "Error: $(basename "$0"): file eos-script-lib-yad not found." >&2
     exit 1
 }

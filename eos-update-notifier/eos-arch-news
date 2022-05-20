@@ -3,7 +3,7 @@
 # Shows latest Arch news.
 # Keeps simple record of what you've already seen.
 
-source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || exit 1
+source /usr/share/encryptos/scripts/eos-script-lib-yad || exit 1
 
 export -f eos_yad
 

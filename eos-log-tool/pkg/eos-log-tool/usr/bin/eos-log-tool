@@ -10,7 +10,7 @@
 #       and file "$DIR_OF_CONFIG/eos-log-tool-filter.bash" below.
 #
 
-source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || exit 1
+source /usr/share/encryptos/scripts/eos-script-lib-yad || exit 1
 
 export -f eos_yad
 

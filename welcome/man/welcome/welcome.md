@@ -61,7 +61,7 @@ The X should consist of two (or more) letters (like 'en' for English or 'pt_BR' 
 
 See the supported languages (the X) e.g. by terminal command
 ```
-ls -1 /usr/share/EncryptOS/scripts/translation-*.bash | \
+ls -1 /usr/share/encryptos/scripts/translation-*.bash | \
    sed 's|.*/translation-\([a-zA-Z_]*\)\.bash|\1|'
 ```
 If option `--lang` is not given, the language value is extracted from

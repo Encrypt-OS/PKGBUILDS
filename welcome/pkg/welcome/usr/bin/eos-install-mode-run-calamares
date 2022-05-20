@@ -221,8 +221,8 @@ CheckUserPkglist() {
 
 ###  Everything starts in the Main function. ###
 Main() {
-    source /usr/share/EncryptOS/scripts/eos-script-lib-yad || exit 1
-    source /usr/share/EncryptOS/scripts/translations.bash || exit 1
+    source /usr/share/encryptos/scripts/eos-script-lib-yad || exit 1
+    source /usr/share/encryptos/scripts/translations.bash || exit 1
     export -f eos_yad
 
     local lang="$1"

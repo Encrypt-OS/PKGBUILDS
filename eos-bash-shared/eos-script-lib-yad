@@ -28,14 +28,14 @@
 
 source /etc/eos-script-lib-yad.conf      # for EOS_ROOTER and other configs
 
-export EOS_WICON=/usr/share/Encrypt-OS/Encrypt-OS-icon.png
+export EOS_WICON=/usr/share/encryptos/Encrypt-OS-icon.png
 export EOS_YAD_STARTER_CMD="/usr/bin/yad --window-icon=$EOS_WICON"
 
 eos_yad() {
     GDK_BACKEND=x11 $EOS_YAD_STARTER_CMD "$@"
 }
 
-translations_dir=/usr/share/Encrypt-OS/scripts  # needed in translations.bash
+translations_dir=/usr/share/encryptos/scripts  # needed in translations.bash
 source $translations_dir/translations.bash || {
     echo "$translations_dir/translations.bash not found!" >&2
     exit 1

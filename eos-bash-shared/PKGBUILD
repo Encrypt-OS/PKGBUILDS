@@ -101,8 +101,8 @@ sha512sums=('653ffbcf8952dbcd2127b18dee97b702ef84d033725d97cd0baff101b0a90862a62
             'aa9e2400c53fd16668222991efa2a059a3f0ecfcb98d2210d0b8cb3546cf8d6ad2ab408793c27d8297d536605147b056bd1015533ef9de7629dda33d1aaefe8e')
 
 package() {
-  install -Dm644 eos-script-lib-yad             $pkgdir/usr/share/Encrypt-OS/scripts/eos-script-lib-yad
-  install -Dm755 ksetwallpaper.py               $pkgdir/usr/share/Encrypt-OS/scripts/ksetwallpaper.py
+  install -Dm644 eos-script-lib-yad             $pkgdir/usr/share/encryptos/scripts/eos-script-lib-yad
+  install -Dm755 ksetwallpaper.py               $pkgdir/usr/share/encryptos/scripts/ksetwallpaper.py
   install -Dm644 eos-script-lib-yad.conf        $pkgdir/etc/eos-script-lib-yad.conf
   install -Dm644 eos-sendlog.conf               $pkgdir/etc/eos-sendlog.conf
 

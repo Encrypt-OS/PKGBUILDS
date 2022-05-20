@@ -493,7 +493,7 @@ Main()
     local aurs=()        # collect needed AUR packages in this array
     local cmd=""
 
-    source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || return 1
+    source /usr/share/encryptos/scripts/eos-script-lib-yad || return 1
 
     Options "$@"
 

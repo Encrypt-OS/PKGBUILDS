@@ -14,11 +14,11 @@ install=$pkgname.install
 
 package() {
   cd "$srcdir/encryptos-theming"
-  install -d "${pkgdir}/usr/share/encryptos"
+  install -d "${pkgdir}/usr/share/encryptos/"
   install -d "${pkgdir}/usr/share/pixmaps"
   install -d "${pkgdir}/usr/share/encryptos/backgrounds"
 
-  install -Dm644 *.png *.svg           "${pkgdir}/usr/share/encryptos"
+  install -Dm644 *.png *.svg           "${pkgdir}/usr/share/encryptos/"
   install -Dm644 encryptos.{svg,png} "${pkgdir}/usr/share/pixmaps"
   install -Dm644 encryptos-icon.png  "${pkgdir}/usr/share/pixmaps"
   

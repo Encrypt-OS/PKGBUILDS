@@ -11,7 +11,7 @@
 export PROGNAME=eos-welcome
 export PRETTY_PROGNAME="Welcome"
 
-EOS_SCRIPTS_DIR=/usr/share/EncryptOS/scripts
+EOS_SCRIPTS_DIR=/usr/share/encryptos/scripts
 translations_dir=$EOS_SCRIPTS_DIR                 # used also by the translation.bash !!
 
 source $translations_dir/translations.bash
@@ -322,7 +322,7 @@ yad_EncryptOS_xfce4_theme() {
 
                     popd >/dev/null
                     rm -rf $tmpdir
-                    /usr/share/EncryptOS/scripts/wallpaper-once -rr   # allows default wallpaper question after reboot
+                    /usr/share/encryptos/scripts/wallpaper-once -rr   # allows default wallpaper question after reboot
                     reboot
                     ;;
             esac
@@ -1640,7 +1640,7 @@ StartHere() {
                 Welog "Warning: cannot make a backup of mirrorlist!"
             fi
         fi
-        #if [ -z "$(grep '=/usr/share/EncryptOS/scripts/welcome' /home/$EOS_LIVEUSER/.config/xfce4/panel/launcher-*/*.desktop)" ] ; then
+        #if [ -z "$(grep '=/usr/share/encryptos/scripts/welcome' /home/$EOS_LIVEUSER/.config/xfce4/panel/launcher-*/*.desktop)" ] ; then
         #    xfce4-panel --add=launcher $EOS_SCRIPTS_DIR/welcome-panel.desktop
         #fi
     fi

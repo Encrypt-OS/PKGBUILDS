@@ -41,12 +41,12 @@ sha512sums=('48c78699709be63faad79426933f8f90c05d560b8197bdda503e67a4dbc7186eb97
             'a8313ea0a289c1c1d5607bd3d4259a08cc5b8a2fed970197938967299ecfe06b8c12846796996593f1ea1b5ff7c842bd2b7f30776e8454422aa2c3692fc1d52b'
             '2c24de022758cc86bfa1d82d93c13dc696848b1a8a4c20c3e8894148500a44236443a6c5d9d3943bfa30739c16c807b9cef435c99b0fb1330e1f8bb5bbf0ac9c')
 package() {
-  install -d $pkgdir/usr/share/EncryptOS/scripts
-  install -Dm755 $pkgname                 $pkgdir/usr/share/EncryptOS/scripts/$pkgname
-  install -Dm755 wallpaper-once           $pkgdir/usr/share/EncryptOS/scripts/wallpaper-once
+  install -d $pkgdir/usr/share/encryptos/scripts
+  install -Dm755 $pkgname                 $pkgdir/usr/share/encryptos/scripts/$pkgname
+  install -Dm755 wallpaper-once           $pkgdir/usr/share/encryptos/scripts/wallpaper-once
 
   install -d $pkgdir/usr/bin
-  ln -s /usr/share/EncryptOS/scripts/$pkgname $pkgdir/usr/bin/eos-$pkgname
+  ln -s /usr/share/encryptos/scripts/$pkgname $pkgdir/usr/bin/eos-$pkgname
 
   install -Dm755 eos-kill-yad-zombies           $pkgdir/usr/bin/eos-kill-yad-zombies
   install -Dm755 welcome-dnd                    $pkgdir/usr/bin/welcome-dnd

@@ -5,7 +5,7 @@ printf2() { printf "$@" >&2 ; }
 DIE()     { echo2 "$progname: error: $1" ; Usage ; exit 1 ; }
 WARN()    { echo2 "====> $progname: warning: $1" ; }
 
-translations_dir=/usr/share/Encrypt-OS/scripts  # needed in translations.bash
+translations_dir=/usr/share/encryptos/scripts  # needed in translations.bash
 
 source $translations_dir/eos-script-lib-yad || {
     DIE "$translations_dir/eos-script-lib-yad not found!"

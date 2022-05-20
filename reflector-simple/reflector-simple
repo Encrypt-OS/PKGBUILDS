@@ -3,7 +3,7 @@
 # Select pacman mirrors with a simple GUI.
 #
 
-source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || exit 1
+source /usr/share/encryptos/scripts/eos-script-lib-yad || exit 1
 export -f eos_yad
 export -f eos_yad_terminal
 export -f eos_yad_RunCmdTermBash

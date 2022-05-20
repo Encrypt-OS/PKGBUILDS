@@ -48,7 +48,7 @@ Main()
 {
     local start_new_terminal=no
     [ "$1" = "--nt" ] && start_new_terminal=yes
-    source /usr/share/Encrypt-OS/scripts/eos-script-lib-yad || return 1
+    source /usr/share/encryptos/scripts/eos-script-lib-yad || return 1
     export -f eos_yad
     export -f eos_yad_nothing_todo
 
