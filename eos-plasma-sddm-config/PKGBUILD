@@ -10,7 +10,7 @@ license=('GPL')
 depends=('sddm' 'plasma-workspace')
 makedepends=('git')
 source=("https://github.com/Encrypt-OS/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('25092479cc73157e48f89c2bdad38bd982e93581b861a6e83d600db66848639a')
+sha256sums=('e3e0fe147e3fcb749e978c676923e0970d3484829cf1a2c97928f1f8388e4b06')
 
 package() {
     cd "${pkgname}-${pkgver}"
