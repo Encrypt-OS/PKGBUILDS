@@ -2,10 +2,10 @@
 # using fakeroot version 1.28
 pkgname = eos-translations
 pkgbase = eos-translations
-pkgver = 1.1.82-1
+pkgver = 1.1.83-1
 pkgdesc = EncryptOS translation support
 url = https://raw.githubusercontent.com/Encrypt-OS/PKGBUILDS/master/eos-translations
-builddate = 1653047857
+builddate = 1653052656
 packager = Unknown Packager
 size = 307064
 arch = any

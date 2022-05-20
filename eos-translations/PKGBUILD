@@ -2,7 +2,7 @@
 
 pkgname=eos-translations
 pkgdesc="EncryptOS translation support"
-pkgver=1.1.82
+pkgver=1.1.83
 pkgrel=1
 arch=('any')
 license=('GPL')
@@ -63,7 +63,7 @@ sha512sums=('4bf1c5216c0ed969a41bf43b0fc28b8cb80b6deb4482cdb1e7312adcf3c4e8ac2f7
             '822d245fb27c229665a6981644a36650b7e533a0f54bc8010bdce4626a499c316c0fc08e0fdebe3d69999bc8b3542c0dd21fc3f4ea652352bfff17a28d4f9e7a')
 package() {
 
-  local folderspec=usr/share/Encrypt-OS/scripts
+  local folderspec=/usr/share/encryptos/scripts
   local lang xx
 
   install -d $pkgdir/$folderspec
