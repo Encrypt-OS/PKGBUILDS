@@ -62,14 +62,14 @@ _tr_add2 after_install_ustip  "Päivitä kaikki järjestelmän ohjelmistopaketit
 _tr_add2 after_install_dsi     "Tunnista/korjaa järjestelmäongelmia"
 _tr_add2 after_install_dsitip  "Tarkista tunnetut järjestelmäongelmat ja korjaa ne"
 
-_tr_add2 after_install_etl     "Encrypt-OS:n uusin taso"
+_tr_add2 after_install_etl     ":n uusin taso"
 _tr_add2 after_install_etltip  "Näytä mitä tehdä jos haluat järjestemĺmän uusimman julkaisun tasolle"
 
 _tr_add2 after_install_cdm     "Vaihda ikkunamanageri"
 _tr_add2 after_install_cdmtip  "Käytä toista ikkunamageria"
 
-_tr_add2 after_install_ew     "Encrypt-OS:n taustakuva"
-_tr_add2 after_install_ewtip  "Palauta Encrypt-OS:n taustakuva oletukseensa"   # oli: "Vaihda taustakuva Encrypt-OS:n oletuskuvaksi"
+_tr_add2 after_install_ew     ":n taustakuva"
+_tr_add2 after_install_ewtip  "Palauta :n taustakuva oletukseensa"   # oli: "Vaihda taustakuva :n oletuskuvaksi"
 
 
 _tr_add2 after_install_pm     "Pakettien hallinta"
@@ -91,7 +91,7 @@ _tr_add2 after_install_ft     "Forum-vinkkejä"
 _tr_add2 after_install_fttip  "Auta meitä auttamaan sinua!"
 
 
-_tr_add2 general_info_text     "Löydä etsimäsi Encrypt-OS:n sivuilta!"
+_tr_add2 general_info_text     "Löydä etsimäsi :n sivuilta!"
 
 _tr_add2 general_info_ws       "Virallinen nettisivu"
 
@@ -105,7 +105,7 @@ _tr_add2 general_info_fo       "Foorumi"
 _tr_add2 general_info_fotip    "Kysy, kommentoi, ja juttele rennolla foorumillamme!"
 
 _tr_add2 general_info_do       "Lahjoita"
-_tr_add2 general_info_dotip    "Auta meitä pitämään Encrypt-OS toiminnassa"
+_tr_add2 general_info_dotip    "Auta meitä pitämään  toiminnassa"
 
 _tr_add2 general_info_ab       "Tietoja ohjelmasta $PRETTY_PROGNAME"
 _tr_add2 general_info_abtip    "Lisätietoja tästä ohjelmasta"
@@ -160,8 +160,7 @@ _tr_add2 issues_no               "Korjattavaa ei löydetty."
 
 _tr_add2 cal_noavail            "Ei saatavilla: "        # installer program
 _tr_add2 cal_warn               "Varoitus"
-_tr_add2 cal_info1              "Tämä on Community Development -julkaisu.\n"                                   # specials needed!
-_tr_add2 cal_info2              "<b>Offline</b> asentaa Xfce-työpöydän ja Encrypt-OS-teeman.\nNettiyhteyttä ei tarvita.\n\n"
+_tr_add2 cal_info2              "<b>Offline</b> asentaa Xfce-työpöydän ja -teeman.\nNettiyhteyttä ei tarvita.\n\n"
 _tr_add2 cal_info3              "<b>Online</b> antaa valita asennettavan työpöydän, johon tulee oletusteema.\nNettiyhteys tarvitaan.\n\n"
 _tr_add2 cal_info4              "\nHUOM: Tätä julkaisua kehitetään jatkuvasti. Ole hyvä ja auta tekemään siitä parempi raportoimalla mahdolliset virheet.\n"
 _tr_add2 cal_choose             "Valitse asennustapa"
@@ -175,7 +174,7 @@ _tr_add2 tail_butt              "Sulje tämä ikkuna"
 _tr_add2 tail_buttip            "Sulje vain tämä ikkuna"
 
 
-_tr_add2 ins_text              "Asenna Encrypt-OS"
+_tr_add2 ins_text              "Asenna "
 _tr_add2 ins_start             "Käynnistä asennus"
 _tr_add2 ins_starttip          "Käynnistä asentaja (sekä lisätietoa antava pääteikkuna)"
 _tr_add2 ins_up                "Päivitä tämä sovellus$_exclamation"
@@ -209,8 +208,8 @@ _tr_add2 butt_changelogtip     "Näytä Welcome:n muutosloki"
 _tr_add2 after_install_themevan      "Xfce: perusteema"
 _tr_add2 after_install_themevantip   "Ota Xfce:n perusteema käyttöön"
 
-_tr_add2 after_install_themedef     "Xfce: Encrypt-OS:n oletusteema"
-_tr_add2 after_install_themedeftip  "Ota Xfce:n Encrypt-OS-oletusteema käyttöön"
+_tr_add2 after_install_themedef     "Xfce: :n oletusteema"
+_tr_add2 after_install_themedeftip  "Ota Xfce:n -oletusteema käyttöön"
 
 # 2020-Jun-28:
 _tr_add2 after_install_pclean       "Pakettien tallennustilan konfigurointi"
@@ -246,8 +245,8 @@ _tr_add2 add_more_apps_done2_tip1    "Käytä asentamiseen ohjelmaa 'pacman' tai
 _tr_add2 add_more_apps_done2_tip2    "Käytä asentamiseen ohjelmaa 'yay'"
 
 # 2020-Sep-11:
-_tr_add2 after_install_ew2      "Valitse yksi Encrypt-OS:n taustakuvista"  # oli: "Encrypt-OS:n taustakuva (valitse)"
-_tr_add2 after_install_ewtip2   "Taustakuvien valitsin"                     # oli: "Valitse taustakuva Encrypt-OS:n kuvien joukosta"
+_tr_add2 after_install_ew2      "Valitse yksi :n taustakuvista"  # oli: ":n taustakuva (valitse)"
+_tr_add2 after_install_ewtip2   "Taustakuvien valitsin"                     # oli: "Valitse taustakuva :n kuvien joukosta"
 
 # 2020-Sep-15:
 #    IMPORTANT NOTE:
@@ -273,15 +272,12 @@ _tr_add2 after_install_pacdiff_tip "Hallitse tiedostoja pacnew, pacorig $_and pa
 
 # 2021-Apr-07:
 _tr_add2 after_install_conf           "Asetuksia ohjelmalle"                             # a starting verb on a sentence "Configure eos-update-notifier"
-_tr_add2 after_install_more_wall      "Lataa lisää Encrypt-OS-taustakuvia"
-_tr_add2 after_install_more_wall_tip  "Lataa Encrypt-OS:n aiempia ja yhteisön tekemiä taustakuvia"
+_tr_add2 after_install_more_wall      "Lataa lisää -taustakuvia"
 _tr_add2 after_install_info           "tietoa"                           # last word on a sentence, means just any information
 
 _tr_add2 butt_softnews                "Ohjelmistouutisia"
-_tr_add2 butt_softnews_tip            "Tärkeitä uutisia Encrypt-OS:n ohjelmistosta"
+_tr_add2 butt_softnews_tip            "Tärkeitä uutisia :n ohjelmistosta"
 
-_tr_add2 install_community            "Asenna yhteisömme kanssa tehty julkaisu"
-_tr_add2 install_community_tip        "Valitse haluamasi yhteisöjulkaisu (huomaa: internet-yhteys tarvitaan)"
 
 # 2021-May-01
 _tr_add2 ins_syslog                   "Kuinka saan järjestelmän lokit"

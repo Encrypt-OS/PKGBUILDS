@@ -65,14 +65,14 @@ _tr_add2 after_install_ustip      "Actualizar el software del sistema"
 _tr_add2 after_install_dsi        "Detectar bug Sistema"
 _tr_add2 after_install_dsitip     "Detectar cualquier problema potencial en los paquetes del sistema o en otro lugar"
 
-_tr_add2 after_install_etl        "${_question_down}Encrypt-OS más reciente$_question"
-_tr_add2 after_install_etltip     "Mostrar qué hacer para que tu sistema llegue al último nivel de Encrypt-OS"
+_tr_add2 after_install_etl        "${_question_down} más reciente$_question"
+_tr_add2 after_install_etltip     "Mostrar qué hacer para que tu sistema llegue al último nivel de "
 
 _tr_add2 after_install_cdm        "Cambiar Gestor Pantalla"
 _tr_add2 after_install_cdmtip     "Usar un gestor de pantalla diferente"
 
 _tr_add2 after_install_ew         "Fondo de pantalla EOS"
-_tr_add2 after_install_ewtip      "Cambiar el fondo de pantalla al que trae Encrypt-OS por defecto"
+_tr_add2 after_install_ewtip      "Cambiar el fondo de pantalla al que trae  por defecto"
 
 
 _tr_add2 after_install_pm         "Gestor Paquetes"
@@ -94,7 +94,7 @@ _tr_add2 after_install_ft         "Consejos Foro"
 _tr_add2 after_install_fttip      "${_exclamation_down}Ayúdanos a ayudarte$_exclamation"
 
 
-_tr_add2 general_info_text        "${_exclamation_down}Encuentra tu camino en el sitio Encrypt-OS$_exclamation"
+_tr_add2 general_info_text        "${_exclamation_down}Encuentra tu camino en el sitio $_exclamation"
 
 _tr_add2 general_info_ws          "Sitio web"
 
@@ -108,7 +108,7 @@ _tr_add2 general_info_fo          "Foro"
 _tr_add2 general_info_fotip       "${_exclamation_down}Pregunte, comente y charle en nuestro amigable foro$_exclamation"
 
 _tr_add2 general_info_do          "Donar"
-_tr_add2 general_info_dotip       "${_exclamation_down}Ayúdanos a mantener el Encrypt-OS funcionando"
+_tr_add2 general_info_dotip       "${_exclamation_down}Ayúdanos a mantener el  funcionando"
 
 _tr_add2 general_info_ab          "Acerca de $PRETTY_PROGNAME"
 _tr_add2 general_info_abtip       "Más información sobre esta aplicación"
@@ -163,8 +163,7 @@ _tr_add2 issues_no                "No se detectaron problemas importantes del si
 
 _tr_add2 cal_noavail              "No está disponible : "        # programa de instalación
 _tr_add2 cal_warn                 "Alerta"
-_tr_add2 cal_info1                "Este es un lanzamiento de desarrollo comunitario.\n\n"                                   # specials needed !
-_tr_add2 cal_info2                "<b>Offline</b> Este método te da un escritorio Xfce con temas de Encrypt-OS.\nNo es necesario tener conexión a internet.\n\n"
+_tr_add2 cal_info2                "<b>Offline</b> Este método te da un escritorio Xfce con temas de .\nNo es necesario tener conexión a internet.\n\n"
 _tr_add2 cal_info3                "<b>Online</b> Este método te permite elegir tu escritorio, con temas sin personalización.\nEs necesario tener conexión a internet.\n\n"
 _tr_add2 cal_info4                "Por favor tenga en cuenta : Este lanzamiento es un trabajo en progreso, por favor ayúdenos a estabilizarlo reportando errores..\n"
 _tr_add2 cal_choose               "Elija el método de instalación"
@@ -178,9 +177,9 @@ _tr_add2 tail_butt                "Cerrar esta ventana"
 _tr_add2 tail_buttip              "Cerrar sólo esta ventana"
 
 
-_tr_add2 ins_text                 "Instalando Encrypt-OS en el disco"
+_tr_add2 ins_text                 "Instalando  en el disco"
 _tr_add2 ins_start                "Inicie el instalador"
-_tr_add2 ins_starttip             "Inicie el instalador del Encrypt-OS junto con una terminal de debug"
+_tr_add2 ins_starttip             "Inicie el instalador del  junto con una terminal de debug"
 _tr_add2 ins_up                   "${_exclamation_down}Actualizar esta aplicación$_exclamation"
 _tr_add2 ins_uptip                "Actualiza esta aplicación y reiniciarla"
 _tr_add2 ins_keys                 "Iniciar las teclas del pacman"
@@ -212,8 +211,8 @@ _tr_add2 butt_changelogtip     "Mostrar el registro de cambios de Welcome"
 _tr_add2 after_install_themevan      "Tema sin personalización Xfce"
 _tr_add2 after_install_themevantip   "Usar tema sin personalización Xfce"
 
-_tr_add2 after_install_themedef     "Tema por defecto Xfce de Encrypt-OS"
-_tr_add2 after_install_themedeftip  "Usar tema por defecto Xfce de Encrypt-OS"
+_tr_add2 after_install_themedef     "Tema por defecto Xfce de "
+_tr_add2 after_install_themedeftip  "Usar tema por defecto Xfce de "
 
 # 2020-Jun-28:
 _tr_add2 after_install_pclean       "Configuración de limpieza de los paquetes"
@@ -249,8 +248,8 @@ _tr_add2 add_more_apps_done2_tip1    "Para instalar, usa 'pacman' o 'yay'"
 _tr_add2 add_more_apps_done2_tip2    "Para instalar, usa 'yay'"
 
 # 2020-Sep-11:
-_tr_add2 after_install_ew2        "Elija uno de los fondos de pantalla de Encrypt-OS"   # was: "Encrypt-OS wallpaper (choose)"
-_tr_add2 after_install_ewtip2     "Selector de fondos de pantalla"                          # was: "Choose from Encrypt-OS default wallpapers"
+_tr_add2 after_install_ew2        "Elija uno de los fondos de pantalla de "   # was: " wallpaper (choose)"
+_tr_add2 after_install_ewtip2     "Selector de fondos de pantalla"                          # was: "Choose from  default wallpapers"
 
 # 2020-Sep-15:
 #    IMPORTANT NOTE:

@@ -62,14 +62,14 @@ _tr_add2 after_install_ustip     "Mise à jour des logiciels du système"
 _tr_add2 after_install_dsi       "Détecter bugs Système"
 _tr_add2 after_install_dsitip    "Détecter tout problème potentiel sur les paquets du système ou ailleurs"
 
-_tr_add2 after_install_etl       "Encrypt-OS à jour $_question"
-_tr_add2 after_install_etltip    "Montrez ce qu'il faut faire pour que votre système atteigne le dernier niveau d'Encrypt-OS"
+_tr_add2 after_install_etl       " à jour $_question"
+_tr_add2 after_install_etltip    "Montrez ce qu'il faut faire pour que votre système atteigne le dernier niveau d'"
 
 _tr_add2 after_install_cdm       "Gestionnaire Sessions"
 _tr_add2 after_install_cdmtip    "Utiliser un gestionnaire de session graphique différent"
 
 _tr_add2 after_install_ew        "Fond d'écran EOS par défaut"
-_tr_add2 after_install_ewtip     "Remplacer le fond d'écran du bureau par celui d'Encrypt-OS par défaut"
+_tr_add2 after_install_ewtip     "Remplacer le fond d'écran du bureau par celui d' par défaut"
 
 
 _tr_add2 after_install_pm        "Gestion Paquets"
@@ -91,7 +91,7 @@ _tr_add2 after_install_ft        "Forum"
 _tr_add2 after_install_fttip     "Aidez-nous à vous aider$_exclamation"
 
 
-_tr_add2 general_info_text       "Suivez votre guide sur le site Encrypt-OS $_exclamation"
+_tr_add2 general_info_text       "Suivez votre guide sur le site  $_exclamation"
 
 _tr_add2 general_info_ws         "Site internet"
 
@@ -105,7 +105,7 @@ _tr_add2 general_info_fo         "Forum"
 _tr_add2 general_info_fotip      "Demandez, commentez et discutez sur notre forum convivial $_exclamation"
 
 _tr_add2 general_info_do         "Faire un don"
-_tr_add2 general_info_dotip      "Aidez-nous à maintenir le fonctionnement d'Encrypt-OS"
+_tr_add2 general_info_dotip      "Aidez-nous à maintenir le fonctionnement d'"
 
 _tr_add2 general_info_ab         "À propos de"
 _tr_add2 general_info_abtip      "Plus d'info au sujet de cette application"
@@ -160,8 +160,7 @@ _tr_add2 issues_no               "Aucun problème important n'a été détecté 
 
 _tr_add2 cal_noavail             "Non disponible : "	# programme d'installation
 _tr_add2 cal_warn                "Avertissement"
-_tr_add2 cal_info1               "C'est une version de développement communautaire.\n\n"	# besoins spéciaux !
-_tr_add2 cal_info2               "<b>Offline</b> ce mode vous donne un bureau Xfce avec le thème Encrypt-OS.\nUne connexion Internet n'est pas nécessaire.\n\n"
+_tr_add2 cal_info2               "<b>Offline</b> ce mode vous donne un bureau Xfce avec le thème .\nUne connexion Internet n'est pas nécessaire.\n\n"
 _tr_add2 cal_info3               "<b>Online</b> ce mode vous laisse choisir votre bureau, avec le thème d'origine (vanilla).\nUne connexion Internet est requise.\n\n"
 _tr_add2 cal_info4               "Veuillez noter : Cette version est un travail en cours, veuillez nous aider à la rendre stable en signalant les bogues.\n"
 _tr_add2 cal_choose              "Choisir le mode d'installation"
@@ -175,9 +174,9 @@ _tr_add2 tail_butt               "Fermer cette fenêtre"
 _tr_add2 tail_buttip             "Ne fermer que cette fenêtre"
 
 
-_tr_add2 ins_text                "Installation d'Encrypt-OS sur le disque"
+_tr_add2 ins_text                "Installation d' sur le disque"
 _tr_add2 ins_start               "Démarrer l'installateur"
-_tr_add2 ins_starttip            "Démarrez l'installateur Encrypt-OS avec un terminal de débogage"
+_tr_add2 ins_starttip            "Démarrez l'installateur  avec un terminal de débogage"
 _tr_add2 ins_up                  "Mettre à jour cette application $_exclamation"
 _tr_add2 ins_uptip               "Mise à jour et redémarrage de cette application"
 _tr_add2 ins_keys                "Initialiser les clés pacman"
@@ -210,7 +209,7 @@ _tr_add2 after_install_themevan      "Thème original Xfce"
 _tr_add2 after_install_themevantip   "Utiliser le thème original de Xfce"
 
 _tr_add2 after_install_themedef     "Thème EOS Xfce"
-_tr_add2 after_install_themedeftip  "Utiliser le thème d'Encrypt-OS pour Xfce"
+_tr_add2 after_install_themedeftip  "Utiliser le thème d' pour Xfce"
 
 # 28-juin-2020:
 _tr_add2 after_install_pclean       "Configuration nettoyage paquets"
@@ -247,7 +246,7 @@ _tr_add2 add_more_apps_done2_tip2    "Pour l'installation, utilisez 'yay'"
 
 # 11-septembre-2020:
 _tr_add2 after_install_ew2      "Choisir un des fonds d'écran EOS"
-_tr_add2 after_install_ewtip2   "Choisir parmi les fonds d'écran d'Encrypt-OS"
+_tr_add2 after_install_ewtip2   "Choisir parmi les fonds d'écran d'"
 
 # 2020-Sep-15:
 #    IMPORTANT NOTE:
@@ -269,15 +268,12 @@ _tr_add2 after_install_pacdiff_tip "Gère les fichier pacnew, pacorig $_and pacs
 
 # 07-avril-2021:
 _tr_add2 after_install_conf           "Configurer"                             # a starting verb on a sentence "Configure eos-update-notifier"
-_tr_add2 after_install_more_wall      "Télécharger plus de fonds d'écran d'Encrypt-OS"
-_tr_add2 after_install_more_wall_tip  "Télécharger les anciens fonds d'écrans d'Encrypt-OS et ceux de la communauté"
+_tr_add2 after_install_more_wall      "Télécharger plus de fonds d'écran d'"
 _tr_add2 after_install_info           "information"                           # last word on a sentence, means just any information
 
 _tr_add2 butt_softnews                "Nouvelles des logiciels"
-_tr_add2 butt_softnews_tip            "Nouvelles importantes sur les logiciels d'Encrypt-OS"
+_tr_add2 butt_softnews_tip            "Nouvelles importantes sur les logiciels d'"
 
-_tr_add2 install_community            "Installer édition communautaire"
-_tr_add2 install_community_tip        "Collection des éditions communautaire (note: connexion internet requise) : " # changé le 23-Oct-2021
 
 # 1er-mai-2021
 _tr_add2 ins_syslog                   "Partager les logs système"

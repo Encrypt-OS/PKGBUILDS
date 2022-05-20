@@ -62,14 +62,14 @@ _tr_add2 after_install_ustip       "Обновление системных мо
 _tr_add2 after_install_dsi         "Поиск ошибок"
 _tr_add2 after_install_dsitip      "Обнаружение любых потенциальных проблем в системе и программах"
 
-_tr_add2 after_install_etl         "Обновить Encrypt-OS$_question"
-_tr_add2 after_install_etltip      "Переход на новейший уровень Encrypt-OS"
+_tr_add2 after_install_etl         "Обновить $_question"
+_tr_add2 after_install_etltip      "Переход на новейший уровень "
 
 _tr_add2 after_install_cdm         "Изменить Display Manager"
 _tr_add2 after_install_cdmtip      "Установка другого Display Manager"
 
-_tr_add2 after_install_ew          "Обои Encrypt-OS"
-_tr_add2 after_install_ewtip       "Установить обои Encrypt-OS по умолчанию"
+_tr_add2 after_install_ew          "Обои "
+_tr_add2 after_install_ewtip       "Установить обои  по умолчанию"
 
 
 _tr_add2 after_install_pm          "Управление пакетами"
@@ -91,7 +91,7 @@ _tr_add2 after_install_ft          "Форум с советами"
 _tr_add2 after_install_fttip       "Обратитесь к нам за помощью$_exclamation"
 
 
-_tr_add2 general_info_text         "Найди себя в Encrypt-OS"
+_tr_add2 general_info_text         "Найди себя в "
 
 _tr_add2 general_info_ws           "Сайт"
 
@@ -105,7 +105,7 @@ _tr_add2 general_info_fo           "Форум"
 _tr_add2 general_info_fotip        "Спрашивайте, комментируйте и общайтесь на нашем дружественном форуме$_exclamation"
 
 _tr_add2 general_info_do           "Пожертвования"
-_tr_add2 general_info_dotip        "Окажите помощь в развитии и поддержке Encrypt-OS"
+_tr_add2 general_info_dotip        "Окажите помощь в развитии и поддержке "
 
 _tr_add2 general_info_ab           "О Welcome"
 _tr_add2 general_info_abtip        "Информация о приложении Welcome"
@@ -160,8 +160,7 @@ _tr_add2 issues_no                 "Системные ошибки не обн�
 
 _tr_add2 cal_noavail               "Не доступно: "			# программа установки
 _tr_add2 cal_warn                  "Внимание"
-_tr_add2 cal_info1                 "Это релиз разработки сообщества.\n\n"                                   				# для специалистов!
-_tr_add2 cal_info2                 "<b>Оффлайн</b> вариант предоставляет рабочий стол Xfce с темой Encrypt-OS.\nПодключение к интернет не требуется.\n\n"
+_tr_add2 cal_info2                 "<b>Оффлайн</b> вариант предоставляет рабочий стол Xfce с темой .\nПодключение к интернет не требуется.\n\n"
 _tr_add2 cal_info3                 "<b>Онлайн</b> вариант позволяет выбрать DE с оформлением по умолчанию.\nТребуется подключение к интернет.\n\n"
 _tr_add2 cal_info4                 "Внимание: Этот релиз находится в процессе разработки. Пожалуйста, сообщите нам в случае ошибки.\n"
 _tr_add2 cal_choose                "Выбор способа установки"
@@ -175,9 +174,9 @@ _tr_add2 tail_butt                 "Закрыть это окно"
 _tr_add2 tail_buttip               "Закрыть только это окно"
 
 
-_tr_add2 ins_text                  "Установка Encrypt-OS на компьютер"
+_tr_add2 ins_text                  "Установка  на компьютер"
 _tr_add2 ins_start                 "Запуск установки"
-_tr_add2 ins_starttip              "Запуcк установки Encrypt-OS вместе с отладочным терминалом"
+_tr_add2 ins_starttip              "Запуcк установки  вместе с отладочным терминалом"
 _tr_add2 ins_up                    "Обновить Welcome$_exclamation"
 _tr_add2 ins_uptip                 "Обновить Welcome и перезапустить его"
 _tr_add2 ins_keys                  "Pacman - gpg ключи"
@@ -209,8 +208,8 @@ _tr_add2 butt_changelogtip     "История изменений Welcome"
 _tr_add2 after_install_themevan      "Оригинальная тема Xfce"
 _tr_add2 after_install_themevantip   "Использовать оригинальную тему Xfce"
 
-_tr_add2 after_install_themedef     "Тема Xfce в стиле Encrypt-OS"
-_tr_add2 after_install_themedeftip  "Использовать стиль Encrypt-OS в теме Xfce по умолчанию"
+_tr_add2 after_install_themedef     "Тема Xfce в стиле "
+_tr_add2 after_install_themedeftip  "Использовать стиль  в теме Xfce по умолчанию"
 
 # 2020-Jun-28:
 _tr_add2 after_install_pclean       "Настройка очистки пакетов"
@@ -246,8 +245,8 @@ _tr_add2 add_more_apps_done2_tip1    "Для установки, использ�
 _tr_add2 add_more_apps_done2_tip2    "Для установки, используйте 'yay'"
 
 # 2020-Sep-11:
-_tr_add2 after_install_ew2        "Выбор обоев Encrypt-OS"   # was: "Encrypt-OS wallpaper (choose)"
-_tr_add2 after_install_ewtip2     "Выбор обоев"               # was: "Choose from Encrypt-OS default wallpapers"
+_tr_add2 after_install_ew2        "Выбор обоев "   # was: " wallpaper (choose)"
+_tr_add2 after_install_ewtip2     "Выбор обоев"               # was: "Choose from  default wallpapers"
 
 # 2020-Sep-15:
 #    IMPORTANT NOTE:
@@ -273,15 +272,12 @@ _tr_add2 after_install_pacdiff_tip "Управление файлами pacnew, 
 
 # 2021-Apr-07:
 _tr_add2 after_install_conf           "Настройка"                            # a starting verb on a sentence "Настройка eos-update-notifier"
-_tr_add2 after_install_more_wall      "Скачать больше обоев Encrypt-OS"
-_tr_add2 after_install_more_wall_tip  "Скачать предыдущие обои Encrypt-OS и обои от сообщества"
+_tr_add2 after_install_more_wall      "Скачать больше обоев "
 _tr_add2 after_install_info           "информация"                           # last word on a sentence, means just any information
 
 _tr_add2 butt_softnews                "Новости о программном обеспечении"
-_tr_add2 butt_softnews_tip            "Важные новости о программном обеспечении Encrypt-OS"
+_tr_add2 butt_softnews_tip            "Важные новости о программном обеспечении "
 
-_tr_add2 install_community            "Установить версии ОС от сообщества"
-_tr_add2 install_community_tip        "Коллекция версий ОС от сообщества Endeavour (только онлайн установка)"    # changed
 
 # 2021-May-01
 _tr_add2 ins_syslog                   "Как поделиться системными логами?"

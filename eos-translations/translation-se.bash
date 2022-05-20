@@ -56,13 +56,13 @@ _tr_add2 after_install_ustip   "Uppdatera systemmjukvara"
 _tr_add2 after_install_dsi     "Upptäck systemproblem"
 _tr_add2 after_install_dsitip  "Upptäck eventuella problem med systempaket eller någon annanstans"
 
-_tr_add2 after_install_etl     "Encrypt-OS senaste version$_question"
-_tr_add2 after_install_etltip  "Visa hur du får ditt system till senaste Encrypt-OS-nivå;"
+_tr_add2 after_install_etl     " senaste version$_question"
+_tr_add2 after_install_etltip  "Visa hur du får ditt system till senaste -nivå;"
 
 _tr_add2 after_install_cdm     "Byt bildskärmshanterare"
 _tr_add2 after_install_cdmtip  "Använd en annan bildskärmshanterare"
 
-_tr_add2 after_install_ew      "Encrypt-OS skrivbordsbakgrund" # var: "Encrypt-OS skrivbordsbakgrund"
+_tr_add2 after_install_ew      " skrivbordsbakgrund" # var: " skrivbordsbakgrund"
 _tr_add2 after_install_ewtip   "Ändra skrivbordsbakgrund till EOS standardbakgrund" var: "Ändra skrivbordsbakgrund till EOS standard"
 
 _tr_add2 after_install_pm      "Pakethantering"
@@ -83,7 +83,7 @@ _tr_add2 after_install_nvtip   "Använd NVIDIA-installeraren"
 _tr_add2 after_install_ft      "Forum"
 _tr_add2 after_install_fttip   "Hjälp oss hjälpa dig!"
 
-_tr_add2 general_info_text     "Finn din väg på Encrypt-OS hemsida$_exclamation"
+_tr_add2 general_info_text     "Finn din väg på  hemsida$_exclamation"
 
 _tr_add2 general_info_ws       "Hemsida"
 
@@ -97,7 +97,7 @@ _tr_add2 general_info_fo       "Forum"
 _tr_add2 general_info_fotip    "Fråga, kommentera, och chatta i vårt vänliga forum!"
 
 _tr_add2 general_info_do       "Donera"
-_tr_add2 general_info_dotip    "Hjälp oss hålla igång Encrypt-OS"
+_tr_add2 general_info_dotip    "Hjälp oss hålla igång "
 
 _tr_add2 general_info_ab       "Om $PRETTY_PROGNAME"
 _tr_add2 general_info_abtip    "Mer information om detta program"
@@ -146,8 +146,7 @@ _tr_add2 issues_run              "Kör komandon:"
 _tr_add2 issues_no               "Inga viktiga systemfel upptäcktes."
 _tr_add2 cal_noavail            "Icke tillgängligt: "        # installer program
 _tr_add2 cal_warn               "Varning"
-_tr_add2 cal_info1              "Det här är ett gemenskapsutvecklat släpp.\n\n"                                   # specials needed!
-_tr_add2 cal_info2              "<b>Offline</b> metoden ger dig en Xfce-desktop med Encrypt-OS-tema.\nInternetuppkoppling 	är inte nödvändig.\n\n"
+_tr_add2 cal_info2              "<b>Offline</b> metoden ger dig en Xfce-desktop med -tema.\nInternetuppkoppling 	är inte nödvändig.\n\n"
 _tr_add2 cal_info3              "<b>Online</b> metoden låter dig välja skrivbordsbakgrund, med vaniljtema.\nInternetuppkoppling krävs.\n\n"
 _tr_add2 cal_info4              "OBS: Detta släpp är ett pågående arbete, vänligen hjälp oss att göra det stabilt genom att rapportera buggar\n"
 _tr_add2 cal_choose             "Välj installationsmetod"
@@ -159,9 +158,9 @@ _tr_add2 cal_istopped           "Installation klar"
 _tr_add2 tail_butt              "Stäng detta fönster"
 _tr_add2 tail_buttip            "Stäng bara detta fönster"
 
-_tr_add2 ins_text              "Installerar Encrypt-OS till disk"
+_tr_add2 ins_text              "Installerar  till disk"
 _tr_add2 ins_start             "Starta installereraren"
-_tr_add2 ins_starttip          "Starta Encrypt-OS-installeraren tillsammans med felsökningsterminal"
+_tr_add2 ins_starttip          "Starta -installeraren tillsammans med felsökningsterminal"
 _tr_add2 ins_up                "Uppdatera detta program$_exclamation"
 _tr_add2 ins_uptip             "Uppdaterar detta program och startar om det"
 _tr_add2 ins_keys              "Initiera pacman-nycklar"
@@ -185,8 +184,8 @@ _tr_add2 butt_changelog        "Ändringslogg"
 _tr_add2 butt_changelogtip     "Visa Ändringslogg för Welcome"
 _tr_add2 after_install_themevan "Xfce Vanilj tema"
 _tr_add2 after_install_themevantip "Använd Xfce vanilj tema"
-_tr_add2 after_install_themedef "Xfce Encrypt-OS standardtema"
-_tr_add2 after_install_themedeftip "Använd Encrypt-OS Xfce standardtema"
+_tr_add2 after_install_themedef "Xfce  standardtema"
+_tr_add2 after_install_themedeftip "Använd  Xfce standardtema"
 _tr_add2 after_install_pclean "Konfiguration för paketrensning"
 _tr_add2 after_install_pcleantip "Konfigurera tjänsten för rengöring av paketcache"
 _tr_add2 nb_tab_OwnCommands    "Personliga kommandon"
@@ -208,8 +207,8 @@ _tr_add2 add_more_apps_done2_text  "Eller bläddra bland alla Arch och AUR paket
 _tr_add2 add_more_apps_done2_tip1  "För att installera, använd 'pacman' eller 'yay'"
 _tr_add2 add_more_apps_done2_tip2    "För att installera, använd 'yay'"
 
-_tr_add2 after_install_ew2     "Välj en av Encrypt-OS-bakgrunderna" # var: "Encrypt-OS bakgrunder (välj)
-_tr_add2 after_install_ewtip2  "Skrivbordsbakgrundsväljare"                          # var: "Välj från Encrypt-OS standardbakgrunder"
+_tr_add2 after_install_ew2     "Välj en av -bakgrunderna" # var: " bakgrunder (välj)
+_tr_add2 after_install_ewtip2  "Skrivbordsbakgrundsväljare"                          # var: "Välj från  standardbakgrunder"
 
 _tr_add2 updt_update_check "Uppdateringskontroll"
 _tr_add2 updt_searching    "söker"
@@ -221,16 +220,13 @@ _tr_add2 updt_press_enter  "Tryck på ENTER för att stänga detta fönster"
 _tr_add2 after_install_pacdiff_tip "Hantera pacnew, pacorig $_and pacsave filer med pacdiff $_and"
 
 _tr_add2 after_install_conf        "Konfigurera" 
-_tr_add2 after_install_more_wall   "Ladda ner mer Encrypt-OS-bakgrundsbilder"
-_tr_add2 after_install_more_wall_tip "Ladda ner Encrypt-OS äldre och gemenskaps bakgrundsbilder"
+_tr_add2 after_install_more_wall   "Ladda ner mer -bakgrundsbilder"
 _tr_add2 after_install_info "Information"
 
 
 _tr_add2 butt_softnews  "Programvarunyheter"
-_tr_add2 butt_softnews_tip "Viktiga nyheter om Encrypt-OS programvara"
+_tr_add2 butt_softnews_tip "Viktiga nyheter om  programvara"
 
-_tr_add2 install_community            "Installera gemenskapsutgåvor"
-_tr_add2 install_community_tip        "Gemenskapsutgåvor samlingar (online anslutning krävs)"
 
 _tr_add2 ins_syslog                   "Hur man delar systemloggar"
 _tr_add2 ins_syslogtip                "Förklarar hur du kan dela systemloggar när du behöver hjälp"

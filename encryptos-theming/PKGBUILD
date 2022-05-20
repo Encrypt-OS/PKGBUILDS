@@ -1,6 +1,6 @@
-# Maintainer: Encrypt-OS <info@Encrypt-OS.com>
+# Maintainer: SnailDOS <snaildos@snaildos.com>
 pkgname=EncryptOS-theming
-pkgver=8.1
+pkgver=8.2
 pkgrel=1
 pkgdesc='Default EncryptOS background images and icons for all different DE'
 arch=('any')

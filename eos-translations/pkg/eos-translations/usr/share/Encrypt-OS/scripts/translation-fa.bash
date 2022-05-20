@@ -159,7 +159,6 @@ _tr_add2 issues_no               "مشکل سیستمی خاصی یافت نشد
 
 _tr_add2 cal_noavail            " :غیرقابل دسترسی"        # installer program
 _tr_add2 cal_warn               "اخطار"
-_tr_add2 cal_info1              "\n\nاین یک نسخه انجمن است"                                   # specials needed!
 _tr_add2 cal_info2              "<b>آفلاین</b>: روشی که یک دسکتاپ Xfce بهمراه تم اندیور خواهد داد. اتصال اینترنتی نیاز نخواهد بود."
 _tr_add2 cal_info3              "<b>آنلاین</b>: شیوه‌ای که امکان انتخاب دسکتاپ را بهمراه یک تم ساده می‌دهد. اتصال اینترنت مورد نیاز خواهد بود.\n\n"
 _tr_add2 cal_info4              "نکته: این انتشار در حال توسعه است پس لطفا با گزارش باگ‌ها مارا در پایدار کردن آن همراهی کنید\n"
@@ -251,14 +250,10 @@ _tr_add2 after_install_pacdiff_tip "مدیریت فایلهای pacnew ،pacorin
 
 _tr_add2 after_install_conf           "کانفیگ کردن"
 _tr_add2 after_install_more_wall      "والپیپرهای اندیور بیشتری دانلود کنید"
-_tr_add2 after_install_more_wall_tip  "دانلود والپیپرهای قدیمی و انجمنی اندیور"
 _tr_add2 after_install_info           "اطلاعات"
 
 _tr_add2 butt_softnews                "اطلاعات نرم‌افزاری"
 _tr_add2 butt_softnews_tip            "اخبار مهم درباره نرم‌افزارهای اندیور"
-
-_tr_add2 install_community            "نصب نسخه های انجمن"
-_tr_add2 install_community_tip        "مجموعه نسخه‌های انجمن (نیازمند اینترنت)"
 
 
 _tr_add2 ins_syslog                   "چگونگی اشتراک گذاری لاگ‌های سیستمی"

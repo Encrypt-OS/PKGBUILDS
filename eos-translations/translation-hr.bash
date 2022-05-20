@@ -62,13 +62,13 @@ _tr_add2 after_install_ustip   "Ažuriraj softare sustava"
 _tr_add2 after_install_dsi     "Pronađi probleme sa sustavaom"
 _tr_add2 after_install_dsitip  "Pronđji sve potencijalne probleme sa paketima sustava ili drugdje"
 
-_tr_add2 after_install_etl     "Encrypt-OS na najnoviju verziju$_question"
-_tr_add2 after_install_etltip  "Pokaži šta uraditi da bi se sustav doveo na najnoviji Encrypt-OS nivo"
+_tr_add2 after_install_etl     " na najnoviju verziju$_question"
+_tr_add2 after_install_etltip  "Pokaži šta uraditi da bi se sustav doveo na najnoviji  nivo"
 
 _tr_add2 after_install_cdm     "Promjeni Display Manager-a"
 _tr_add2 after_install_cdmtip  "Koristi drugi display manager"
 
-_tr_add2 after_install_ew      "Encrypt-OS zadani wallpaper"      # was: "Encrypt-OS wallpaper"
+_tr_add2 after_install_ew      " zadani wallpaper"      # was: " wallpaper"
 _tr_add2 after_install_ewtip   "Vrati na zadani wallpaper"     # was: "Change desktop wallpaper to EOS default"
 
 
@@ -91,7 +91,7 @@ _tr_add2 after_install_ft      "Savjeti vezani za Forum "
 _tr_add2 after_install_fttip   "Pomozite nama da Vam pomognemo!"
 
 
-_tr_add2 general_info_text     "Pronađi svoj put na Encrypt-OS web site-u$_exclamation"
+_tr_add2 general_info_text     "Pronađi svoj put na  web site-u$_exclamation"
 
 _tr_add2 general_info_ws       "Web site"
 
@@ -105,7 +105,7 @@ _tr_add2 general_info_fo       "Forum"
 _tr_add2 general_info_fotip    "Pitaj, komentariši, i dopisuj se na našem prijateljskom forumu!"
 
 _tr_add2 general_info_do       "Doniraj"
-_tr_add2 general_info_dotip    "Pomozite nam da odrzimo Encrypt-OS"
+_tr_add2 general_info_dotip    "Pomozite nam da odrzimo "
 
 _tr_add2 general_info_ab       "Više o $PRETTY_PROGNAME"
 _tr_add2 general_info_abtip    "Više informacija o ovoj aplikaciji"
@@ -160,8 +160,7 @@ _tr_add2 issues_no               "Nisu otkriveni značajni problemi sa sustavom.
 
 _tr_add2 cal_noavail            "Nije dostupno: "        # installer program
 _tr_add2 cal_warn               "Upozorenje"
-_tr_add2 cal_info1              "Ovo je community development izdanje.\n\n"                                   # specials needed!
-_tr_add2 cal_info2              "<b>Offline</b> metoda vam daje Xfce desktop sa Encrypt-OS temom.\nInternet konekcija nije potrebna.\n\n"
+_tr_add2 cal_info2              "<b>Offline</b> metoda vam daje Xfce desktop sa  temom.\nInternet konekcija nije potrebna.\n\n"
 _tr_add2 cal_info3              "<b>Online</b> metoda vam omogucava da odaberete desktop okruzenje.\nInternet konekcija je potrebna.\n\n"
 _tr_add2 cal_info4              "Obratite pažnju: Ovo izdanje je u izradi. Pomozite nam da ga ucinimo stabilnijim prijavljivanjem bug-ova.\n"
 _tr_add2 cal_choose             "Odaberi način instalacije"
@@ -175,9 +174,9 @@ _tr_add2 tail_butt              "Zatvori ovaj prozor"
 _tr_add2 tail_buttip            "Zatvori samo ovaj prozor"
 
 
-_tr_add2 ins_text              "Encrypt-OS se instalira na disk"
+_tr_add2 ins_text              " se instalira na disk"
 _tr_add2 ins_start             "Pokreni Installer"
-_tr_add2 ins_starttip          "Pokreni Encrypt-OS installer i terminal za debug"
+_tr_add2 ins_starttip          "Pokreni  installer i terminal za debug"
 _tr_add2 ins_up                "Ažuriraj ovu aplikaciju$_exclamation"
 _tr_add2 ins_uptip             "Ažuriraj ovu aplikaciju i pokreni je ponovo"
 _tr_add2 ins_keys              "Inicijalizuj pacman keys"
@@ -209,8 +208,8 @@ _tr_add2 butt_changelogtip     "Pokaži listu promjena za Welcome aplikaciju"
 _tr_add2 after_install_themevan      "Xfce vanilla tema"
 _tr_add2 after_install_themevantip   "Koristi vanilla Xfce temu"
 
-_tr_add2 after_install_themedef     "Xfce Encrypt-OS zadana tema"
-_tr_add2 after_install_themedeftip  "Koristi Encrypt-OS zadanu Xfce temu"
+_tr_add2 after_install_themedef     "Xfce  zadana tema"
+_tr_add2 after_install_themedeftip  "Koristi  zadanu Xfce temu"
 
 # 2020-Jun-28:
 _tr_add2 after_install_pclean       "Konfiguracija čišćenja paketa"
@@ -246,8 +245,8 @@ _tr_add2 add_more_apps_done2_tip1    "Da bi instalirali, koristite 'pacman' ili 
 _tr_add2 add_more_apps_done2_tip2    "Da bi instalirali, koristite 'yay'"
 
 # 2020-Sep-11:
-_tr_add2 after_install_ew2        "Odaberi jedan od Encrypt-OS wallpaper-a"   # was: "Encrypt-OS wallpaper (choose)"
-_tr_add2 after_install_ewtip2     "Birač wallpaper-a"                          # was: "Choose from Encrypt-OS default wallpapers"
+_tr_add2 after_install_ew2        "Odaberi jedan od  wallpaper-a"   # was: " wallpaper (choose)"
+_tr_add2 after_install_ewtip2     "Birač wallpaper-a"                          # was: "Choose from  default wallpapers"
 
 # 2020-Sep-15:
 #    IMPORTANT NOTE:
@@ -273,15 +272,11 @@ _tr_add2 after_install_pacdiff_tip "Upravljajte pacnew, pacorig $_and pacsave fi
 
 # 2021-Apr-07:
 _tr_add2 after_install_conf           "Konfiguriši"                             # a starting verb on a sentence "Configure eos-update-notifier"
-_tr_add2 after_install_more_wall      "Preuzmi još Encrypt-OS wallpaper-a"
-_tr_add2 after_install_more_wall_tip  "Preuzmi starije i community wallpaper-e"
+_tr_add2 after_install_more_wall      "Preuzmi još  wallpaper-a"
 _tr_add2 after_install_info           "informacije"                           # last word on a sentence, means just any information
 
 _tr_add2 butt_softnews                "Software-ske novosti"
-_tr_add2 butt_softnews_tip            "Bitne novosti o Encrypt-OS software-u"
-
-_tr_add2 install_community            "Instaliraj community verziju"
-_tr_add2 install_community_tip        "Kolekcija community verzija  (internet konekcija potrebna)"    # changed 2021-Oct-23
+_tr_add2 butt_softnews_tip            "Bitne novosti o  software-u"
 
 # 2021-May-01
 _tr_add2 ins_syslog                   "Kako podjeliti sistemske logove"

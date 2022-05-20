@@ -62,13 +62,13 @@ _tr_add2 after_install_ustip   "Vykoná aktualizáciu systémového softvéru"
 _tr_add2 after_install_dsi     "Zistiť problémy so systémom"
 _tr_add2 after_install_dsitip  "Zistí akékoľvek možné problémy so systémovými balíkmi alebo s čímkoľvek iným"
 
-_tr_add2 after_install_etl     "Najnovší systém Encrypt-OS$_question"
-_tr_add2 after_install_etltip  "Zobrazí, ako dostať váš systém Encrypt-OS na najnovšiu úroveň"
+_tr_add2 after_install_etl     "Najnovší systém $_question"
+_tr_add2 after_install_etltip  "Zobrazí, ako dostať váš systém  na najnovšiu úroveň"
 
 _tr_add2 after_install_cdm     "Zmeniť správcu zobrazenia"
 _tr_add2 after_install_cdmtip  "Použije iného správcu zobrazenia"
 
-_tr_add2 after_install_ew      "Východzie pozadie systému Encrypt-OS"
+_tr_add2 after_install_ew      "Východzie pozadie systému "
 _tr_add2 after_install_ewtip   "Navrátiť pozadie na východzie"
 
 
@@ -91,7 +91,7 @@ _tr_add2 after_install_ft      "Rady k fóru"
 _tr_add2 after_install_fttip   "Pomôžte nám, my pomôžeme vám!"
 
 
-_tr_add2 general_info_text     "Nájdite svoju cestu na webovej stránke systému Encrypt-OS$_exclamation"
+_tr_add2 general_info_text     "Nájdite svoju cestu na webovej stránke systému $_exclamation"
 
 _tr_add2 general_info_ws       "Webová stránka"
 
@@ -105,7 +105,7 @@ _tr_add2 general_info_fo       "Fórum"
 _tr_add2 general_info_fotip    "Pýtajte sa, komentujte a rozprávajte sa v našom priateľskom fóre!"
 
 _tr_add2 general_info_do       "Prispieť"
-_tr_add2 general_info_dotip    "Pomôžte nám v zachovaní chodu systému Encrypt-OS"
+_tr_add2 general_info_dotip    "Pomôžte nám v zachovaní chodu systému "
 
 _tr_add2 general_info_ab       "O aplikácii $PRETTY_PROGNAME"
 _tr_add2 general_info_abtip    "Viac informácií o tejto aplikácii"
@@ -160,8 +160,7 @@ _tr_add2 issues_no               "Neboli zistené žiadne závažné problémy s
 
 _tr_add2 cal_noavail            "Nedostupný: "        # installer program
 _tr_add2 cal_warn               "Upozornenie"
-_tr_add2 cal_info1              "Toto je komunitné vývojové vydanie.\n\n"                                   # specials needed!
-_tr_add2 cal_info2              "Spôsob <b>Bez pripojenia</b> vám poskytne pracovné prostredie Xfce s motívom systému Encrypt-OS.\nInternetové pripojenie nie je potrebné.\n\n"
+_tr_add2 cal_info2              "Spôsob <b>Bez pripojenia</b> vám poskytne pracovné prostredie Xfce s motívom systému .\nInternetové pripojenie nie je potrebné.\n\n"
 _tr_add2 cal_info3              "Spôsob <b>S pripojením</b> vám umožní zvoliť pracovné prostredie s pôvodným čistím motívom.\nInternetové pripojenie je potrebné.\n\n"
 _tr_add2 cal_info4              "Poznámka: Na tomto vydaní sa stále pracuje. Prosím, pomôžte nám vytvoriť stabilné vydanie pomocou nahlásenia chýb.\n"
 _tr_add2 cal_choose             "Zvoľte spôsob inštalácie"
@@ -175,9 +174,9 @@ _tr_add2 tail_butt              "Zavrieť toto okno"
 _tr_add2 tail_buttip            "Zavrie iba toto okno"
 
 
-_tr_add2 ins_text              "Inštaluje sa systém Encrypt-OS na disk"
+_tr_add2 ins_text              "Inštaluje sa systém  na disk"
 _tr_add2 ins_start             "Spustiť inštalátor"
-_tr_add2 ins_starttip          "Spustí inštalátor systému Encrypt-OS spolu s ladiacim terminálom"
+_tr_add2 ins_starttip          "Spustí inštalátor systému  spolu s ladiacim terminálom"
 _tr_add2 ins_up                "Aktualizovať túto aplikáciu$_exclamation"
 _tr_add2 ins_uptip             "Vykoná aktualizáciu tejto aplikácie a znovu ju spustí"
 _tr_add2 ins_keys              "Inicializovať kľúče aplikácie pacman"
@@ -210,7 +209,7 @@ _tr_add2 after_install_themevan      "Čistý Xfce vzhľad"
 _tr_add2 after_install_themevantip   "Použiť čistý vzhľad Xfce"
 
 _tr_add2 after_install_themedef     "Endeavour OS vzhľad pre Xfce"
-_tr_add2 after_install_themedeftip  "Použiť Encrypt-OS vzhľad pre Xfce"
+_tr_add2 after_install_themedeftip  "Použiť  vzhľad pre Xfce"
 
 # 2020-Jun-28:
 _tr_add2 after_install_pclean       "Nastavenie prečisťovania balíčkov"
@@ -246,8 +245,8 @@ _tr_add2 add_more_apps_done2_tip1    "Pre inštaláciu použite 'pacman', alebo 
 _tr_add2 add_more_apps_done2_tip2    "Pre inštaláciu použite 'yay'"
 
 # 2020-Sep-11:      
-_tr_add2 after_install_ew2        "Výber jedného z pozadí Encrypt-OS"   # was: "Encrypt-OS wallpaper (choose)"   
-_tr_add2 after_install_ewtip2     "Výber pozadí"                         # was: "Choose from Encrypt-OS default wallpapers"
+_tr_add2 after_install_ew2        "Výber jedného z pozadí "   # was: " wallpaper (choose)"   
+_tr_add2 after_install_ewtip2     "Výber pozadí"                         # was: "Choose from  default wallpapers"
 
 # 2020-Sep-15:
 #    IMPORTANT NOTE:
@@ -273,15 +272,12 @@ _tr_add2 after_install_pacdiff_tip "Spravovať pacnew, pacorig $_and pacsave sú
 
 # 2021-Apr-07:
 _tr_add2 after_install_conf           "Štelovať"                             # a starting verb on a sentence "Configure eos-update-notifier"
-_tr_add2 after_install_more_wall      "Stiahnúť viac pozadí Encrypt-OS"
-_tr_add2 after_install_more_wall_tip  "Stiahnúť tradičné, a komunitné pozadia Encrypt-OS"
+_tr_add2 after_install_more_wall      "Stiahnúť viac pozadí "
 _tr_add2 after_install_info           "informácie"                           # last word on a sentence, means just any information
 
 _tr_add2 butt_softnews                "Softvérové novinky"
-_tr_add2 butt_softnews_tip            "Dôležité správy o softvéri Encrypt-OS"
+_tr_add2 butt_softnews_tip            "Dôležité správy o softvéri "
 
-_tr_add2 install_community            "Inštalovať komunitné edície"
-_tr_add2 install_community_tip        "Komunitné edície: Sway, Bspwm (poznámka: potreba byť online)"
 
 # 2021-May-01
 _tr_add2 ins_syslog                   "Ako zdieľať systémové záznamy"

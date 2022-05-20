@@ -62,14 +62,14 @@ _tr_add2 after_install_ustip     "Zaktualizuj oprogramowanie systemu"
 _tr_add2 after_install_dsi       "Wykryj problemy z systemem"
 _tr_add2 after_install_dsitip    "Wykryj potencjalne problemy z pakietami systemowymi lub inne"
 
-_tr_add2 after_install_etl       "Najświeższy Encrypt-OS$_question"
-_tr_add2 after_install_etltip    "Pokaż co zrobić aby podnieść Twój system do ostatniej wersji Encrypt-OS"
+_tr_add2 after_install_etl       "Najświeższy $_question"
+_tr_add2 after_install_etltip    "Pokaż co zrobić aby podnieść Twój system do ostatniej wersji "
 
 _tr_add2 after_install_cdm       "Zmień menedżer wyświetlania"
 _tr_add2 after_install_cdmtip    "Użyj innego menedżera wyświetlania"
 
-_tr_add2 after_install_ew        "Tapeta Encrypt-OS"
-_tr_add2 after_install_ewtip     "Zmień tło pulpitu na domyślne Encrypt-OS"
+_tr_add2 after_install_ew        "Tapeta "
+_tr_add2 after_install_ewtip     "Zmień tło pulpitu na domyślne "
 
 
 _tr_add2 after_install_pm        "Zarządzanie pakietami"
@@ -91,7 +91,7 @@ _tr_add2 after_install_ft        "Wskazówki do forum"
 _tr_add2 after_install_fttip     "Pomóż nam pomóc sobie$_exclamation"
 
 
-_tr_add2 general_info_text       "Znajdź swoją drogę na stronę Encrypt-OS$_exclamation"
+_tr_add2 general_info_text       "Znajdź swoją drogę na stronę $_exclamation"
 
 _tr_add2 general_info_ws         "Strona internetowa"
 
@@ -105,7 +105,7 @@ _tr_add2 general_info_fo         "Forum"
 _tr_add2 general_info_fotip      "Pytaj, komentuj i czatuj w naszym przyjaznym forum$_exclamation"
 
 _tr_add2 general_info_do         "Wpłać darowiznę"
-_tr_add2 general_info_dotip      "Pomóż nam utrzymywać Encrypt-OS"
+_tr_add2 general_info_dotip      "Pomóż nam utrzymywać "
 
 _tr_add2 general_info_ab         "O $PRETTY_PROGNAME"
 _tr_add2 general_info_abtip      "Więcej informacji o tej aplikacji"
@@ -160,8 +160,7 @@ _tr_add2 issues_no               "Nie wykryto istotnych błędów w systemie."
 
 _tr_add2 cal_noavail             "Nie dostępne : "        # program nastawczy
 _tr_add2 cal_warn                "Uwaga"
-_tr_add2 cal_info1               "To jest deweloperskie wydanie społeczności.\n\n"		# unikalne potrzeby !
-_tr_add2 cal_info2               "<b>Offline</b> Metoda Offline oferuje Ci pulpit XFCE z motywami Encrypt-OS.\nPołącznie z internetem nie jest wymagane.\n\n"
+_tr_add2 cal_info2               "<b>Offline</b> Metoda Offline oferuje Ci pulpit XFCE z motywami .\nPołącznie z internetem nie jest wymagane.\n\n"
 _tr_add2 cal_info3               "<b>Online</b> Metoda Online pozwala Ci wybrać pulpit z minimalnym motywem.\nPołączenie z internetem jest wymagane.\n\n"
 _tr_add2 cal_info4               "Zwróć uwagę : prace nad tym wydaniem nadal trwają, pomóż nam je poprawić zgłaszając błędy.\n"
 _tr_add2 cal_choose              "Wybierz metodę instalacji"
@@ -175,7 +174,7 @@ _tr_add2 tail_butt               "Zamknij to okno"
 _tr_add2 tail_buttip             "Zamknij tylko to okno"
 
 
-_tr_add2 ins_text                "Instaluję Encrypt-OS"
+_tr_add2 ins_text                "Instaluję "
 _tr_add2 ins_start               "Rozpocznij instalację"
 _tr_add2 ins_starttip            "Rozpocznij instalację EndeacourOS z terminalem debugowania"
 _tr_add2 ins_up                  "Zaktualizuj tę aplikację$_exclamation"

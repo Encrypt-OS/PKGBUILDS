@@ -2,10 +2,10 @@
 # using fakeroot version 1.28
 pkgname = welcome
 pkgbase = welcome
-pkgver = 3.17.33-2
+pkgver = 3.17.35-2
 pkgdesc = Welcome greeter for new EncryptOS users.
 url = https://github.com/EncryptOS/PKGBUILDS/tree/master/welcome
-builddate = 1652874090
+builddate = 1653050511
 packager = Unknown Packager
 size = 80541
 arch = any

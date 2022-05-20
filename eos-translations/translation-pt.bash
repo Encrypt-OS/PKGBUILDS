@@ -62,13 +62,13 @@ _tr_add2 after_install_ustip   "Atualiza o software do sistema"
 _tr_add2 after_install_dsi     "Detetar problemas no sistema"
 _tr_add2 after_install_dsitip  "Deteta potenciais problemas nos pacotes do sistema ou noutro local"
 
-_tr_add2 after_install_etl     "Encrypt-OS para o mais recente$_question"
-_tr_add2 after_install_etltip  "Mostra o que fazer para que o sistema atinja o nível mais recente do Encrypt-OS"
+_tr_add2 after_install_etl     " para o mais recente$_question"
+_tr_add2 after_install_etltip  "Mostra o que fazer para que o sistema atinja o nível mais recente do "
 
 _tr_add2 after_install_cdm     "Mudar o gestor de sessão"
 _tr_add2 after_install_cdmtip  "Usa um gestor de sessão diferente"
 
-_tr_add2 after_install_ew      "Fundo de ecrã Encrypt-OS"                       # was: "Encrypt-OS wallpaper"
+_tr_add2 after_install_ew      "Fundo de ecrã "                       # was: " wallpaper"
 _tr_add2 after_install_ewtip   "Muda o fundo de ecrã para o predefinido do EOS"  # was: "Change desktop wallpaper to EOS default"
 
 
@@ -91,7 +91,7 @@ _tr_add2 after_install_ft      "Dicas do fórum"
 _tr_add2 after_install_fttip   "Ajude-nos a ajudá-lo(a)!"
 
 
-_tr_add2 general_info_text     "Encontre o seu caminho no website do Encrypt-OS$_exclamation"
+_tr_add2 general_info_text     "Encontre o seu caminho no website do $_exclamation"
 
 _tr_add2 general_info_ws       "Sítio Web"
 
@@ -105,7 +105,7 @@ _tr_add2 general_info_fo       "Fórum"
 _tr_add2 general_info_fotip    "Faça perguntas, comente e converse no nosso amigável fórum!"
 
 _tr_add2 general_info_do       "Doações"
-_tr_add2 general_info_dotip    "Ajude-nos a manter o Encrypt-OS a funcionar"
+_tr_add2 general_info_dotip    "Ajude-nos a manter o  a funcionar"
 
 _tr_add2 general_info_ab       "Acerca do $PRETTY_PROGNAME"
 _tr_add2 general_info_abtip    "Mais informação acerca desta aplicação"
@@ -160,8 +160,7 @@ _tr_add2 issues_no               "Não foram detetados problemas importantes no 
 
 _tr_add2 cal_noavail            "Não disponível: "        # installer program
 _tr_add2 cal_warn               "Aviso"
-_tr_add2 cal_info1              "Esta é uma versão desenvolvida pela comunidade.\n\n"                                   # specials needed!
-_tr_add2 cal_info2              "<b>Offline</b> Este método dá-lhe um ambiente gráfico Xfce com tema do Encrypt-OS.\nNão é necessária ligação à Internet.\n\n"
+_tr_add2 cal_info2              "<b>Offline</b> Este método dá-lhe um ambiente gráfico Xfce com tema do .\nNão é necessária ligação à Internet.\n\n"
 _tr_add2 cal_info3              "<b>Online</b> Este método permite-lhe escolher o seu ambiente de trabalho, com temas padrão.\nÉ necessária ligação à Internet.\n\n"
 _tr_add2 cal_info4              "Atenção: Esta versão está em aperfeiçoamento, ajude-nos a torná-la mais estável, reportando erros.\n"
 _tr_add2 cal_choose             "Escolha o método de instalação"
@@ -175,9 +174,9 @@ _tr_add2 tail_butt              "Fechar esta janela"
 _tr_add2 tail_buttip            "Feche apenas esta janela"
 
 
-_tr_add2 ins_text              "A instalar o Encrypt-OS no disco"
+_tr_add2 ins_text              "A instalar o  no disco"
 _tr_add2 ins_start             "A iniciar o Instalador"
-_tr_add2 ins_starttip          "Inicie o instalador do Encrypt-OS em simultâneo com um terminal de depuração"
+_tr_add2 ins_starttip          "Inicie o instalador do  em simultâneo com um terminal de depuração"
 _tr_add2 ins_up                "Atualizar esta aplicação$_exclamation"
 _tr_add2 ins_uptip             "Atualiza esta aplicação e reinicia-a"
 _tr_add2 ins_keys              "Iniciar as chaves pacman"
@@ -209,8 +208,8 @@ _tr_add2 butt_changelogtip     "Mostrar o registo de alterações do Welcome"
 _tr_add2 after_install_themevan      "Tema original Xfce"
 _tr_add2 after_install_themevantip   "Usar o tema original Xfce"
 
-_tr_add2 after_install_themedef     "Tema do Encrypt-OS para o Xfce"
-_tr_add2 after_install_themedeftip  "Usa o tema do Encrypt-OS para o Xfce"
+_tr_add2 after_install_themedef     "Tema do  para o Xfce"
+_tr_add2 after_install_themedeftip  "Usa o tema do  para o Xfce"
 
 # 2020-Jun-28:
 _tr_add2 after_install_pclean       "Configuração de limpeza de pacotes"
@@ -246,8 +245,8 @@ _tr_add2 add_more_apps_done2_tip1    "Para instalar, use o 'pacman' ou o 'yay'"
 _tr_add2 add_more_apps_done2_tip2    "Para instalar, use o 'yay'"
 
 # 2020-Sep-11:
-_tr_add2 after_install_ew2        "Escolha um dos papéis de parede do Encrypt-OS"   # was: "Encrypt-OS wallpaper (choose)"
-_tr_add2 after_install_ewtip2     "Selecionador de papel de parede"                  # was: "Choose from Encrypt-OS default wallpapers"
+_tr_add2 after_install_ew2        "Escolha um dos papéis de parede do "   # was: " wallpaper (choose)"
+_tr_add2 after_install_ewtip2     "Selecionador de papel de parede"                  # was: "Choose from  default wallpapers"
 
 # 2020-Sep-15:
 #    IMPORTANT NOTE:
@@ -273,15 +272,12 @@ _tr_add2 after_install_pacdiff_tip "Gerir ficheiros pacnew, pacorig $_and pacsav
 
 # 2021-Apr-07:
 _tr_add2 after_install_conf           "Configurar"                           # a starting verb on a sentence "Configure eos-update-notifier"
-_tr_add2 after_install_more_wall      "Transferir mais papéis de parede do Encrypt-OS"
-_tr_add2 after_install_more_wall_tip  "Transferir papéis de parede da comunidade e de versões antigas do Encrypt-OS"
+_tr_add2 after_install_more_wall      "Transferir mais papéis de parede do "
 _tr_add2 after_install_info           "informação"                           # last word on a sentence, means just any information
 
 _tr_add2 butt_softnews                "Notícias de Software"
-_tr_add2 butt_softnews_tip            "Notícias importantes sobre o software do Encrypt-OS"
+_tr_add2 butt_softnews_tip            "Notícias importantes sobre o software do "
 
-_tr_add2 install_community            "Instalar edições da comunidade"
-_tr_add2 install_community_tip        "Coleção das edições da comunidade (requer ligação à Internet)"    # changed 2021-Oct-23
 
 # 2021-May-01
 _tr_add2 ins_syslog                   "Como partilhar os registos do sistema"

@@ -62,13 +62,13 @@ _tr_add2 after_install_ustip   "更新系统软件"
 _tr_add2 after_install_dsi     "检查系统问题"
 _tr_add2 after_install_dsitip  "检查系统软件包或其他地方的潜在问题"
 
-_tr_add2 after_install_etl     "更新到最新的 Encrypt-OS$_question"
-_tr_add2 after_install_etltip  "显示如何操作以更新到最新的 Encrypt-OS"
+_tr_add2 after_install_etl     "更新到最新的 $_question"
+_tr_add2 after_install_etltip  "显示如何操作以更新到最新的 "
 
 _tr_add2 after_install_cdm     "更换显示管理器（DM）"
 _tr_add2 after_install_cdmtip  "更换一个不同的显示管理器（Display Manager）"
 
-_tr_add2 after_install_ew      "Encrypt-OS 壁纸"
+_tr_add2 after_install_ew      " 壁纸"
 _tr_add2 after_install_ewtip   "更换壁纸为 EOS 的默认壁纸"
 
 
@@ -91,7 +91,7 @@ _tr_add2 after_install_ft      "论坛小贴士"
 _tr_add2 after_install_fttip   "帮助我们来帮助你！"
 
 
-_tr_add2 general_info_text     "在 Encrypt-OS 网站查看更多信息$_exclamation"
+_tr_add2 general_info_text     "在  网站查看更多信息$_exclamation"
 
 _tr_add2 general_info_ws       "网站"
 
@@ -105,7 +105,7 @@ _tr_add2 general_info_fo       "论坛"
 _tr_add2 general_info_fotip    "在我们友好的论坛里提问、评论和交流！"
 
 _tr_add2 general_info_do       "捐款"
-_tr_add2 general_info_dotip    "帮助 Encrypt-OS 持续运转"
+_tr_add2 general_info_dotip    "帮助  持续运转"
 
 _tr_add2 general_info_ab       "关于 $PRETTY_PROGNAME"
 _tr_add2 general_info_abtip    "有关此应用程序的更多信息"
@@ -160,8 +160,7 @@ _tr_add2 issues_no               "未发现重要的系统问题。"
 
 _tr_add2 cal_noavail            "不可用："        # installer program
 _tr_add2 cal_warn               "警告"
-_tr_add2 cal_info1              "这是一个社区开发版本。\n\n"                                   # specials needed!
-_tr_add2 cal_info2              "<b>离线</b>模式为您提供预设为 Encrypt-OS 主题的 Xfce 桌面。\n不需要互联网连接。\n\n"
+_tr_add2 cal_info2              "<b>离线</b>模式为您提供预设为  主题的 Xfce 桌面。\n不需要互联网连接。\n\n"
 _tr_add2 cal_info3              "<b>在线</b>模式让您选择自己想要的桌面环境，并配置为默认主题。\n需要互联网连接。\n\n"
 _tr_add2 cal_info4              "请注意：此版本仍然在开发中，请报告问题以帮助我们使它更稳定。\n"
 _tr_add2 cal_choose             "选择安装方式"
@@ -175,9 +174,9 @@ _tr_add2 tail_butt              "关闭此窗口"
 _tr_add2 tail_buttip            "仅关闭此窗口"
 
 
-_tr_add2 ins_text              "安装 Encrypt-OS 到磁盘"
+_tr_add2 ins_text              "安装  到磁盘"
 _tr_add2 ins_start             "启动安装向导"
-_tr_add2 ins_starttip          "启动 Encrypt-OS 安装向导，并启动一个调试用的终端"
+_tr_add2 ins_starttip          "启动  安装向导，并启动一个调试用的终端"
 _tr_add2 ins_up                "更新此程序$_exclamation"
 _tr_add2 ins_uptip             "更新此程序并重新启动"
 _tr_add2 ins_keys              "初始化 pacman 密钥环"
@@ -209,8 +208,8 @@ _tr_add2 butt_changelogtip     "显示 Welcome 程序的更新日志"
 _tr_add2 after_install_themevan      "Xfce 原版主题"
 _tr_add2 after_install_themevantip   "使用 Xfce 的原版主题"
 
-_tr_add2 after_install_themedef     "Xfce Encrypt-OS 默认主题"
-_tr_add2 after_install_themedeftip  "使用 Xfce 的 Encrypt-OS 默认主题"
+_tr_add2 after_install_themedef     "Xfce  默认主题"
+_tr_add2 after_install_themedeftip  "使用 Xfce 的  默认主题"
 
 # 2020-Jun-28:
 _tr_add2 after_install_pclean       "软件包清理选项"

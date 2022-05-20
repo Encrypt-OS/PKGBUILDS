@@ -62,13 +62,13 @@ _tr_add2 after_install_ustip   "更新系统软件"
 _tr_add2 after_install_dsi     "侦测系统问题"
 _tr_add2 after_install_dsitip  "侦测常见的系统问题"
 
-_tr_add2 after_install_etl     "想更新Encrypt-OS吗$_question"
-_tr_add2 after_install_etltip  "更新Encrypt-OS的教学"
+_tr_add2 after_install_etl     "想更新吗$_question"
+_tr_add2 after_install_etltip  "更新的教学"
 
 _tr_add2 after_install_cdm     "更换显示管理器"
 _tr_add2 after_install_cdmtip  "换一个显示管理器"
 
-_tr_add2 after_install_ew      "Encrypt-OS 预设桌布"      # was: "Encrypt-OS wallpaper"
+_tr_add2 after_install_ew      " 预设桌布"      # was: " wallpaper"
 _tr_add2 after_install_ewtip   "还原成预设桌布"     # was: "Change desktop wallpaper to EOS default"
 
 
@@ -91,7 +91,7 @@ _tr_add2 after_install_ft      "论坛的建议使用方法"
 _tr_add2 after_install_fttip   "寻求帮助的正确方法"
 
 
-_tr_add2 general_info_text     "来Encrypt-OS官方网站寻求协助$_exclamation"
+_tr_add2 general_info_text     "来官方网站寻求协助$_exclamation"
 
 _tr_add2 general_info_ws       "官方网站"
 
@@ -105,7 +105,7 @@ _tr_add2 general_info_fo       "论坛"
 _tr_add2 general_info_fotip    "欢迎来我们的论坛發问，留言，聊天$_exclamation"
 
 _tr_add2 general_info_do       "捐款"
-_tr_add2 general_info_dotip    "您的捐款能帮助我们继续开發Encrypt-OS"
+_tr_add2 general_info_dotip    "您的捐款能帮助我们继续开發"
 
 _tr_add2 general_info_ab       "关于$PRETTY_PROGNAME"
 _tr_add2 general_info_abtip    "更多关于本应用的资讯"
@@ -160,8 +160,7 @@ _tr_add2 issues_no               "侦测不到任何系统问题"
 
 _tr_add2 cal_noavail            "无法存取："        # installer program
 _tr_add2 cal_warn               "警告"
-_tr_add2 cal_info1              "这是社群开發版本。\n\n"                                   # specials needed!
-_tr_add2 cal_info2              "<b>离线</b>安装只支援Xfce桌面环境，并配以Encrypt-OS皮肤。\n此安装方法不需要网路连接。\n\n"
+_tr_add2 cal_info2              "<b>离线</b>安装只支援Xfce桌面环境，并配以皮肤。\n此安装方法不需要网路连接。\n\n"
 _tr_add2 cal_info3              "<b>在线</b>安装可让您自行选择桌面环境，并配以原版皮肤。\n此安装方法需要网路连接。\n\n"
 _tr_add2 cal_info4              "请注意：此版本是测试版本。请回报你遇到的程式错误，帮助我们向稳定版迈进。\n"
 _tr_add2 cal_choose             "选择安装方法"
@@ -175,7 +174,7 @@ _tr_add2 tail_butt              "关闭本视窗"
 _tr_add2 tail_buttip            "只关闭本视窗"
 
 
-_tr_add2 ins_text              "在硬盘上安装Encrypt-OS"
+_tr_add2 ins_text              "在硬盘上安装"
 _tr_add2 ins_start             "打开安装程式"
 _tr_add2 ins_starttip          "打开安装程式以及排错终端"
 _tr_add2 ins_up                "更新本应用$_exclamation"
@@ -209,8 +208,8 @@ _tr_add2 butt_changelogtip     "查看欢迎程式的更新日誌"
 _tr_add2 after_install_themevan      "Xfce的原版皮肤"
 _tr_add2 after_install_themevantip   "使用Xfce的原版皮肤"
 
-_tr_add2 after_install_themedef     "Encrypt-OS的预设Xfce皮肤"
-_tr_add2 after_install_themedeftip  "使用Encrypt-OS的预设Xfce皮肤"
+_tr_add2 after_install_themedef     "的预设Xfce皮肤"
+_tr_add2 after_install_themedeftip  "使用的预设Xfce皮肤"
 
 # 2020-Jun-28:
 _tr_add2 after_install_pclean       "啓用自动清理软件包快取"
@@ -246,8 +245,8 @@ _tr_add2 add_more_apps_done2_tip1    "请使用pacman或yay安装此应用"
 _tr_add2 add_more_apps_done2_tip2    "请使用yay安装此应用"
 
 # 2020-Sep-11:
-_tr_add2 after_install_ew2        "选择Encrypt-OS桌布"   # was: "Encrypt-OS wallpaper (choose)"
-_tr_add2 after_install_ewtip2     "选择桌布"                          # was: "Choose from Encrypt-OS default wallpapers"
+_tr_add2 after_install_ew2        "选择桌布"   # was: " wallpaper (choose)"
+_tr_add2 after_install_ewtip2     "选择桌布"                          # was: "Choose from  default wallpapers"
 
 # 2020-Sep-15:
 #    IMPORTANT NOTE:

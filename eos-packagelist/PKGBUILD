@@ -10,7 +10,7 @@ source=(
     eos-packagelist
     eos-packagelist.bash-completion
 )
-sha256sums=('6d17fc8d8002c66c744308b837bad632baebe81320221e5307577a69919c7a57'
+sha256sums=('57ee12b14009a35b276ad4b1aedea1b6dc75a4f413d835f27058566b725b37f0'
             '4b13f6ef7af87431157d2a80f856cba2c2d6d1a835cceddc96f2339f528849e7')
 
 package() {
