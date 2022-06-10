@@ -1057,7 +1057,7 @@ WelcomeChangelog() {
 export -f WelcomeChangelog
 
 ImportantNews() {
-    $_WELCOME_BROWSER "$(Github2Gitlab https://github.com/EncryptOS/Important-news/blob/main/README.md)"
+    $_WELCOME_BROWSER "$(Github2Gitlab https://raw.githubusercontent.com/Encrypt-OS/Important-news/main/README.md)"
 }
 export -f ImportantNews
 

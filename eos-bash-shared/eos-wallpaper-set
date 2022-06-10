@@ -211,11 +211,11 @@ AssertPicture() {
             esac
             ;;
         DEFAULT | default | DEFAULT-2021 | default-2021)
-            pic="$picfolder/Encrypt-OS-wallpaper.png"
+            pic="$picfolder/encryptos-wallpaper.png"
             ;;
         ISO | iso)
-            pic="$picfolder/Encrypt-OS-default-background.png"          # new picture
-            [ -r "$pic" ] || pic="$picfolder/Encrypt-OS-wallpaper.png"  # old picture
+            pic="$picfolder/encryptos-wallpaper.png"          # new picture
+            [ -r "$pic" ] || pic="$picfolder/encryptos-wallpaper.png"  # old picture
             ;;
     esac
 
