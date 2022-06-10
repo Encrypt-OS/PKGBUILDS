@@ -43,7 +43,7 @@ Main()
 {
     local pkgname="$1"
     local progname="$(basename "$0")"
-    local urlbase=https://github.com/Encrypt-OS/PKGBUILDS/commits/master
+    local urlbase=https://github.com/Encrypt-OS/PKGBUILDS/commits/main
     local Browser=""
 
     SetBrowser

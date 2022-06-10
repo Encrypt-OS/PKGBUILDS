@@ -147,7 +147,7 @@ Usage() {
 Usage: $PROGNAME <name>
   <name>   A package name, program name, or a file path included in a package.
            Given program name or file path must exist in the current system.
-           The package can be from Encrypt-OS, Arch, or AUR.
+           The package can be from EncryptOS, Arch, or AUR.
 EOF
 }
 

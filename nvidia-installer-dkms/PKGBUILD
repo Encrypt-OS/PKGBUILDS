@@ -1,9 +1,8 @@
 # Original Maintainer: Gustau Castells <karasu@antergos.com>
-# Maintainer: @manuel
-# Contributor: joekamprad <joekamprad@Encrypt-OS.com>
+# Maintainer: EncryptOS
 
 pkgname=nvidia-installer-dkms
-pkgver=3.4
+pkgver=3.5
 pkgrel=1
 pkgdesc="Script to setup nvidia drivers (dkms version) in Encrypt-OS"
 url=https://github.com/Encrypt-OS/PKGBUILDS/tree/master/$pkgname

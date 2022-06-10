@@ -1,11 +1,11 @@
-# Maintainer: SnailDOS <snaildos@snaildos.com>
+# Maintainer: EncryptOS <snaildos@snaildos.com>
 
 # Disabled eos-pkginfo for now.
 # Disabled eos-pkg-changelog for now.
 
 pkgname=eos-bash-shared
 pkgdesc="Bash code shared by certain EncryptOS apps."
-pkgver=1.16
+pkgver=1.22
 pkgrel=3
 arch=('any')
 license=('GPL')

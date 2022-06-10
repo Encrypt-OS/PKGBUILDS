@@ -1,12 +1,13 @@
 # Maintainer: SnailDOS <snaildos@snaildos.com>
 pkgname=EncryptOS-theming
-pkgver=8.2
-pkgrel=1
+pkgver=8
+pkgrel=3
 pkgdesc='Default EncryptOS background images and icons for all different DE'
 arch=('any')
 replaces=('EncryptOS-theming')
 url='https://www.Encrypt-OS.com'
 license=('GPL3')
+makedepends=('git')
 source=('git+https://github.com/Encrypt-OS/encryptos-theming.git')
 md5sums=('SKIP')
 sha512sums=('SKIP')

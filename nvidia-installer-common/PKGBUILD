@@ -3,7 +3,7 @@
 # Contributor: joekamprad <joekamprad@Encrypt-OS.com>
 
 pkgname=nvidia-installer-common
-pkgver=1.0
+pkgver=1.3
 pkgrel=1
 pkgdesc="Common scripts for nvidia-installer-dkms and nvidia-inst"
 url=https://github.com/Encrypt-OS/PKGBUILDS/tree/master/$pkgname
