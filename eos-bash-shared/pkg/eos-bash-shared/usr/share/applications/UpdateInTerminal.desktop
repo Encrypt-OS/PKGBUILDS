@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=UpdateInTerminal
+Comment=Update system in terminal
+Comment[fi]=Päivitä järjestelmä uudessa pääteikkunassa
+Exec=UpdateInTerminal --nt
+Icon=Encrypt-OS-icon
+Hidden=false
+X-GNOME-Autostart-enabled=true
+X-KDE-autostart-after=panel
+Categories=System

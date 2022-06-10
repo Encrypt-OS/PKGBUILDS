@@ -25,8 +25,8 @@ source=(
   $_url/nvidia-installer-kernel-para
   $_url/nvidia-driver-supported-branches
 )
-sha512sums=('98ceb7fb204bb9fef77af8e306c8e97c1f324372d2d2019295c52b0eb4357314e8af2ea7caa487b68d9907014ea70ab6edafa098cd9155fc71f11def3c8aa8b9'
-            '1612e5281c5f677f8637f7d2a13c14a4bec0fa42e2ad8f080c7f64ba0d1ef2c90e90e8f11024cc71ba4483da0e5cbb2c12684c25993d119ac0cf759853039edb')
+sha512sums=('7d5864ca4d3330e911c7822f72a426b7930accf2cd38c56011a448b7a09359a4d7289de91c42cefe12804814b6abe54350f4aac084d8bf0a35045200ed007f40'
+            'cc7690b81fcbad710b86f623b6e5676086e781cd7e924544c6b0691540c53c2da545c070be1af3731647526143934d4dfbc8b885a5a3405070af196401104b80')
 
 package() {
   install -Dm755 nvidia-installer-kernel-para     $pkgdir/usr/bin/nvidia-installer-kernel-para

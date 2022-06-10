@@ -17,5 +17,5 @@ sha512sums=('SKIP')
 
 package() {
     install -dm 755 $pkgdir/boot/grub/themes/EncryptOS
-    cp -r --no-preserve=ownership "grub2-theme-endeavouros-$pkgver/EncryptOS" "$pkgdir/boot/grub/themes/"
+    cp -r --no-preserve=ownership "grub2-theme-EncryptOS/EncryptOS" "$pkgdir/boot/grub/themes/"
 }

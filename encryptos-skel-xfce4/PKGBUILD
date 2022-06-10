@@ -16,7 +16,7 @@ sha256sums=('SKIP')
 
 package() {
     PREFIX=/etc/skel
-    cd "$_pkgname-$pkgver"
+    cd "$_pkgname"
     mkdir -p "${pkgdir}${PREFIX}/.config/"
     mkdir -p "${pkgdir}${PREFIX}/.config/xfce4/"
     cp -R ".config/Thunar" "${pkgdir}${PREFIX}/.config/Thunar"

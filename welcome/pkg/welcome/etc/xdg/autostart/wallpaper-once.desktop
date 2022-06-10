@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=wallpaper-once
+Comment=EncryptOS initial wallpaper installer
+Exec=sh /usr/share/encryptos/scripts/wallpaper-once
+Icon=EncryptOS-icon
+# StartupNotify=false
+# Terminal=False
+Hidden=false
+X-GNOME-Autostart-enabled=true
+X-KDE-autostart-after=panel
+
