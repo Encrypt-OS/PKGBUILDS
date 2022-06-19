@@ -8,7 +8,7 @@ pkgname=calamares_current
 _eos_changes=EncryptOS-calamares
 _reponame=calamares
 _calamares_ver=3.2.56
-pkgver=26.20.1.1
+pkgver=26.21.1.1
 pkgrel=1
 pkgdesc="Calamares installer for Encrypt-OS"
 arch=('any')
@@ -27,7 +27,7 @@ source=(
   "https://github.com/calamares/calamares/releases/download/v$_calamares_ver/$_reponame-$_calamares_ver.tar.gz"
 )
 
-sha256sums=('8574524402ab9af19b00cf637200a0df919586130f21a148fd3128333aa75832'
+sha256sums=('22a54ca8309bbe971f8646ec216f811cd538865e2ffb75df90e8e3a886b83d1f'
             'e1402d7693659b85c5e553481a7252d91350c3f33ffea413488d7712d3281e03')
 
 prepare() {
