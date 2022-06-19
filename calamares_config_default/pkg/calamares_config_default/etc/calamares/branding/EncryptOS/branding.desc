@@ -1,0 +1,46 @@
+componentName: EncryptOS
+
+welcomeStyleCalamares: false
+
+welcomeExpandingLogo: true
+
+# windowExpanding: normal
+windowExpanding: noexpand
+
+windowSize: 1200px,700px
+
+windowPlacement: center
+
+sidebar: widget
+
+navigation: widget
+
+strings:
+    productName:         EncryptOS
+    shortProductName:    EncryptOS
+    version:             2022.06.19
+    shortVersion:        2022.06.19
+    versionedName:       EncryptOS
+    shortVersionedName:  EncryptOS
+    bootloaderEntryName: EncryptOS
+    
+images:
+    productLogo:         "EncryptOS-logo.png"
+    productIcon:         "EncryptOS-icon.png"
+    productWelcome:      "EncryptOS_lang.png"
+    
+slideshowAPI: 2
+
+style:
+   sidebarBackground:    "#3e424d"
+   sidebarText:          "#ffffff"
+   sidebarTextSelect:    "#000000"
+   sidebarTextHighlight: "#f5f6f7"
+
+slideshow:               "show.qml"
+
+# log feature
+uploadServer :
+    type :    "fiche"
+    url :     "http://termbin.com:9999"
+    sizeLimit : -1
