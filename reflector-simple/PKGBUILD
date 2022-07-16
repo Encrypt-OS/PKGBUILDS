@@ -2,7 +2,7 @@
 
 pkgname=reflector-simple
 pkgdesc="Simple GUI wrapper for 'reflector'."
-pkgver=2021.12.31
+pkgver=2022.07.08
 pkgrel=1
 arch=('any')
 license=('GPL')

@@ -5,7 +5,7 @@
 
 pkgname=eos-bash-shared
 pkgdesc="Bash code shared by certain EncryptOS apps."
-pkgver=1.22
+pkgver=1.23
 pkgrel=3
 arch=('any')
 license=('GPL')
@@ -66,6 +66,7 @@ source=(
   $_url/eos-github2gitlab
   $_url/eos-select-file-server
   $_url/curl-exit-code-to-string
+  $_url/show-location-info
   $_url/eos-shifttime                # Thanks, @freebird54!
   $_url/grub-colour-chooser          # Thanks, @Kresimir!
 )

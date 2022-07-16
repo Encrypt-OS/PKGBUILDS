@@ -7,7 +7,7 @@
 pkgname=calamares_current
 _eos_changes=EncryptOS-calamares
 _reponame=calamares
-_calamares_ver=3.2.56
+_calamares_ver=3.2.60
 pkgver=26.21.1.1
 pkgrel=1
 pkgdesc="Calamares installer for Encrypt-OS"
