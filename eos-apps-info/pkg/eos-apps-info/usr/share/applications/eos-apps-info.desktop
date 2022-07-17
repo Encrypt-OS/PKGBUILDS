@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Encrypt-OS apps info
+Comment=Show information about specifically Encrypt-OS apps
+Comment[fi]=Näytä informaatiota Encrypt-OS:n sovelluksista
+Exec=eos-apps-info
+Icon=Encrypt-OS-icon
+Hidden=false
+X-GNOME-Autostart-enabled=true
+X-KDE-autostart-after=panel
+Categories=System

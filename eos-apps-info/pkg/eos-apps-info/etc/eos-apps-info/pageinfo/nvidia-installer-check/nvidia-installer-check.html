@@ -1,0 +1,19 @@
+<h1 id="nvidia-installer-check">nvidia-installer-check</h1>
+<p><code>nvidia-installer-check</code> checks whether the current nvidia
+card is supported by the latest nvidia driver package
+(<code>nvidia-dkms</code>).<br> The program can also be used for
+checking the support by giving the card id.</p>
+<h2 id="synopsis">Synopsis</h2>
+<pre><code>nvidia-installer-check [&lt;nvidia-id&gt; | internal-test]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<pre><code>&lt;nvidia-id&gt;     Check if an Nvidia card with given id (4 hex numbers) is supported.
+internal-test   Internal ad hoc test (useful for devs only).</code></pre>
+<p>If no parameters are given, program checks if the currently installed
+Nvidia card is supported.</p>
+<p>Program return codes:</p>
+<pre><code>0 = nvidia-dkms is supported
+2 = only nvidia-390x-dkms is supported (obsolete)
+1 = no Nvidia card detected or not supported</code></pre>
+<h2 id="examples">Examples</h2>
+<pre><code>nvidia-installer-check        # check the existing card
+nvidia-installer-check 1d01   # check if card with id 1d01 is supported</code></pre>
