@@ -1,0 +1,111 @@
+#!/bin/bash
+
+DIE() {
+    echo "$progname: error: $1" >&2
+    exit 1
+}
+
+Options() {
+    local arg
+    for arg in "$@" ; do
+        case "$arg" in
+            -h | --help)
+                cat <<EOF
+Directs standard input into a service at address
+    $EOS_SENDLOG_URI
+and saves returned URLs into file
+    $db2
+See file $configfile about how to configure the service address.
+
+Usage: $progname [options]
+options:
+    -n | --nosave   Don't save returned URL.
+    -h | --help     This help.
+    --man           Show manual at $EOS_SENDLOG_URI.
+EOF
+                exit 0
+                ;;
+            --man)
+                xdg-open "$EOS_SENDLOG_URI"
+                exit 0
+                ;;
+            -n | --nosave)
+                save=no
+                ;;
+            -*) DIE "unsupported option '$arg'" ;;
+            *) DIE "unsupported parameter '$arg'" ;;
+        esac
+    done
+}
+
+SendToNet() {
+    case "$EOS_SENDLOG_URI" in
+        wgetpaste)
+            [ -x /usr/bin/wgetpaste ] || DIE "wgetpaste is not installed!"
+            url=$(wgetpaste $WGETPASTE_OPTIONS 2>/dev/null)
+            ;;
+        *)
+            url=$(curl -F "${EOS_SENDLOG_FORM}=<-" "$EOS_SENDLOG_URI")
+            ;;
+    esac
+}
+
+Init() {
+    local ix
+
+    [ -r $configfile ] && source $configfile
+    [ -z "$WGETPASTE_OPTIONS" ] && WGETPASTE_OPTIONS="--nick nobody"
+
+    for ((ix=0; ix < ${#supported_uris[@]}; ix++)) ; do
+        if [ "$EOS_SENDLOG_URI" = "${supported_uris[$ix]}" ] ; then
+            EOS_SENDLOG_FORM="${supported_forms[$ix]}"
+            return
+        fi
+    done
+    # use default:
+    EOS_SENDLOG_URI="${supported_uris[$default_ix]}"
+    EOS_SENDLOG_FORM="${supported_forms[$default_ix]}"
+}
+
+Main() {
+    local progname="$(basename "$0")"
+    local configfile=/etc/eos-sendlog.conf
+
+    # from config file (if values are set, they must be correct!):
+    local EOS_SENDLOG_URI=""
+    local EOS_SENDLOG_FORM=""
+    local WGETPASTE_OPTIONS=""
+
+    local supported_uris=(
+        "http://ix.io"
+        "https://clbin.com"
+        "wgetpaste"           # use another program!
+    )
+    local supported_forms=(
+        "f:1"
+        "clbin"
+        ""
+    )
+    local default_ix=1      # was 0
+
+    Init
+    local save=yes
+    local db=$HOME/.config/$progname.txt
+    local db2='$HOME'/.config/$progname.txt
+    local url
+
+    Options "$@"
+
+    SendToNet
+
+    if [ "$save" = "yes" ] ; then
+        local tmpfile=$(mktemp $HOME/.config/eos-sendlog.XXXXX)
+        [ -r $db ] && mv $db $tmpfile
+        printf "%s: %s\n" "$(date +%Y%m%d-%H%M)" "$url" > $db
+        cat $tmpfile >> $db
+        rm -f $tmpfile
+    fi
+    echo "$url"
+}
+
+Main "$@"
