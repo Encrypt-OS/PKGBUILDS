@@ -18,9 +18,9 @@ navigation: widget
 strings:
     productName:         EncryptOS
     shortProductName:    EncryptOS
-    version:             2022.07.16
-    shortVersion:        2022.07.16
-    versionedName:       MargheritaPizza
+    version:             2022.07.18
+    shortVersion:        2022.07.18
+    versionedName:       EncryptOS
     shortVersionedName:  01
     bootloaderEntryName: EncryptOS
     
