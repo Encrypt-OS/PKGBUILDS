@@ -1,0 +1,42 @@
+# Maintainer: SnailDOS <snaildos@snaildos.com>
+
+pkgname=encryptos-desktop
+_pkgname=${pkgname%-bin}
+pkgver=1.2.1
+pkgrel=1
+pkgdesc="The future of privacy. Manage your EncryptOS operating system with a single click."
+arch=(x86_64)
+url="https://encryptos.snaildos.com"
+license=("GNU" "v3")
+depends=(
+  zlib
+  libgl
+  fuse2
+)
+provides=(EncryptOS-Desktop)
+conflicts=(EncryptOS-Desktop)
+options=(!strip)
+source=(
+  "EncryptOS-Desktop-$pkgver.AppImage::https://github.com/Encrypt-OS/EncryptOS-Desktop/releases/download/v$pkgver/EncryptOS-Desktop-$pkgver.AppImage"
+  "https://raw.githubusercontent.com/EncryptOS/EncryptOS-Desktop/main/static/icons/icon.png"
+  "https://raw.githubusercontent.com/EncryptOS/EncryptOS-Desktop/main/LICENSE"
+  "EncryptOS-Desktop.desktop"
+)
+noextract=("EncryptOS-Desktop.AppImage")
+sha256sums=('22d2553e49169f5fd5c4cc864f02ccac34c2732d41016ea68ed11ba530a6f761'
+            '2230e5025d9fa4417c69b359bb8478d70f08450aef556227df7579779fa6ef08'
+            '0bfebc9c7852e4cf48713cbc445971e7925122f2a202b60639ce36ca9dd3b932'
+            '4af571e14d4e39d781aa19c0e9ffbee9c6aa243f1ecc112f37450c42ec7e3e66')
+
+package() {
+  cd "$srcdir"
+
+  # Install binaries
+  install -Dm755 "EncryptOS-Desktop-$pkgver.AppImage" "$pkgdir/opt/encryptos-desktop/EncryptOS-Desktop.AppImage"
+  # install -Dm755 -t "$pkgdir/usr/bin" EncryptOS-Desktop.AppImage
+
+  # Install pixmap, desktop and license file
+  install -Dm644 icon.png "$pkgdir/usr/share/pixmaps/EncryptOS-Desktop.png"
+  install -Dm644 -t "$pkgdir/usr/share/applications" EncryptOS-Desktop.desktop
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
