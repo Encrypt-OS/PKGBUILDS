@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
 Name=EncryptOS Desktop
-MimeType=application/encryptos-desktop;
+MimeType=application/encryptos-app;
 Icon=/usr/share/pixmaps/encrypt-os.png
 Comment=Manage your EncryptOS system with a simple click.
-Exec=/opt/encryptos-desktop/encryptos-app.AppImage
+Exec=/opt/encryptos-app/encryptos-app.AppImage
 Categories=Application;
