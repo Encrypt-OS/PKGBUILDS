@@ -1,8 +1,8 @@
 # Maintainers: Portergos Linux <portergoslinux@gmail.com>, Encrypt-OS <info@Encrypt-OS.com>
 
-pkgname=EncryptOS-mirrorlist
-pkgver=4.4.2
-pkgrel=1
+pkgname=pkgname=EncryptOS-mirrorlist
+pkgver=4.7
+pkgrel=2
 pkgdesc="EncryptOS mirrorlist"
 arch=('any')
 url=https://github.com/Encrypt-OS/PKGBUILDS/tree/master/$pkgname
@@ -15,8 +15,21 @@ backup=("etc/pacman.d/encryptos-mirrorlist")  # to keep possibly ranked mirrorli
 conflicts_aarch64=(Encrypt-OS-arm-mirrorlist)
 conflicts_armv7h=(Encrypt-OS-arm-mirrorlist)
 
-source=($_url/encryptos-mirrorlist)
-sha512sums=('ba73d37592d2cb56515933d7d11e7e5e8728dd61e633a3e86d84c57a5ecbb6c7dcefa38b1e5d823051aba8346bf961aff8f3ad42b77ee63b2485276cbf6917d6')
+source=($_url/$pkgname)
+sha512sums=('fcb1e3e8ceca32620612216be59e9f9c6ed180f521d02173244097af65ab1897c5b72c903a65906c558669e6b9a0523f8c7789e02bf3c3799f0ec78062c19067')
+
+_not_used_prepare() {
+    # Create encryptos-mirrorlist.offline for offline install.
+    # Prefer mirrors that work well worldwide.
+
+    local suffix=".offline-install"
+    local offline="encryptos-mirrorlist$suffix"
+    local mirrorlist=encryptos-mirrorlist
+
+    printf "# EncryptOS mirrorlist for offline install only.\n\n" > $offline
+    cat $mirrorlist | sed -n '/^## Germany/,/^$/p'  >> $offline
+    cat $mirrorlist | sed -n '/^## [A-Z].*/,$p'     >> $offline
+}
 
 package() {
  #install -d "$pkgdir/etc/pacman.d"

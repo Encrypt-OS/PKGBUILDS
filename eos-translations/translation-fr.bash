@@ -306,3 +306,6 @@ _tr_add2 daily_assist_DEinfo_tip     "Plus d'informations sur cet environnement 
 _tr_add2 add_more_apps_qs            "Choisir applications populaires à installer"                      # runs eos-quickstart
 _tr_add2 add_more_apps_qstip         "Choisissez des applications populaires et installez-les"
 
+# 15-juillet-2022
+_tr_add2 daily_assist_anews          "Dernières nouvelles Arch"
+_tr_add2 daily_assist_anewstip       "Montre les dernières nouvelles d'Arch dans un navigateur"

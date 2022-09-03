@@ -2,7 +2,7 @@
 
 pkgname=eos-translations
 pkgdesc="EncryptOS translation support"
-pkgver=1.1.83
+pkgver=1.11
 pkgrel=1
 arch=('any')
 license=('GPL')

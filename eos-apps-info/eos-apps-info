@@ -38,18 +38,18 @@ Main()
     local update_label="Update database"
 
     local txt=""
-    txt+="The buttons below will show information about the apps in the Encrypt-OS repository.\n"
+    txt+="The buttons below will show information about the apps in the EncryptOS repository.\n"
     txt+="Click an app button and an information window opens.\n\n"
     txt+="Note: you may need to click the <b>$update_label</b> button below to update your package database.\n\n"
     txt+="A special selection of <i>bonus items</i> is appended!\n\n"
 
     local cmd=(
-        eos_yad --form --title="Encrypt-OS apps info" --text="$txt" --columns=4 --align-buttons --image=dialog-information
+        eos_yad --form --title="EncryptOS apps info" --text="$txt" --columns=4 --align-buttons --image=dialog-information
         # --no-buttons
         --button="$update_label!!Updates package database and restarts this app":$exit_updatedb
         --buttons-layout=center
     )
-    local packages=$(/usr/bin/pacman -Sl Encrypt-OS | /usr/bin/awk '{print $2}')
+    local packages=$(/usr/bin/pacman -Sl encryptos | /usr/bin/awk '{print $2}')
     local apps=()
     local pkg app app2
     local blabel="Bonus items"
@@ -71,13 +71,13 @@ Main()
                 | eos-grub-fix-initrd-generation | keyserver-rank* | nvidia-installer-update-db | polybar-msg | eos-kill-yad-zombies \
                 | welcome-dnd | yad-settings | yad-tools | eos-latest-arch-mirrorlist | eos-apps-info-helper | eos-install-mode-run-calamares \
                 | eos-run-cmd-with-su | *.sh | *calamares* | update-mirrorlist | nvidia-installer-kernel-para | eos-select-file-server | wormc \
-                | nvidia-installer-check | eos-rankmirrors-from-hook | curl-exit-code-to-string | eos-quickstart | arc* | dbufstat \
-                | *.zfs | raidz* | z*)
+                | nvidia-installer-check | eos-rankmirrors-from-hook | curl-exit-code-to-string | arc* | dbufstat \
+                | *.zfs | raidz* | z* | wgetpaste)
                 continue ;;
-            lxdm-binary | lxdm-config | lxdm)
+            lxdm-binary | lxdm-config | lxdm | arm-* | budgie-* | pacignore)
                 # why these show up ???
                 continue ;;
-            eos-pkginfo | eos-pkg-changelog | nvidia-inst)
+            eos-pkginfo | eos-pkg-changelog)
                 # deprecated for now
                 continue ;;
 
@@ -88,6 +88,8 @@ Main()
             # rename:
             eos-pkginfo-aur)  app2=eos-pkginfo ;;
             eos-welcome)      app2=welcome ;;
+            #wgetpaste)        app2=wgetpaste-eos ;;
+            yad)              app2=yad-eos ;;
             su-c_wrapper)     app2="$app" ; app="su-c__wrapper" ;;   # handle underscore character !!
             *)                app2="$app" ;;
         esac

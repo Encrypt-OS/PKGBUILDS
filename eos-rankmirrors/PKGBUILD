@@ -1,7 +1,7 @@
 # Maintainer: Encrypt-OS <info@Encrypt-OS.com>
 
 pkgname=eos-rankmirrors
-pkgver=2.2.7
+pkgver=2.3
 pkgrel=1
 pkgdesc="EncryptOS mirror ranking tool"
 arch=('any')

@@ -5,8 +5,8 @@
 
 pkgname=eos-bash-shared
 pkgdesc="Bash code shared by certain EncryptOS apps."
-pkgver=1.23
-pkgrel=3
+pkgver=1.28
+pkgrel=2
 arch=('any')
 license=('GPL')
 depends=(
@@ -52,6 +52,7 @@ source=(
   $_url/eos-wallpaper-set
   $_url/UpdateInTerminal
   $_url/UpdateInTerminal.desktop
+  $_url/eos-update                        # "better" than UpdateInTerminal
   $_url/eos-waiting-indicator
 #  $_url/eos-pkginfo
 #  $_url/eos-pkginfo.completion

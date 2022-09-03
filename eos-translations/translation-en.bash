@@ -91,7 +91,7 @@ _tr_add2 after_install_ft      "Forum tips"
 _tr_add2 after_install_fttip   "Help us help you!"
 
 
-_tr_add2 general_info_text     "Find your way at the  website$_exclamation"
+_tr_add2 general_info_text     "Find your way at the EncryptOS website$_exclamation"
 
 _tr_add2 general_info_ws       "Web site"
 
@@ -105,7 +105,7 @@ _tr_add2 general_info_fo       "Forum"
 _tr_add2 general_info_fotip    "Ask, comment, and chat in our friendly forum!"
 
 _tr_add2 general_info_do       "Donate"
-_tr_add2 general_info_dotip    "Help us keep  running"
+_tr_add2 general_info_dotip    "Help us keep EncryptOS running"
 
 _tr_add2 general_info_ab       "About $PRETTY_PROGNAME"
 _tr_add2 general_info_abtip    "More info about this app"
@@ -160,7 +160,8 @@ _tr_add2 issues_no               "No important system issues were detected."
 
 _tr_add2 cal_noavail            "Not available: "        # installer program
 _tr_add2 cal_warn               "Warning"
-_tr_add2 cal_info2              "<b>Offline</b> method gives you an Xfce desktop with  theming.\nInternet connection is not needed.\n\n"
+_tr_add2 cal_info1              "This is a community development release.\n\n"                                   # specials needed!
+_tr_add2 cal_info2              "<b>Offline</b> method gives you an Xfce desktop with EncryptOS theming.\nInternet connection is not needed.\n\n"
 _tr_add2 cal_info3              "<b>Online</b> method lets you choose your desktop, with vanilla theming.\nInternet connection is required.\n\n"
 _tr_add2 cal_info4              "Please Note: This release is a work-in-progress, please help us making it stable by reporting bugs.\n"
 _tr_add2 cal_choose             "Choose installation method"
@@ -208,8 +209,8 @@ _tr_add2 butt_changelogtip     "Show the changelog of Welcome"
 _tr_add2 after_install_themevan      "Xfce vanilla theme"
 _tr_add2 after_install_themevantip   "Use vanilla Xfce theme"
 
-_tr_add2 after_install_themedef     "Xfce  default theme"
-_tr_add2 after_install_themedeftip  "Use  default Xfce theme"
+_tr_add2 after_install_themedef     "Xfce EncryptOS default theme"
+_tr_add2 after_install_themedeftip  "Use EncryptOS default Xfce theme"
 
 # 2020-Jun-28:
 _tr_add2 after_install_pclean       "Package cleanup configuration"
@@ -245,8 +246,8 @@ _tr_add2 add_more_apps_done2_tip1    "To install, use 'pacman' or 'yay'"
 _tr_add2 add_more_apps_done2_tip2    "To install, use 'yay'"
 
 # 2020-Sep-11:
-_tr_add2 after_install_ew2        "Choose one of the  wallpapers"   # was: " wallpaper (choose)"
-_tr_add2 after_install_ewtip2     "Wallpaper chooser"                          # was: "Choose from  default wallpapers"
+_tr_add2 after_install_ew2        "Choose one of the EncryptOS wallpapers"   # was: "EncryptOS wallpaper (choose)"
+_tr_add2 after_install_ewtip2     "Wallpaper chooser"                          # was: "Choose from EncryptOS default wallpapers"
 
 # 2020-Sep-15:
 #    IMPORTANT NOTE:
@@ -272,11 +273,15 @@ _tr_add2 after_install_pacdiff_tip "Manage pacnew, pacorig $_and pacsave files w
 
 # 2021-Apr-07:
 _tr_add2 after_install_conf           "Configure"                             # a starting verb on a sentence "Configure eos-update-notifier"
-_tr_add2 after_install_more_wall      "Download more  wallpapers"
+_tr_add2 after_install_more_wall      "Download more EncryptOS wallpapers"
+_tr_add2 after_install_more_wall_tip  "Download EncryptOS legacy and community wallpapers"
 _tr_add2 after_install_info           "information"                           # last word on a sentence, means just any information
 
 _tr_add2 butt_softnews                "Software News"
-_tr_add2 butt_softnews_tip            "Important news about  software"
+_tr_add2 butt_softnews_tip            "Important news about EncryptOS software"
+
+_tr_add2 install_community            "Install community editions"
+_tr_add2 install_community_tip        "Community editions collection (online required)"    # changed 2021-Oct-23
 
 # 2021-May-01
 _tr_add2 ins_syslog                   "How to share system logs"
@@ -321,3 +326,6 @@ _tr_add2 after_install_fwtip         "Information about the default firewall"
 _tr_add2 ins_custom                  "Customizing the install process"
 _tr_add2 ins_custom_tip              "How to customize the install process"
 
+# 2022-Jul-15
+_tr_add2 daily_assist_anews          "Latest Arch news"
+_tr_add2 daily_assist_anewstip       "Shows latest Arch news in a browser"

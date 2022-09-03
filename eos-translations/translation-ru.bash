@@ -1,17 +1,17 @@
-# Переводы для Welcome заявка
+# Перевод приложения Welcome.
 #
-# Note: variables (like $PRETTY_PROGNAME below) may be used if they are already defined either
-# - in the Welcome app
-# - globally
+# Примечание: переменные (ниже, например, $PRETTY_PROGNAME) могут использоваться, если они уже определены:
+# - в приложении Welcome
+# - глобально
 #
 #
-# Any string should be defined like:
+# Любая строка должна быть определена так:
 #
 #    _tr_add <language> <placeholder> "string"
-#          or
+#          или
 #    _tr_add2 <placeholder> "string"
 #
-# where
+# где
 #
 #    _tr_add         A bash function that adds a "string" to the strings database.
 #    _tr_add2        Same as _tr_add but knows the language from the _tr_lang variable (below).
@@ -21,7 +21,7 @@
 
 # Russian:
 
-### First some useful definitions:
+### Сначала немного полезных определений:
 
 _tr_lang=ru            # required helper variable for _tr_add2
 
@@ -31,10 +31,10 @@ _and='&#38;'           # '&'
 _question='&#63;'      # '?'
 
 
-###################### ТЕПЕРЬ ФАКТИЧЕСКИЕ СТРОКИ, КОТОРЫЕ ДОЛЖНЫ БЫТЬ ПЕРЕВЕДЕНЫ ######################
+###################### Теперь фактические строки, которые должны быть переведены ######################
 # func   <placeholder>             "string"
 
-_tr_add2 welcome_disabled          "$PRETTY_PROGNAME отключено. Для повторного запуска используйте команду eos-welcome --enable"
+_tr_add2 welcome_disabled          "Приложение $PRETTY_PROGNAME отключено. Для запуска используйте команду --enable (временно: --once)."
 
 _tr_add2 butt_later                "Закрыть это окно"
 _tr_add2 butt_latertip             "Запускать $PRETTY_PROGNAME при старте системы"
@@ -62,14 +62,14 @@ _tr_add2 after_install_ustip       "Обновление системных мо
 _tr_add2 after_install_dsi         "Поиск ошибок"
 _tr_add2 after_install_dsitip      "Обнаружение любых потенциальных проблем в системе и программах"
 
-_tr_add2 after_install_etl         "Обновить $_question"
-_tr_add2 after_install_etltip      "Переход на новейший уровень "
+_tr_add2 after_install_etl         "Обновить EncryptOS$_question"
+_tr_add2 after_install_etltip      "Показывает действия для перехода на новейший уровень EncryptOS"
 
 _tr_add2 after_install_cdm         "Изменить Display Manager"
 _tr_add2 after_install_cdmtip      "Установка другого Display Manager"
 
-_tr_add2 after_install_ew          "Обои "
-_tr_add2 after_install_ewtip       "Установить обои  по умолчанию"
+_tr_add2 after_install_ew          "Обои EncryptOSOS"
+_tr_add2 after_install_ewtip       "Установка обой EncryptOSOS по умолчанию"
 
 
 _tr_add2 after_install_pm          "Управление пакетами"
@@ -79,7 +79,7 @@ _tr_add2 after_install_ay          "AUR и yay"
 _tr_add2 after_install_aytip       "Информация об Arch User Repository (AUR) и yay"
 
 _tr_add2 after_install_hn          "Оборудование и сеть"
-_tr_add2 after_install_hntip       "Заставь работать своё оборудование"
+_tr_add2 after_install_hntip       "Заставьте работать ваше оборудование"
 
 _tr_add2 after_install_bt          "Bluetooth"
 _tr_add2 after_install_bttip       "Советы по использованию Bluetooth"
@@ -91,7 +91,7 @@ _tr_add2 after_install_ft          "Форум с советами"
 _tr_add2 after_install_fttip       "Обратитесь к нам за помощью$_exclamation"
 
 
-_tr_add2 general_info_text         "Найди себя в "
+_tr_add2 general_info_text         "Найдите свой путь на сайте EncryptOSOS"
 
 _tr_add2 general_info_ws           "Сайт"
 
@@ -105,7 +105,7 @@ _tr_add2 general_info_fo           "Форум"
 _tr_add2 general_info_fotip        "Спрашивайте, комментируйте и общайтесь на нашем дружественном форуме$_exclamation"
 
 _tr_add2 general_info_do           "Пожертвования"
-_tr_add2 general_info_dotip        "Окажите помощь в развитии и поддержке "
+_tr_add2 general_info_dotip        "Окажите помощь в развитии и поддержке EncryptOSOS"
 
 _tr_add2 general_info_ab           "О Welcome"
 _tr_add2 general_info_abtip        "Информация о приложении Welcome"
@@ -118,8 +118,8 @@ _tr_add2 add_more_apps_lotip       "Офисный пакет"
 _tr_add2 add_more_apps_ch          "Chromium"
 _tr_add2 add_more_apps_chtip       "Веб-браузер с открытым исходным кодом"
 
-_tr_add2 add_more_apps_fw          "Брандмауэер"
-_tr_add2 add_more_apps_fwtip       "Gufw, простой брандмауэр"
+_tr_add2 add_more_apps_fw          "Брандмауэр"
+_tr_add2 add_more_apps_fwtip       "Брандмауэр Gufw"
 
 _tr_add2 add_more_apps_bt          "Bluetooth (blueberry) для Xfce"
 _tr_add2 add_more_apps_bt_bm       "Bluetooth (blueman) для Xfce"
@@ -127,13 +127,13 @@ _tr_add2 add_more_apps_bt_bm       "Bluetooth (blueman) для Xfce"
 
 ###################### ПРОЧЕЕ НОВОЕ ПОСЛЕ ЭТОЙ ЛИНИИ ######################
 
-_tr_add2 settings_dis_contents     "Для запуска $PRETTY_PROGNAME повторно, откройте терминал и выполните команду: $PROGNAME --enable"
+_tr_add2 settings_dis_contents     "Для запуска $PRETTY_PROGNAME повторно, откройте терминал и выполните:\n<tt>$PROGNAME --enable</tt>\nили\n<tt>$PROGNAME --once</tt>\n"
 _tr_add2 settings_dis_text         "Перезапуск $PRETTY_PROGNAME:"
 _tr_add2 settings_dis_title        "Как возобновить $PRETTY_PROGNAME"
 _tr_add2 settings_dis_butt         "Я помню"
 _tr_add2 settings_dis_buttip       "Я обещаю"
 
-_tr_add2 help_butt_title           "$PRETTY_PROGNAME Help"
+_tr_add2 help_butt_title           "Помощь $PRETTY_PROGNAME"
 _tr_add2 help_butt_text            "Информация о приложении $PRETTY_PROGNAME"
 
 _tr_add2 dm_title                  "Выбор Display Manager"
@@ -154,13 +154,14 @@ _tr_add2 sysup_no                  "Обновлений нет"
 _tr_add2 sysup_check               "Проверка обновлений программ..."
 
 _tr_add2 issues_title              "Обнаружена ошибка пакета"
-_tr_add2 issues_grub               "ВАЖНОЕ ЗАМЕЧАНИЕ: необходимо вручную воссоздать загрузочное меню"
+_tr_add2 issues_grub               "ВАЖНО: необходимо вручную воссоздать загрузочное меню"
 _tr_add2 issues_run                "Выполнение команды:"
 _tr_add2 issues_no                 "Системные ошибки не обнаружены"
 
-_tr_add2 cal_noavail               "Не доступно: "			# программа установки
+_tr_add2 cal_noavail               "Недоступно: "			# программа установки
 _tr_add2 cal_warn                  "Внимание"
-_tr_add2 cal_info2                 "<b>Оффлайн</b> вариант предоставляет рабочий стол Xfce с темой .\nПодключение к интернет не требуется.\n\n"
+_tr_add2 cal_info1                 "Это выпуск разработки сообщества.\n\n"                                   				# для специалистов!
+_tr_add2 cal_info2                 "<b>Офлайн</b> вариант предоставляет рабочий стол Xfce с темой EncryptOSOS.\nПодключение к интернет не требуется.\n\n"
 _tr_add2 cal_info3                 "<b>Онлайн</b> вариант позволяет выбрать DE с оформлением по умолчанию.\nТребуется подключение к интернет.\n\n"
 _tr_add2 cal_info4                 "Внимание: Этот релиз находится в процессе разработки. Пожалуйста, сообщите нам в случае ошибки.\n"
 _tr_add2 cal_choose                "Выбор способа установки"
@@ -174,23 +175,23 @@ _tr_add2 tail_butt                 "Закрыть это окно"
 _tr_add2 tail_buttip               "Закрыть только это окно"
 
 
-_tr_add2 ins_text                  "Установка  на компьютер"
+_tr_add2 ins_text                  "Установка EncryptOSOS на компьютер"
 _tr_add2 ins_start                 "Запуск установки"
-_tr_add2 ins_starttip              "Запуcк установки  вместе с отладочным терминалом"
+_tr_add2 ins_starttip              "Запуcк установки EncryptOSOS вместе с отладочным терминалом"
 _tr_add2 ins_up                    "Обновить Welcome$_exclamation"
 _tr_add2 ins_uptip                 "Обновить Welcome и перезапустить его"
 _tr_add2 ins_keys                  "Pacman - gpg ключи"
 _tr_add2 ins_keystip               "Обновить список ключей шифрования репозиториев"
 _tr_add2 ins_pm                    "Управление разделами диска"
 _tr_add2 ins_pmtip                 "Создание и управление разделами на вашем диске с помощью Gparted"
-_tr_add2 ins_rel                   "Информация о релизе"
-_tr_add2 ins_reltip                "Расширенная информация о последнем релизе"
+_tr_add2 ins_rel                   "Информация о выпуске"
+_tr_add2 ins_reltip                "Расширенная информация о последнем выпуске"
 _tr_add2 ins_tips                  "Полезные советы"
 _tr_add2 ins_tipstip               "Полезная информация для помощи при установке"
 _tr_add2 ins_trouble               "Устранение неполадок"
 _tr_add2 ins_troubletip            "Восстановление системы"
 
-_tr_add2 after_install_us_from     "Обновление из"			# AUR или вышерасположенный
+_tr_add2 after_install_us_from     "Обновление из"			        # AUR или вышерасположенный
 _tr_add2 after_install_us_el       "Требуется повышение привилегий."
 _tr_add2 after_install_us_done     "обновление выполнено."
 _tr_add2 after_install_us_fail     "ошибка обновления$_exclamation"
@@ -203,13 +204,13 @@ _tr_add2 useful_tips_text      "Полезные советы"
 # 2020-May-16:
 
 _tr_add2 butt_changelog        "Изменения в Welcome"
-_tr_add2 butt_changelogtip     "История изменений Welcome"
+_tr_add2 butt_changelogtip     "Показать список изменений в Welcome"
 
-_tr_add2 after_install_themevan      "Оригинальная тема Xfce"
-_tr_add2 after_install_themevantip   "Использовать оригинальную тему Xfce"
+_tr_add2 after_install_themevan      "Ванильная тема Xfce"
+_tr_add2 after_install_themevantip   "Использовать ванильную тему Xfce"
 
-_tr_add2 after_install_themedef     "Тема Xfce в стиле "
-_tr_add2 after_install_themedeftip  "Использовать стиль  в теме Xfce по умолчанию"
+_tr_add2 after_install_themedef     "Тема Xfce в стиле EncryptOSOS"
+_tr_add2 after_install_themedeftip  "Использовать стиль EncryptOSOS в теме Xfce по умолчанию"
 
 # 2020-Jun-28:
 _tr_add2 after_install_pclean       "Настройка очистки пакетов"
@@ -222,8 +223,8 @@ _tr_add2 nb_tab_owncmds_text        "Добавление пользовател
 # 2020-Jul-08:
 _tr_add2 nb_tab_owncmdstip          "Справка по добавлению пользовательских команд"
 
-_tr_add2 add_more_apps_akm          "Выбор ядра Linux"
-_tr_add2 add_more_apps_akmtip       "Установка простого менеджера ядер Linux"
+_tr_add2 add_more_apps_akm          "Менеджер ядра Linux"
+_tr_add2 add_more_apps_akmtip       "Установка простого менеджера ядра Linux"
 
 # 2020-Jul-15:
 _tr_add2 butt_owncmds_help        "Справка: пользовательские команды"
@@ -237,16 +238,16 @@ _tr_add2 ins_reso                 "Разрешение дисплея"
 _tr_add2 ins_resotip              "Изменение разрешение дисплея"
 
 # 2020-Sep-08:
-_tr_add2 add_more_apps_arch          "Просмотр всех Arch пакетов"
-_tr_add2 add_more_apps_aur           "Просмотр всех AUR пакетов"
+_tr_add2 add_more_apps_arch          "Просмотр всех пакетов Arch"
+_tr_add2 add_more_apps_aur           "Просмотр всех пакетов AUR"
 _tr_add2 add_more_apps_done1_text    "Рекомендуемые приложения уже установлены$_exclamation"
-_tr_add2 add_more_apps_done2_text    "\n\nТакже можно просмотреть все пакеты Arch и AUR, и установить их используя терминал.\n"
-_tr_add2 add_more_apps_done2_tip1    "Для установки, используйте 'pacman' или 'yay'"
-_tr_add2 add_more_apps_done2_tip2    "Для установки, используйте 'yay'"
+_tr_add2 add_more_apps_done2_text    "Также можно просмотреть все пакеты Arch и AUR"
+_tr_add2 add_more_apps_done2_tip1    "Для установки используйте 'pacman' или 'yay'"
+_tr_add2 add_more_apps_done2_tip2    "Для установки используйте 'yay'"
 
 # 2020-Sep-11:
-_tr_add2 after_install_ew2        "Выбор обоев "   # was: " wallpaper (choose)"
-_tr_add2 after_install_ewtip2     "Выбор обоев"               # was: "Choose from  default wallpapers"
+_tr_add2 after_install_ew2        "Выбор обоев EncryptOSOS"      # was: "EncryptOSOS wallpaper (choose)"
+_tr_add2 after_install_ewtip2     "Средство выбора обоев"        # was: "Choose from EncryptOSOS default wallpapers"
 
 # 2020-Sep-15:
 #    IMPORTANT NOTE:
@@ -271,13 +272,16 @@ _tr_add2 updt_press_enter         "Нажмите ENTER, чтобы закрыт
 _tr_add2 after_install_pacdiff_tip "Управление файлами pacnew, pacorig $_and pacsave (необходимы pacdiff или meld) с помощью pacdiff $_and"
 
 # 2021-Apr-07:
-_tr_add2 after_install_conf           "Настройка"                            # a starting verb on a sentence "Настройка eos-update-notifier"
-_tr_add2 after_install_more_wall      "Скачать больше обоев "
+_tr_add2 after_install_conf           "Настроить"                            # a starting verb on a sentence "Настройка eos-update-notifier"
+_tr_add2 after_install_more_wall      "Скачать больше обоев EncryptOSOS"
+_tr_add2 after_install_more_wall_tip  "Скачать предыдущие обои EncryptOSOS и обои от сообщества"
 _tr_add2 after_install_info           "информация"                           # last word on a sentence, means just any information
 
 _tr_add2 butt_softnews                "Новости о программном обеспечении"
-_tr_add2 butt_softnews_tip            "Важные новости о программном обеспечении "
+_tr_add2 butt_softnews_tip            "Важные новости о программном обеспечении EncryptOSOS"
 
+_tr_add2 install_community            "Установить версии ОС от сообщества"
+_tr_add2 install_community_tip        "Коллекция версий ОС от сообщества (только онлайн установка)"    # changed
 
 # 2021-May-01
 _tr_add2 ins_syslog                   "Как поделиться системными логами?"
@@ -295,13 +299,33 @@ _tr_add2 after_install_itab_tip      "Выбор вкладки Welcome, ото�
 _tr_add2 daily_assist_apps           "Приложения по категориям"
 _tr_add2 daily_assist_apps_tip       "Приложения, отсортированные по категориям"
 
-_tr_add2 after_install_vbox1         "Включить VirtualBox Guest utilities"
-_tr_add2 after_install_vbox2         "Для включения VirtualBox Guest utilities, выберите вкладку <b>После установки</b> и нажмите кнопку"
+_tr_add2 after_install_vbox1         "Включить утилиты VirtualBox Guest"
+_tr_add2 after_install_vbox2         "Для включения утилит VirtualBox Guest, выберите вкладку <b>После установки</b> и нажмите кнопку "
 
 # 2021-Jun-17
-_tr_add2 after_install_r8168         "Проблема$_question с проводным подключением/переключением драйвера r8168 и r8169$_exclamation"    # changed 2021-Dec-14 !!
-_tr_add2 after_install_r8168_tip     "Переключение между драйверами r8168 и r8169 (может потребоваться перезагрузка)"                   # changed 2021-Dec-14 !!
+_tr_add2 after_install_r8168         "Проблема с проводным подключением$_question Переключите драйвера r8168 и r8169$_exclamation"    # changed 2021-Dec-14 !!
+_tr_add2 after_install_r8168_tip     "Переключение между драйверами r8168 и r8169 (может потребоваться перезагрузка)"                 # changed 2021-Dec-14 !!
 
 # 2021-Oct-08
-_tr_add2 daily_assist_DEinfo         "информация"                                        # assume prefix "DE:", e.g.: "Xfce: information"
-_tr_add2 daily_assist_DEinfo_tip     "дополнительная информация о Вашем DE/WM"           # assume prefix "DE:", e.g.: "Xfce: more information ..."
+_tr_add2 daily_assist_DEinfo         "информация"                                                               # assume prefix "DE:", e.g.: "Xfce: information"
+_tr_add2 daily_assist_DEinfo_tip     "дополнительная информация об этом менеджере рабочего стола/окон"          # assume prefix "DE:", e.g.: "Xfce: more information ..."
+
+# 2022-Feb-16
+_tr_add2 add_more_apps_qs            "Выбор популярных приложений для установки"                      # runs eos-quickstart
+_tr_add2 add_more_apps_qstip         "Выберите популярные приложения и установите их"
+
+# 2022-Mar-21
+_tr_add2 ins_blue_notes              "Примечания по Bluetooth"
+_tr_add2 ins_blue_notes_tip          "Примечания по настройке bluetooth"
+
+# 2022-Mar-27
+_tr_add2 after_install_fw            "Информация о брандмауэре"
+_tr_add2 after_install_fwtip         "Информация о брандмауэре, установленном по умолчанию"
+
+# 2022-Mar-30
+_tr_add2 ins_custom                  "Настройка установки"
+_tr_add2 ins_custom_tip              "Как настроить процесс установки"
+
+# 2022-Jul-15
+_tr_add2 daily_assist_anews          "Новости Arch"
+_tr_add2 daily_assist_anewstip       "Покажет последние новости Arch в браузере"
