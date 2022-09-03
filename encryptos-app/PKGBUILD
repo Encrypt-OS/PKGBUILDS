@@ -2,7 +2,7 @@
 
 pkgname=encryptos-app
 _pkgname=${pkgname%-bin}
-pkgver=1.2.1
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="The future of privacy. Manage your EncryptOS operating system with a single click."
 arch=(x86_64)
