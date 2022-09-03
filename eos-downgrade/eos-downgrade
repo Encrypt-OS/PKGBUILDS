@@ -197,7 +197,7 @@ Main() {
     local pkgnames_eos=() pkgnames_arch=()
     local commands_eos=() commands_arch=()
 
-    source /usr/share/endeavouros/scripts/eos-script-lib-yad || return 1
+    source /usr/share/encryptos/scripts/eos-script-lib-yad || return 1
 
     Options "$@"
 
