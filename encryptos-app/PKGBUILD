@@ -22,7 +22,7 @@ source=(
   "https://raw.githubusercontent.com/EncryptOS/encryptos-app/main/LICENSE"
   "encryptos-app.desktop"
 )
-noextract=("EncryptOS-app.AppImage")
+noextract=("encryptos-app.AppImage")
 sha256sums=('22d2553e49169f5fd5c4cc864f02ccac34c2732d41016ea68ed11ba530a6f761'
             '2230e5025d9fa4417c69b359bb8478d70f08450aef556227df7579779fa6ef08'
             '0bfebc9c7852e4cf48713cbc445971e7925122f2a202b60639ce36ca9dd3b932'
@@ -32,11 +32,11 @@ package() {
   cd "$srcdir"
 
   # Install binaries
-  install -Dm755 "EncryptOS-app-$pkgver.AppImage" "$pkgdir/opt/encryptos-app/EncryptOS-app.AppImage"
+  install -Dm755 "encryptos-app-$pkgver.AppImage" "$pkgdir/opt/encryptos-app/encryptos-app.AppImage"
   # install -Dm755 -t "$pkgdir/usr/bin" EncryptOS-app.AppImage
 
   # Install pixmap, desktop and license file
-  install -Dm644 icon.png "$pkgdir/usr/share/pixmaps/EncryptOS-app.png"
-  install -Dm644 -t "$pkgdir/usr/share/applications" EncryptOS-app.desktop
+  install -Dm644 icon.png "$pkgdir/usr/share/pixmaps/encryptos-app.png"
+  install -Dm644 -t "$pkgdir/usr/share/applications" encryptos-app.desktop
   install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
