@@ -13,14 +13,14 @@ depends=(
   libgl
   fuse2
 )
-provides=(EncryptOS-app)
-conflicts=(EncryptOS-app)
+provides=(encryptos-app)
+conflicts=(encryptos-app)
 options=(!strip)
 source=(
-  "EncryptOS-app-$pkgver.AppImage::https://github.com/Encrypt-OS/EncryptOS-app/releases/download/v$pkgver/EncryptOS-app-$pkgver.AppImage"
-  "https://raw.githubusercontent.com/EncryptOS/EncryptOS-app/main/static/icons/icon.png"
-  "https://raw.githubusercontent.com/EncryptOS/EncryptOS-app/main/LICENSE"
-  "EncryptOS-app.desktop"
+  "encryptos-app-$pkgver.AppImage::https://github.com/Encrypt-OS/encryptos-app/releases/download/v$pkgver/encryptos-app-$pkgver.AppImage"
+  "https://raw.githubusercontent.com/EncryptOS/encryptos-app/main/static/icons/icon.png"
+  "https://raw.githubusercontent.com/EncryptOS/encryptos-app/main/LICENSE"
+  "encryptos-app.desktop"
 )
 noextract=("EncryptOS-app.AppImage")
 sha256sums=('22d2553e49169f5fd5c4cc864f02ccac34c2732d41016ea68ed11ba530a6f761'
