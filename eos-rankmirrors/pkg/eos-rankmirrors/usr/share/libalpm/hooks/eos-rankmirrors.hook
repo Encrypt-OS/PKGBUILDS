@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = encryptos-mirrorlist
+
+[Action]
+Description = Hook to rank EncryptOS mirrors after installing or upgrading the related mirrorlist package
+When = PostTransaction
+Exec = /usr/bin/eos-rankmirrors-from-hook

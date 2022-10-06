@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=EncryptOS Desktop
+MimeType=application/encryptos-app;
+Icon=/usr/share/pixmaps/encrypt-os.png
+Comment=Manage your EncryptOS system with a simple click.
+Exec=xfce4-terminal -e 'sudo encryptos-app --no-sandbox'
+Categories=Application;
