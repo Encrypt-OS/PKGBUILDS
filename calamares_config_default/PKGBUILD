@@ -11,7 +11,7 @@ url='https://www.Encrypt-OS.com'
 license=('GPL3')
 source=("https://github.com/Encrypt-OS/${_repo_name}/archive/refs/tags/${pkgver}.tar.gz")
 
-sha512sums=('95f92d1add758631b1cad73c729e0a3f570204004bf6284fa54a691644ea3811f72fe9f3d1071015876b9d3e2bf4e519e3c4fedb7815a0c9c3ec36a37c3c82dd')
+sha512sums=('63ea6cd647b78c03d209bea61ad066433478a1d247429375ade0881ecd9472ec070b1b346f82c4bc407fabe6e83f7e56aab6073b0016e867b2020f10b0ae4f48')
 
 
 _date=$(date +%Y.%m.%d)
