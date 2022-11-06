@@ -2,7 +2,7 @@
 
 
 pkgname=calamares_config_default
-pkgver=32.22.1.1
+pkgver=33.22.1.1
 pkgrel=1
 _repo_name=EncryptOS-calamares
 pkgdesc='Encrypt-OS calamares configuration files'
@@ -11,7 +11,7 @@ url='https://www.Encrypt-OS.com'
 license=('GPL3')
 source=("https://github.com/Encrypt-OS/${_repo_name}/archive/refs/tags/${pkgver}.tar.gz")
 
-sha512sums=('0c9384028e21d756cc821f249b81818175eef10614264b68c5e6dea35561d4f48561470790876bdcd1dbcfcf87398b4ef3c53a84e69836b1f51ce4409c752513')
+sha512sums=('34e0e016294c639dc81858abd4e6d0651a346a53d2255348ba184196ffaa5aa0846bbcaed82a7bbd8999bc46f522ff5c3780b146736524d39d1d81736be2b673')
 
 
 _date=$(date +%Y.%m.%d)
