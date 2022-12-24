@@ -18,8 +18,8 @@ navigation: widget
 strings:
     productName:         EncryptOS
     shortProductName:    EncryptOS
-    version:             2022.11.06
-    shortVersion:        2022.11.06
+    version:             2022.12.24
+    shortVersion:        2022.12.24
     versionedName:       EncryptOS
     shortVersionedName:  01
     bootloaderEntryName: EncryptOS

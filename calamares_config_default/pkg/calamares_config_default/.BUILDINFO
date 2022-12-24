@@ -1,11 +1,11 @@
 format = 2
 pkgname = calamares_config_default
 pkgbase = calamares_config_default
-pkgver = 34.22.1.1-1
+pkgver = 35.22.1.1-1
 pkgarch = any
-pkgbuild_sha256sum = 2778634f1c430daafde795d9895d61a4ac59fa03338910f0a9c4b423b2e3e89d
+pkgbuild_sha256sum = b8cad704af7ffb242a3d3e983f09037cb6bc0d1502a408a39eb9669a82c70897
 packager = Unknown Packager
-builddate = 1667714418
+builddate = 1671858951
 builddir = /home/snaildos/Desktop/PKGBUILDS/calamares_config_default
 startdir = /home/snaildos/Desktop/PKGBUILDS/calamares_config_default
 buildtool = makepkg
