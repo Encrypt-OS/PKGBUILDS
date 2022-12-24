@@ -2,15 +2,15 @@
 
 _pkgname=encryptos-xfce4-theming
 pkgname=encryptos-skel-xfce4
-pkgver=2.15
-pkgrel=7
+pkgver=3.3
+pkgrel=1
 pkgdesc="pre user creation skel setup for xfce4 under EncryptOS"
 arch=('any')
 groups=('EncryptOS')
 url="https://github.com/Encrypt-OS/${_pkgname}"
 license=('GPL')
 makedepends=('git')
-depends=('encryptos-skel-default')
+depends=("encryptos-skel-default" "encryptos-theming")
 source=("${_pkgname}::git+https://github.com/Encrypt-OS/${_pkgname}.git#branch=main")
 sha256sums=('SKIP')
 
