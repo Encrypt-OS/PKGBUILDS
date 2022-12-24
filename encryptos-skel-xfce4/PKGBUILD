@@ -10,7 +10,7 @@ groups=('EncryptOS')
 url="https://github.com/Encrypt-OS/${_pkgname}"
 license=('GPL')
 makedepends=('git')
-depends=("encryptos-skel-default" "encryptos-theming")
+depends=("encryptos-skel-default" "EncryptOS-theming")
 source=("${_pkgname}::git+https://github.com/Encrypt-OS/${_pkgname}.git#branch=main")
 sha256sums=('SKIP')
 
