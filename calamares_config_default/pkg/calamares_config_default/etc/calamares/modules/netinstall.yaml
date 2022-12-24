@@ -36,8 +36,6 @@
           - dnsutils
           - ethtool
           - gnu-netcat
-          - ipw2100-fw
-          - ipw2200-fw
           - iwd
           - modemmanager
           - nbd
@@ -139,12 +137,10 @@
         description: "Hardware support libs and firmware"
         selected: true
         packages:
-          - amd-ucode
           - dmidecode
           - dmraid
           - hdparm
           - hwdetect
-          - intel-ucode
           - lsscsi
           - mtools
           - sg3_utils
@@ -194,6 +190,14 @@
           - sed
           - vi
           - wget
+- name: "CPU specific Microcode update packages"
+  description: "Microcode update image for AMD and Intel CPU"
+  hidden: false
+  selected: true
+  critical: false
+  packages:
+    - amd-ucode
+    - intel-ucode
 - name: "Fifo Browser"
   description: "Add Fifo browser. The best powerful privacy orientated browser possible developed by the creators of EncryptOS."
   hidden: false
@@ -239,7 +243,7 @@
         description: "XFCE4 needed packages"
         selected: false
         packages:
-         - blueberry 
+         - blueman 
          - file-roller
          - galculator
          - gvfs

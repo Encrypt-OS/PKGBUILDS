@@ -2,10 +2,10 @@
 # using fakeroot version 1.30.1
 pkgname = calamares_current
 pkgbase = calamares_current
-pkgver = 35.22.1.1-3
+pkgver = 36.22.1.1-3
 pkgdesc = Calamares installer for Encrypt-OS
 url = https://github.com/Encrypt-OS
-builddate = 1671858001
+builddate = 1671866820
 packager = Unknown Packager
 size = 95049305
 arch = any
