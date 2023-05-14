@@ -23,10 +23,10 @@ source=(
   "fifo.desktop"
 )
 noextract=("Fifo.AppImage")
-sha256sums=('22d2553e49169f5fd5c4cc864f02ccac34c2732d41016ea68ed11ba530a6f761'
+sha256sums=('c5469c2dcb9fa666f6a7476cd7939e90303a4d51803e0bdb684f1b19670fc929'
             '2230e5025d9fa4417c69b359bb8478d70f08450aef556227df7579779fa6ef08'
             '0bfebc9c7852e4cf48713cbc445971e7925122f2a202b60639ce36ca9dd3b932'
-            '4af571e14d4e39d781aa19c0e9ffbee9c6aa243f1ecc112f37450c42ec7e3e66')
+            '1a761bd47099164aca5fceb945a5f335ee78be485aa42baa5761021447992cba')
 
 package() {
   cd "$srcdir"
